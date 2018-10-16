@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">BudgetApp</string>
+    <string name="income_month">Income per month</string>
+    <string name="sum">Sum</string>
+    <string name="save_month">Save per month</string>
+    <string name="monthly_expenses">Monthly expenses</string>
+    <string name="categories_to_save_on">Categories to save on</string>
+    <string name="categories">Category, another category, one final category</string>
+    <string name="profile">User profile</string>
+    <string name="name_user_placeholder">Placeholder Placeholdersen</string>
+    <string name="user_avatar">User avatar</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
