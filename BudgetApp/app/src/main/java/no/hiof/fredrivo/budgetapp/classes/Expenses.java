@@ -1,5 +1,6 @@
 package no.hiof.fredrivo.budgetapp.classes;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Expenses {
@@ -9,6 +10,7 @@ public class Expenses {
     private String location;
     private String description;
     private String category;
+    private ArrayList<Expenses> expensesList;
 
     public Expenses(int sum, Date date, String location, String description, String category) {
         this.sum = sum;
@@ -16,6 +18,13 @@ public class Expenses {
         this.location = location;
         this.description = description;
         this.category = category;
+
+        //Adds the current object into the ArrayList
+        expensesList.add(this);
+    }
+
+    public ArrayList<Expenses> getExpensesList() {
+        return expensesList;
     }
 
     public int getSum() {
