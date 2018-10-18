@@ -31,10 +31,12 @@ public class GraphActivity extends AppCompatActivity {
         Expenses ex1 = new Expenses(200, new Date(2018,11,21), "Halden", "desc1", "mat");
         Expenses ex2 = new Expenses(300, new Date(2018,11,21), "Halden", "desc2", "spill");
 
-        
+
 
 
         List<Entry> entries = new ArrayList<Entry>();
+
+        entries.add(new Entry(ex1.getSum(), ex1.getCategory());
 
         LineDataSet dataSet = new LineDataSet();
 
