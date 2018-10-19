@@ -16,6 +16,6 @@ tools:context="no.hiof.fredrivo.budgetapp.overview">
     <item
         android:id="@+id/profile"
         android:orderInCategory="100"
-        android:title="Profile"
+        android:title="@string/Profile"
         app:showAsAction="never" />
 </menu>
