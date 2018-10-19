@@ -156,6 +156,7 @@ public class overview extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
+
             switch (position) {
                 case 0:
                     day_tab dayTab = new day_tab();
@@ -176,5 +177,7 @@ public class overview extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
+
     }
 }
