@@ -12,13 +12,19 @@
         <activity android:name=".InputActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".GraphActivity" />
+        <activity
+            android:name=".overview"
+            android:label="@string/title_activity_overview"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".GraphActivity"></activity>
     </application>
 
 </manifest>
