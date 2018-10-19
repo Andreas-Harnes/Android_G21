@@ -27,6 +27,7 @@ public class Expenses {
     public Expenses() {}
 
     public static List<Expenses> getExpenseList() {
+       //Test data for å teste detailed view.
          List<Expenses> expenseList = new ArrayList<>();
 
          int[] testSums = {123, 456, 789, 12, 34, 56, 78, 89};

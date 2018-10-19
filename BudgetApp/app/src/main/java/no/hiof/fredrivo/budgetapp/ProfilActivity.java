@@ -2,6 +2,7 @@ package no.hiof.fredrivo.budgetapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,9 +12,13 @@ public class ProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.profiltoolbar);
+        setSupportActionBar(toolbar);
+
     }
 
-    // TODO: Items vises ikke i toolbar. får ikke plass i layout
+    // TODO: Items vises ikke i toolbar.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_profile_settings, menu);
@@ -23,6 +28,12 @@ public class ProfilActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if (id == R.id.settings) {
+            Intent intent = new Intent(this, ProfilSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
