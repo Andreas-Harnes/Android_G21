@@ -18,6 +18,10 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import no.hiof.fredrivo.budgetapp.overviewActivities.day_tab;
+import no.hiof.fredrivo.budgetapp.overviewActivities.month_tab;
+import no.hiof.fredrivo.budgetapp.overviewActivities.week_tab;
+
 public class overview extends AppCompatActivity {
 
     /**
