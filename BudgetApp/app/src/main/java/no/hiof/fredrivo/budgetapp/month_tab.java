@@ -1,4 +1,4 @@
-package no.hiof.fredrivo.budgetapp.overviewActivities;
+package no.hiof.fredrivo.budgetapp;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import no.hiof.fredrivo.budgetapp.R;
 
 
 /**

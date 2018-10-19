@@ -1,4 +1,4 @@
-package no.hiof.fredrivo.budgetapp.overviewActivities;
+package no.hiof.fredrivo.budgetapp;
 
 
 import android.os.Bundle;

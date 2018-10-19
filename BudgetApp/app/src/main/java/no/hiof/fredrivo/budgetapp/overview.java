@@ -1,6 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
-import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-
-import no.hiof.fredrivo.budgetapp.overviewActivities.day_tab;
-import no.hiof.fredrivo.budgetapp.overviewActivities.month_tab;
-import no.hiof.fredrivo.budgetapp.overviewActivities.week_tab;
-
 
 public class overview extends AppCompatActivity {
 
@@ -56,6 +51,11 @@ public class overview extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,18 +84,6 @@ public class overview extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, InputActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
             return true;
         }
 
@@ -151,7 +139,7 @@ public class overview extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            // return PlaceholderFragment.newInstance(position + 1);
+            //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
                     day_tab dayTab = new day_tab();

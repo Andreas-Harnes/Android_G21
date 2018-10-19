@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".overviewActivities.day_tab">
+    tools:context=".day_tab">
 
     <!-- TODO: Update blank fragment layout -->
 
