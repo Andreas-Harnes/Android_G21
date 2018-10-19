@@ -1,5 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -82,6 +83,18 @@ public class overview extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, InputActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.overview) {
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.profile) {
+            Intent intent = new Intent(this, ProfilActivity.class);
+            startActivity(intent);
             return true;
         }
 
