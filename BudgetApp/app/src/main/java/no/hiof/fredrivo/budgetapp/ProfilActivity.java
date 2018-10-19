@@ -24,11 +24,6 @@ public class ProfilActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.settings) {
-            Intent intent = new Intent(this, ProfilSettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);

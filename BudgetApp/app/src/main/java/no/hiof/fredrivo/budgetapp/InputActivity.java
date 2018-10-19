@@ -10,7 +10,7 @@ public class InputActivity extends AppCompatActivity {
 
     private Intent intentOverview;
 
-
+    // TODO: Legge til funksjonalitet for inputActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 public class ProfilSettingsActivity extends AppCompatActivity {
 
+    // TODO: Legge til funksjonalitet for profil settings
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
