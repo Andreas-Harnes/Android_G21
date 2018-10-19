@@ -16,8 +16,7 @@ public class ProfilActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_overview, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_settings, menu);
         return true;
     }
 
@@ -29,8 +28,8 @@ public class ProfilActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, InputActivity.class);
+        if (id == R.id.settings) {
+            Intent intent = new Intent(this, ProfilSettingsActivity.class);
             startActivity(intent);
             return true;
         }

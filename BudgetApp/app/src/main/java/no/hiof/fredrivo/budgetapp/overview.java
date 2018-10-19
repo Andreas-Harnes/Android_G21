@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.content.Intent;
+import android.renderscript.ScriptGroup;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -60,8 +61,7 @@ public class overview extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Intent og startactivity for å starte InputActivity her:
             }
         });
 
@@ -83,11 +83,6 @@ public class overview extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, InputActivity.class);
-            startActivity(intent);
-            return true;
-        }
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);

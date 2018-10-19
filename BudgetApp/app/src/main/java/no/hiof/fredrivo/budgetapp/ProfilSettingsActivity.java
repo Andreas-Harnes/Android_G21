@@ -33,11 +33,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, InputActivity.class);
-            startActivity(intent);
-            return true;
-        }
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);
