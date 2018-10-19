@@ -41,6 +41,7 @@ public class overview extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private Intent intentInputActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +58,15 @@ public class overview extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        intentInputActivity = new Intent(this, InputActivity.class);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent og startactivity for å starte InputActivity her:
+                startActivity(intentInputActivity);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
