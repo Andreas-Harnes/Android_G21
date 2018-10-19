@@ -13,7 +13,6 @@
         <activity android:name=".ProfilActivity" />
         <activity android:name=".GraphActivity" />
         <activity android:name=".ProfilSettingsActivity" />
-        <activity android:name=".ProfilSettingsActivity" />
         <activity
             android:name=".overview"
             android:label="@string/title_activity_overview"

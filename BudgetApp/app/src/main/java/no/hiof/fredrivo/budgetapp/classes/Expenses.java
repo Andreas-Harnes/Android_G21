@@ -24,6 +24,10 @@ public class Expenses {
     }
 
     public static ArrayList<Expenses> getExpensesList() {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         return expensesList;
     }
 
@@ -66,4 +70,7 @@ public class Expenses {
     public void setCategory(String category) {
         this.category = category;
     }
+
+
 }
+
