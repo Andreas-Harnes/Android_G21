@@ -36,9 +36,9 @@ public class GraphActivity extends AppCompatActivity {
 
         List<Entry> entries = new ArrayList<Entry>();
 
-        entries.add(new Entry(ex1.getSum(), ex1.getCategory());
+        //entries.add(new Entry(ex1.getSum(), ex1.getCategory()));
 
-        LineDataSet dataSet = new LineDataSet();
+        //LineDataSet dataSet = new LineDataSet();
 
 
     }
