@@ -87,7 +87,6 @@ public class overview extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);
