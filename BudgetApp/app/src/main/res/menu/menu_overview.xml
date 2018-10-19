@@ -18,4 +18,10 @@ tools:context="no.hiof.fredrivo.budgetapp.overview">
         android:orderInCategory="100"
         android:title="@string/Profile"
         app:showAsAction="never" />
+    <!--test detailactivity-->
+    <item
+        android:id="@+id/detail"
+        android:orderInCategory="100"
+        android:title="@string/Detail"
+        app:showAsAction="never" />
 </menu>

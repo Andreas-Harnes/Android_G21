@@ -10,7 +10,7 @@ public class Expenses {
     private String location;
     private String description;
     private String category;
-    private ArrayList<Expenses> expensesList;
+    private static ArrayList<Expenses> expensesList;
 
     public Expenses(int sum, Date date, String location, String description, String category) {
         this.sum = sum;
@@ -20,10 +20,10 @@ public class Expenses {
         this.category = category;
 
         //Adds the current object into the ArrayList
-        expensesList.add(this);
+        //expensesList.add(this);
     }
 
-    public ArrayList<Expenses> getExpensesList() {
+    public static ArrayList<Expenses> getExpensesList() {
         return expensesList;
     }
 

@@ -34,4 +34,12 @@
     <string name="tab_text_1">Day</string>
     <string name="tab_text_2">Week</string>
     <string name="tab_text_3">Month</string>
+    <string name="overview">overview_menu_item</string>
+    <string name="date">Date:</string>
+    <string name="sum_colon">Sum:</string>
+    <string name="location">Location:</string>
+    <string name="date_test">01.01.18</string>
+    <string name="sum_test">1000.00 kr</string>
+    <string name="test_butikk">Butikk</string>
+    <string name="Detail">detail</string>
 </resources>

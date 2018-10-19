@@ -102,6 +102,11 @@ public class overview extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.detail) {
+            Intent intent = new Intent(this, DetailActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
