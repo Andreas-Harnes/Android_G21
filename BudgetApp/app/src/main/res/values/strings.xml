@@ -33,8 +33,6 @@
     <string name="tab_text_1">Day</string>
     <string name="tab_text_2">Week</string>
     <string name="tab_text_3">Month</string>
-<<<<<<< Updated upstream
-    <string name="overview">overview_menu_item</string>
     <string name="date">Date:</string>
     <string name="sum_colon">Sum:</string>
     <string name="location">Location:</string>

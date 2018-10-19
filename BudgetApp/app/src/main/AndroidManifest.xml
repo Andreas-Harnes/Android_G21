@@ -13,6 +13,7 @@
         <activity android:name=".ProfilActivity" />
         <activity android:name=".GraphActivity" />
         <activity android:name=".ProfilSettingsActivity" />
+        <activity android:name=".DetailActivity" />
         <activity
             android:name=".overview"
             android:label="@string/title_activity_overview"
@@ -23,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfilSettingsActivity" />
-        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>
