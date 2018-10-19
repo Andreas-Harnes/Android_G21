@@ -12,6 +12,7 @@
         <activity android:name=".InputActivity" />
         <activity android:name=".ProfilActivity" />
         <activity android:name=".MainActivity">
+
         </activity>
         <activity android:name=".GraphActivity" />
         <activity
@@ -23,7 +24,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
