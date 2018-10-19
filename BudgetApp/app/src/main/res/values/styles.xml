@@ -6,10 +6,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--<item name="colorPrimaryLight">#ffc947</item>-->
         <item name="colorAccent">@color/colorAccent</item>
-       <!-- <item name="colorAccentDark">#c53d13</item>
-        <item name="colorAccentLight">#ffa06d</item>-->
 
 
     </style>
