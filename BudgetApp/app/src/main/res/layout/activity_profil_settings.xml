@@ -23,7 +23,7 @@
         app:title="@string/app_name">
 
     </android.support.v7.widget.Toolbar>
-
+<!--TODO:MULIG VI TRENGER SCROLL VIEW/ CONTAINER-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
