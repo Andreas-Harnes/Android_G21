@@ -64,7 +64,7 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
         }
 
         public void setExpenses (Expenses ex) {
-            txtDetailSum.setText(ex.getSum());
+            txtDetailSum.setText(ex.getSum()+"");
             txtDetailDate.setText(ex.getDate().toString());
             txtDetailLocation.setText(ex.getLocation());
         }

@@ -19,18 +19,5 @@ public class DetailActivity extends AppCompatActivity {
         RecyclerView detailRecyclerView = findViewById(R.id.detailRecyclerView);
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         detailRecyclerView.setAdapter(new DetailActivityAdapter(this, Expenses.getExpenseList()));
-
-        //setUpRecylcleView();
     }
-
-    /*private void setUpRecylcleView() {
-        detailRecyclerView = findViewById(R.id.detailRecyclerView);
-        detailRecyclerView.setAdapter(new DetailActivityAdapter(this, Expenses.getExpenseList()));
-        //detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        detailRecyclerView.setLayoutManager(linearLayoutManager);
-
-        Log.i("RecycleView", "Recycleview set up");
-    }*/
 }

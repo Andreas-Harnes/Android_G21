@@ -100,6 +100,8 @@ public class Expenses {
             ex.setLocation(testLocations[i]);
             ex.setDescription(testDescriptions[i]);
             ex.setCategory(testCategories[i]);
+
+            expenseList.add(ex);
         }
 
         return expenseList;
