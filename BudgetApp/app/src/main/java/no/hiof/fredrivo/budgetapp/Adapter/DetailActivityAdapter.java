@@ -2,6 +2,7 @@ package no.hiof.fredrivo.budgetapp.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,8 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
 
     @NonNull
     @Override
-    public DetailActivityAdapter.ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        Log.i("RecycleView", "onCreateViewHolder called " + i);
         View v = layoutInflater.inflate(R.layout.detail_list_item, viewGroup, false);
 
         return new ExpenseViewHolder(v);
@@ -45,6 +47,7 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
 
     @Override
     public int getItemCount() {
+        Log.i("expenseList", "expenselist has " + expenseList.size() + " elements");
         return expenseList.size();
     }
 

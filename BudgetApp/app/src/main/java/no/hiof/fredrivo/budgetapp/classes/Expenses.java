@@ -13,7 +13,7 @@ public class Expenses {
     private String category;
     //private static ArrayList<Expenses> expensesList;
 
-   public Expenses(int sum, Date date, String location, String description, String category) {
+   /*public Expenses(int sum, Date date, String location, String description, String category) {
         this.sum = sum;
         this.date = date;
         this.location = location;
@@ -24,11 +24,22 @@ public class Expenses {
         //expensesList.add(this);
     }
 
-    // Funksjoner for expenses objekter
+    public Expenses() {}*/
 
-    public ArrayList<Expenses> getExpensesList() {
-        return expensesList;
-    }
+    public int getSum() { return sum; }
+    public void setSum(int sum) { this.sum = sum; }
+
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     public static List<Expenses> getExpenseList() {
        //Test data for å teste detailed view.
@@ -94,19 +105,6 @@ public class Expenses {
         return expenseList;
     }
 
-    public int getSum() { return sum; }
-    public void setSum(int sum) { this.sum = sum; }
 
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
-
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
 }
 

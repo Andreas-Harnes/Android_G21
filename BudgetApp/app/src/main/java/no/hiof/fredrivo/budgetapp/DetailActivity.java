@@ -4,37 +4,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import no.hiof.fredrivo.budgetapp.Adapter.DetailActivityAdapter;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private RecyclerView detailRecyclerView;
-    //private ArrayList<Expenses> testlist;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        /*Expenses test1 = new Expenses(300, new Date(2018,11,21), "Rema 1000", "desc,", "Food");
-        Expenses test2 = new Expenses(200, new Date(2018,11,21), "Rema 1000", "desc,", "Food");
-        Expenses test3 = new Expenses(100, new Date(2018,11,21), "Rema 1000", "desc,", "Food");
+        RecyclerView detailRecyclerView = findViewById(R.id.detailRecyclerView);
+        detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        detailRecyclerView.setAdapter(new DetailActivityAdapter(this, Expenses.getExpenseList()));
 
-        testlist.add(test1);
-        testlist.add(test2);
-        testlist.add(test3);*/
-
-        setUpRecylcleView();
+        //setUpRecylcleView();
     }
 
-    private void setUpRecylcleView() {
+    /*private void setUpRecylcleView() {
         detailRecyclerView = findViewById(R.id.detailRecyclerView);
         detailRecyclerView.setAdapter(new DetailActivityAdapter(this, Expenses.getExpenseList()));
         //detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         detailRecyclerView.setLayoutManager(linearLayoutManager);
-    }
+
+        Log.i("RecycleView", "Recycleview set up");
+    }*/
 }
