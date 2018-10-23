@@ -24,7 +24,11 @@ public class Expenses {
         //expensesList.add(this);
     }
 
-    public Expenses() {}
+    // Funksjoner for expenses objekter
+
+    public ArrayList<Expenses> getExpensesList() {
+        return expensesList;
+    }
 
     public static List<Expenses> getExpenseList() {
        //Test data for å teste detailed view.

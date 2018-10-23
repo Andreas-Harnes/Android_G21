@@ -23,6 +23,9 @@ public class Profile {
         this.categoryToSave = category;
     }
 
+
+    // Funksjoner for profile objekter
+
     public CircleImageView getProfilePic() {
         return profilePic;
     }

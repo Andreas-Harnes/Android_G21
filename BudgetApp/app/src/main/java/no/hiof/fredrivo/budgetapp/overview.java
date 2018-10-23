@@ -2,9 +2,7 @@ package no.hiof.fredrivo.budgetapp;
 
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
-import android.renderscript.ScriptGroup;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -46,6 +44,7 @@ public class overview extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -66,8 +65,6 @@ public class overview extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intentInputActivity);
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
             }
         });
 
@@ -83,6 +80,7 @@ public class overview extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -107,9 +105,9 @@ public class overview extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
+     // A placeholder fragment containing a simple view.
+
     public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this

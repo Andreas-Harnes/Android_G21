@@ -3,6 +3,8 @@ package no.hiof.fredrivo.budgetapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+// Eksternt library for å vise grafer i appen
+// Hentet fra https://github.com/PhilJay/MPAndroidChart
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 
@@ -13,6 +15,7 @@ import java.util.List;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 
+// TODO: Legg til funksjonalitet for grafer
 
 public class GraphActivity extends AppCompatActivity {
 

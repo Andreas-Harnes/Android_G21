@@ -18,7 +18,7 @@ public class ProfilActivity extends AppCompatActivity {
 
     }
 
-    // TODO: Items vises ikke i toolbar.
+    // TODO: Items vises ikke i toolbar. får ikke plass i layout. Need Fix
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_profile_settings, menu);
