@@ -1,36 +1,35 @@
 package no.hiof.fredrivo.budgetapp.classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Expenses {
 
     private int sum;
-    private Date date;
+    private LocalDate date;
     private String location;
     private String description;
     private String category;
-    //private static ArrayList<Expenses> expensesList;
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
 
-   /*public Expenses(int sum, Date date, String location, String description, String category) {
+   public Expenses(int sum, LocalDate date, String location, String description, String category) {
         this.sum = sum;
         this.date = date;
         this.location = location;
         this.description = description;
         this.category = category;
 
-        //Adds the current object into the ArrayList
-        //expensesList.add(this);
+        expensesArrayList.add(this);
     }
 
-    public Expenses() {}*/
+    public Expenses() {}
 
     public int getSum() { return sum; }
     public void setSum(int sum) { this.sum = sum; }
 
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
@@ -43,19 +42,20 @@ public class Expenses {
 
     public static List<Expenses> getExpenseList() {
        //Test data for å teste detailed view.
-         List<Expenses> expenseList = new ArrayList<>();
+        /* List<Expenses> expenseList = new ArrayList<>();
 
          int[] testSums = {123, 456, 789, 12, 34, 56, 78, 89};
 
-         Date[] testDates = {
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21),
-                 new Date(2018,11,21)
+         //TODO: satte midlertidig API til 26 i gradle.app for å ikke få feilmld på LocalDate, må fikses så vi kan ha API 21
+         LocalDate[] testDates = {
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21),
+                 LocalDate.of(2018,11,21)
          };
 
          String[] testLocations = {
@@ -102,9 +102,9 @@ public class Expenses {
             ex.setCategory(testCategories[i]);
 
             expenseList.add(ex);
-        }
+        }*/
 
-        return expenseList;
+        return expensesArrayList;
     }
 
 
