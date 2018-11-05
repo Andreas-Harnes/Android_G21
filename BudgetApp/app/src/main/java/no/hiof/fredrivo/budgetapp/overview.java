@@ -133,6 +133,16 @@ public class overview extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1){
+                return inflater.inflate(R.layout.fragment_day_tab, container, false);
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 2){
+                return inflater.inflate(R.layout.fragment_week_tab, container, false);
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 3){
+                return inflater.inflate(R.layout.fragment_month_tab, container, false);
+            }
             View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
@@ -154,21 +164,8 @@ public class overview extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1);
 
-            switch (position) {
-                case 0:
-                    day_tab dayTab = new day_tab();
-                    return dayTab;
-                case 1:
-                    week_tab weekTab = new week_tab();
-                    return weekTab;
-                case 2:
-                    month_tab monthTab = new month_tab();
-                    return monthTab;
-                default:
-                    return null;
-            }
         }
 
         @Override
