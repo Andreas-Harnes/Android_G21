@@ -3,6 +3,7 @@ package no.hiof.fredrivo.budgetapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +19,11 @@ public class InputActivity extends AppCompatActivity {
 
     //variabler for items
     private Intent intentOverview;
-
     private EditText numPrice;
     private EditText datePurchaseDate;
     private EditText txtLocation;
     private EditText txtDescription;
+    
     private Spinner drpCategory;
 
     private int price;
