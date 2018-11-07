@@ -104,6 +104,23 @@ public class InputActivity extends AppCompatActivity {
         // test kode slutter
 
 
+        // Kategori spinner
+
+        List<String> arrayCatergories =  new ArrayList<String>();
+        arrayCatergories.add("Mat");
+        arrayCatergories.add("Klær");
+        arrayCatergories.add("Transport");
+        arrayCatergories.add("Diverse");
+
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, arrayCatergories);
+
+        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpCategory.setAdapter(adapterCategories);
+
+
+
+
 
         intentOverview = new Intent(this, overview.class);
 
