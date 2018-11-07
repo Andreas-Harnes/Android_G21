@@ -13,6 +13,19 @@ public class Expenses {
     private String category;
     private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
 
+
+    // Test function
+//    public Expenses(int sum, String location, String description, String category) {
+//        this.sum = sum;
+//        this.date = date;
+//        this.location = location;
+//        this.description = description;
+//        this.category = category;
+//
+//        expensesArrayList.add(this);
+//    }
+
+
    public Expenses(int sum, LocalDate date, String location, String description, String category) {
         this.sum = sum;
         this.date = date;

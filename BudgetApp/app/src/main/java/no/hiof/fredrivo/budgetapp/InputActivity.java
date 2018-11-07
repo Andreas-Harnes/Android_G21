@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
@@ -26,6 +29,10 @@ public class InputActivity extends AppCompatActivity {
 
     private Spinner drpCategory;
 
+    private Spinner drpDateDay;
+    private Spinner drpDateMonth;
+    private Spinner drpDateYear;
+
     private int price;
     private LocalDate date;
     private String location;
@@ -34,8 +41,8 @@ public class InputActivity extends AppCompatActivity {
 
     // TODO: Legge til funksjonalitet for inputActivity
 
-    // TODO: Det er en bug som gjør at appen stopper når man trykker på add expenses
-    
+    // TODO: Det er en bug som gjør at appen stopper når man trykker på add expenses for andre gang
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,57 @@ public class InputActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txtLocation);
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
+        drpDateDay = findViewById(R.id.drpDateDay);
+        drpDateMonth = findViewById(R.id.drpDateMonth);
+        drpDateYear = findViewById(R.id.drpDateYear);
+
+
+        // Dropdown menus for date
+        // TODO: Integrere på en sikkelig måte
+        // Fyller opp dag, måned og års arrayene med data
+        List<Integer> arrayDays =  new ArrayList<Integer>();
+        for (int x = 1; x<32; x++) {
+            arrayDays.add(x);
+        }
+
+        List<Integer> arrayMonths =  new ArrayList<Integer>();
+        for (int x = 1; x<13; x++) {
+            arrayMonths.add(x);
+        }
+
+        List<Integer> arrayYears =  new ArrayList<Integer>();
+        for (int x = 1970; x<2018; x++) {
+            arrayYears.add(x);
+        }
+
+
+        // Lager 3 adaptere for dropdown menyene
+        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<Integer>(
+                this, android.R.layout.simple_spinner_item, arrayDays);
+
+        ArrayAdapter<Integer> adapterMonths = new ArrayAdapter<Integer>(
+                this, android.R.layout.simple_spinner_item, arrayMonths);
+
+        ArrayAdapter<Integer> adapterYears = new ArrayAdapter<Integer>(
+                this, android.R.layout.simple_spinner_item, arrayYears);
+
+
+
+        // Legger dataene til i dropdown menyene
+        adapterDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpDateDay.setAdapter(adapterDays);
+
+        adapterMonths.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpDateMonth.setAdapter(adapterMonths);
+
+        adapterYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpDateYear.setAdapter(adapterYears);
+
+
+
+        // test kode slutter
+
+
 
         intentOverview = new Intent(this, overview.class);
 
@@ -60,9 +118,13 @@ public class InputActivity extends AppCompatActivity {
                 date = LocalDate.parse(datePurchaseDate.getText().toString(), formatter);
                 location = txtLocation.getText().toString();
                 description = txtDescription.getText().toString();
-                category = drpCategory.getSelectedItem().toString();
+//                category = drpCategory.getSelectedItem().toString();
+                category = "test";
 
                 new Expenses(price, date, location, description, category);
+//                new Expenses(price, location, description, category);
+
+
 
                 startActivity(intentOverview);
             }
