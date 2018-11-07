@@ -23,7 +23,7 @@ public class InputActivity extends AppCompatActivity {
     private EditText datePurchaseDate;
     private EditText txtLocation;
     private EditText txtDescription;
-    
+
     private Spinner drpCategory;
 
     private int price;
@@ -33,6 +33,9 @@ public class InputActivity extends AppCompatActivity {
     private String category;
 
     // TODO: Legge til funksjonalitet for inputActivity
+
+    // TODO: Det er en bug som gjør at appen stopper når man trykker på add expenses
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
