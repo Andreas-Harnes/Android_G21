@@ -23,13 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Enter the sum"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtHeadline" />
 
@@ -38,27 +38,28 @@
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Where"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drpDateYear" />
+        app:layout_constraintTop_toBottomOf="@+id/drpDateMonth" />
 
     <EditText
         android:id="@+id/txtDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
 
@@ -100,37 +101,63 @@
 
     <Spinner
         android:id="@+id/drpDateDay"
-        android:layout_width="368dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drpDateMonth"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPrice" />
+        app:layout_constraintTop_toTopOf="@+id/drpDateMonth" />
 
     <Spinner
         android:id="@+id/drpDateMonth"
-        android:layout_width="368dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drpDateDay" />
+        app:layout_constraintEnd_toStartOf="@+id/drpDateYear"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/drpDateDay"
+        app:layout_constraintTop_toTopOf="@+id/drpDateYear" />
 
     <Spinner
         android:id="@+id/drpDateYear"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="109dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="184dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drpDateMonth" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/drpDateMonth"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Day"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/drpDateDay"
+        app:layout_constraintEnd_toEndOf="@+id/drpDateDay"
+        app:layout_constraintStart_toStartOf="@+id/drpDateDay" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Month"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/drpDateMonth"
+        app:layout_constraintEnd_toEndOf="@+id/drpDateMonth"
+        app:layout_constraintStart_toStartOf="@+id/drpDateMonth" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Year"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/drpDateYear"
+        app:layout_constraintEnd_toEndOf="@+id/drpDateYear"
+        app:layout_constraintStart_toStartOf="@+id/drpDateYear" />
 
 </android.support.constraint.ConstraintLayout>

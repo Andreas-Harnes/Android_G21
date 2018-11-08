@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "no.hiof.fredrivo.budgetapp"
         //TODO: Fikse LocalDate så vi kan ha API 21
-        minSdkVersion 26
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
