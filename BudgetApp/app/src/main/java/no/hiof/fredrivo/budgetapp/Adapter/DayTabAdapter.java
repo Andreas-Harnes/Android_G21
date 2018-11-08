@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.R;
@@ -22,7 +20,6 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.ExpenseVie
     public DayTabAdapter(Context context, List<Expenses> expenseList) {
         layoutInflater = LayoutInflater.from(context);
         this.expenseList = expenseList;
-
     }
 
     @NonNull

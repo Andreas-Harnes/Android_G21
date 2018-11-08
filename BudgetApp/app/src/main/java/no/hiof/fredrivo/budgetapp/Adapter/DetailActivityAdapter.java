@@ -20,7 +20,6 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
     public DetailActivityAdapter(Context context, List<Expenses> expenseList) {
         layoutInflater = LayoutInflater.from(context);
         this.expenseList = expenseList;
-
     }
 
 

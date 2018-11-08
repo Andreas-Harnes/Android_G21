@@ -28,8 +28,6 @@ public class day_tab extends Fragment {
     private RecyclerView dayTabRecyclerView;
 
 
-
-
     public day_tab() {
         // Required empty public constructor
     }
@@ -37,11 +35,12 @@ public class day_tab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_day_tab, container, false);
+        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
 
-        dayTabRecyclerView = container.findViewById(R.id.detailRecyclerView);
-        dayTabRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(this, Expenses.getExpenseList()));
+        dayTabRecyclerView = root.findViewById(R.id.detailRecyclerView);
+        dayTabRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(getActivity(), Expenses.getExpenseList()));
+
+        return root;
     }
-
 }
