@@ -34,7 +34,7 @@ public class InputActivity extends AppCompatActivity {
     private Spinner drpDateYear;
 
     private int price;
-    private LocalDate date;
+    private String date;
     private String location;
     private String description;
     private String category;
@@ -49,7 +49,9 @@ public class InputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
 
         numPrice = findViewById(R.id.numPrice);
-        datePurchaseDate = findViewById(R.id.datePurchaseDate);
+        drpDateDay = findViewById(R.id.drpDateDay);
+        drpDateMonth = findViewById(R.id.drpDateMonth);
+        drpDateYear = findViewById(R.id.drpDateYear);
         txtLocation = findViewById(R.id.txtLocation);
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
@@ -61,30 +63,30 @@ public class InputActivity extends AppCompatActivity {
         // Dropdown menus for date
         // TODO: Integrere på en sikkelig måte
         // Fyller opp dag, måned og års arrayene med data
-        List<Integer> arrayDays =  new ArrayList<Integer>();
+        List<Integer> arrayDays =  new ArrayList<>();
         for (int x = 1; x<32; x++) {
             arrayDays.add(x);
         }
 
-        List<Integer> arrayMonths =  new ArrayList<Integer>();
+        List<Integer> arrayMonths =  new ArrayList<>();
         for (int x = 1; x<13; x++) {
             arrayMonths.add(x);
         }
 
-        List<Integer> arrayYears =  new ArrayList<Integer>();
+        List<Integer> arrayYears =  new ArrayList<>();
         for (int x = 1970; x<2018; x++) {
             arrayYears.add(x);
         }
 
 
         // Lager 3 adaptere for dropdown menyene
-        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<Integer>(
+        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayDays);
 
-        ArrayAdapter<Integer> adapterMonths = new ArrayAdapter<Integer>(
+        ArrayAdapter<Integer> adapterMonths = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayMonths);
 
-        ArrayAdapter<Integer> adapterYears = new ArrayAdapter<Integer>(
+        ArrayAdapter<Integer> adapterYears = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayYears);
 
 
@@ -100,19 +102,18 @@ public class InputActivity extends AppCompatActivity {
         drpDateYear.setAdapter(adapterYears);
 
 
-
         // test kode slutter
 
 
         // Kategori spinner
 
-        List<String> arrayCatergories =  new ArrayList<String>();
+        List<String> arrayCatergories =  new ArrayList<>();
         arrayCatergories.add("Mat");
         arrayCatergories.add("Klær");
         arrayCatergories.add("Transport");
         arrayCatergories.add("Diverse");
 
-        ArrayAdapter<String> adapterCategories = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayCatergories);
 
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -129,13 +130,13 @@ public class InputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
 
                 price = Integer.parseInt(numPrice.getText().toString());
-                date = LocalDate.parse(datePurchaseDate.getText().toString(), formatter);
+                date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
                 location = txtLocation.getText().toString();
                 description = txtDescription.getText().toString();
-//                category = drpCategory.getSelectedItem().toString();
+//                category = drpCategory.getSelectedItem().toString();22
                 category = "test";
 
                 new Expenses(price, date, location, description, category);

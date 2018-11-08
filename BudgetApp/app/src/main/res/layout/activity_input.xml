@@ -67,11 +67,12 @@
         android:id="@+id/drpCategory"
         android:layout_width="234dp"
         android:layout_height="39dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+        app:layout_constraintVertical_bias="0.447" />
 
     <Button
         android:id="@+id/btnAddCategory"
