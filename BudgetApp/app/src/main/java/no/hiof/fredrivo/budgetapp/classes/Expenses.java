@@ -10,7 +10,7 @@ public class Expenses {
     private String location;
     private String description;
     private String category;
-    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
+    private static List<Expenses> expensesArrayList = new ArrayList<>();
 
 
    public Expenses(int sum, String date, String location, String description, String category) {

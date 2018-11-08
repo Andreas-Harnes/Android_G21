@@ -43,5 +43,7 @@
     =======
     <string name="home">Home</string>
     <string name="hello">Hello</string>
+    <string name="category">Category</string>
+    <string name="test">test</string>
     >>>>>>> Stashed changes
 </resources>

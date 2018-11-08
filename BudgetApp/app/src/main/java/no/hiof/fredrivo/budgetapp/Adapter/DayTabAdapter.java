@@ -7,33 +7,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
-public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAdapter.ExpenseViewHolder> {
+public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.ExpenseViewHolder> {
 
     private List<Expenses> expenseList;
     private LayoutInflater layoutInflater;
 
-    public DetailActivityAdapter(Context context, List<Expenses> expenseList) {
+    public DayTabAdapter(Context context, List<Expenses> expenseList) {
         layoutInflater = LayoutInflater.from(context);
         this.expenseList = expenseList;
 
     }
 
-
     @NonNull
     @Override
-    public ExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = layoutInflater.inflate(R.layout.detail_list_item, viewGroup, false);
+    public DayTabAdapter.ExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = layoutInflater.inflate(R.layout.day_tab_list_item, viewGroup, false);
 
-        return new ExpenseViewHolder(v);
+        return new DayTabAdapter.ExpenseViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ExpenseViewHolder expenseViewHolder, int i) {
+    public void onBindViewHolder(DayTabAdapter.ExpenseViewHolder expenseViewHolder, int i) {
         Expenses ex = expenseList.get(i);
 
         expenseViewHolder.setExpenses(ex);
@@ -45,23 +46,19 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
     }
 
     class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtDetailSum;
-        private TextView txtDetailDate;
-        private TextView txtDetailLocation;
+        private TextView txtDaySum;
+        private TextView txtDayCategory;
 
         public ExpenseViewHolder(View v) {
             super(v);
-            txtDetailSum = v.findViewById(R.id.txtDetailSum);
-            txtDetailDate = v.findViewById(R.id.txtDetailDate);
-            txtDetailLocation = v.findViewById(R.id.txtDetailLocation);
+            txtDaySum = v.findViewById(R.id.txtDaySum);
+            txtDayCategory = v.findViewById(R.id.txtDayCategory);
         }
 
         public void setExpenses (Expenses ex) {
-            txtDetailSum.setText(ex.getSum()+"");
-            txtDetailDate.setText(ex.getDate());
-            txtDetailLocation.setText(ex.getLocation());
+            txtDaySum.setText(ex.getSum()+"");
+            txtDayCategory.setText(ex.getCategory());
         }
     }
-
 
 }

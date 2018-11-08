@@ -108,10 +108,10 @@ public class InputActivity extends AppCompatActivity {
         // Kategori spinner
 
         List<String> arrayCatergories =  new ArrayList<>();
-        arrayCatergories.add("Mat");
-        arrayCatergories.add("Klær");
-        arrayCatergories.add("Transport");
-        arrayCatergories.add("Diverse");
+        arrayCatergories.add("Food");
+        arrayCatergories.add("Fixed expenses");
+        arrayCatergories.add("Transportation");
+        arrayCatergories.add("Activities");
 
         ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayCatergories);
