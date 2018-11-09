@@ -53,12 +53,12 @@
             android:text="@string/save_month"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtSaveEachMonth"
-            app:layout_constraintStart_toStartOf="@+id/txtSaveEachMonth"
+            app:layout_constraintBottom_toTopOf="@+id/txtMonthlyEx"
+            app:layout_constraintStart_toStartOf="@+id/txtMonthlyEx"
             app:layout_constraintTop_toBottomOf="@+id/txtIncome" />
 
         <TextView
-            android:id="@+id/txtSaveEachMonth"
+            android:id="@+id/txtMonthlyEx"
             android:layout_width="133dp"
             android:layout_height="27dp"
             android:layout_marginBottom="8dp"
@@ -75,12 +75,12 @@
             android:text="@string/monthly_expenses"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtExpenses"
-            app:layout_constraintStart_toStartOf="@+id/txtExpenses"
-            app:layout_constraintTop_toBottomOf="@+id/txtSaveEachMonth" />
+            app:layout_constraintBottom_toTopOf="@+id/txtSavePrMonth"
+            app:layout_constraintStart_toStartOf="@+id/txtSavePrMonth"
+            app:layout_constraintTop_toBottomOf="@+id/txtMonthlyEx" />
 
         <TextView
-            android:id="@+id/txtExpenses"
+            android:id="@+id/txtSavePrMonth"
             android:layout_width="130dp"
             android:layout_height="23dp"
             android:layout_marginBottom="8dp"
@@ -99,7 +99,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txtCategoriesForSaving"
             app:layout_constraintStart_toStartOf="@+id/txtCategoriesForSaving"
-            app:layout_constraintTop_toBottomOf="@+id/txtExpenses" />
+            app:layout_constraintTop_toBottomOf="@+id/txtSavePrMonth" />
 
     <TextView
         android:id="@+id/txtCategoriesForSaving"

@@ -40,7 +40,6 @@ public class InputActivity extends AppCompatActivity {
     private String location;
     private String description;
     private String category;
-    private List<String> arrayCategories =  new ArrayList<>();
 
 
 //    private FirebaseDatabase dataBase;
@@ -65,14 +64,6 @@ public class InputActivity extends AppCompatActivity {
 
 
         myRef = FirebaseDatabase.getInstance().getReference("Expenses");
-
-
-        //TODO: finne en måte å hente ut arraylisten med kategorier fra getUserCategories
-
-        /*arrayCategories.add("Food");
-        arrayCategories.add("Fixed expenses");
-        arrayCategories.add("Transportation");
-        arrayCategories.add("Activity");*/
 
         ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
 

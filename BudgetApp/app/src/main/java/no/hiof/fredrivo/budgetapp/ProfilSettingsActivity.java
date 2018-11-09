@@ -6,19 +6,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
-
     // TODO: Legge til funksjonalitet for profil settings
+
+    private EditText txtMonthlyEx;
+    private EditText txtIncome;
+    private EditText txtSavePrMonth;
+    private Spinner drpSettingsCat;
+    private TextView txtCategoriesForSaving;
+    private Button saveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 

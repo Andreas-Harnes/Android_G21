@@ -6,11 +6,8 @@ import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -25,10 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-
-import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
-import no.hiof.fredrivo.budgetapp.Adapter.DetailActivityAdapter;
-import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class overview extends AppCompatActivity {
 
@@ -157,16 +150,19 @@ public class overview extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            Fragment fragment = null;
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1){
+                //TODO: bytt til day_tab fragment
                 return inflater.inflate(R.layout.fragment_day_tab, container, false);
             }
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 2){
+                //TODO: bytt til week_tab fragment
                 return inflater.inflate(R.layout.fragment_week_tab, container, false);
             }
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 3){
+                //TODO: bytt til month_tab fragment
                 return inflater.inflate(R.layout.fragment_month_tab, container, false);
             }
             View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
