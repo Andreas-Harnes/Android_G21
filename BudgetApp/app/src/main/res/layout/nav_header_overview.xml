@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="190dp"
     android:background="@color/colorAccent"
     android:clickable="true"
     android:focusable="true"
@@ -11,6 +11,15 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <Button
+        android:id="@+id/btnCloseNav"
+        android:layout_width="51dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="X"
+        android:textColor="@android:color/white" />
 
     <ImageView
         android:id="@+id/nav_header_imageView"

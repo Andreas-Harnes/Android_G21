@@ -127,8 +127,6 @@ public class InputActivity extends AppCompatActivity {
                description = txtDescription.getText().toString();
                category = drpCategory.getSelectedItem().toString();
 
-
-
                 myRef.child(id).setValue(new Expenses(price, date, location, description, category));
 
                 startActivity(intentOverview);

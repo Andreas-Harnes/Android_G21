@@ -30,13 +30,13 @@
         android:text="@string/income_month"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtIncome"
-        app:layout_constraintStart_toStartOf="@+id/txtIncome"
+        app:layout_constraintBottom_toTopOf="@+id/txtProfilIncome"
+        app:layout_constraintStart_toStartOf="@+id/txtProfilIncome"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <TextView
-            android:id="@+id/txtIncome"
+            android:id="@+id/txtProfilIncome"
             android:layout_width="137dp"
             android:layout_height="27dp"
             android:layout_marginBottom="8dp"
@@ -53,12 +53,12 @@
             android:text="@string/save_month"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtMonthlyEx"
-            app:layout_constraintStart_toStartOf="@+id/txtMonthlyEx"
-            app:layout_constraintTop_toBottomOf="@+id/txtIncome" />
+            app:layout_constraintBottom_toTopOf="@+id/txtProfilSave"
+            app:layout_constraintStart_toStartOf="@+id/txtProfilSave"
+            app:layout_constraintTop_toBottomOf="@+id/txtProfilIncome" />
 
         <TextView
-            android:id="@+id/txtMonthlyEx"
+            android:id="@+id/txtProfilSave"
             android:layout_width="133dp"
             android:layout_height="27dp"
             android:layout_marginBottom="8dp"
@@ -75,12 +75,12 @@
             android:text="@string/monthly_expenses"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtSavePrMonth"
-            app:layout_constraintStart_toStartOf="@+id/txtSavePrMonth"
-            app:layout_constraintTop_toBottomOf="@+id/txtMonthlyEx" />
+            app:layout_constraintBottom_toTopOf="@+id/txtProfilMonthlyEx"
+            app:layout_constraintStart_toStartOf="@+id/txtProfilMonthlyEx"
+            app:layout_constraintTop_toBottomOf="@+id/txtProfilSave" />
 
         <TextView
-            android:id="@+id/txtSavePrMonth"
+            android:id="@+id/txtProfilMonthlyEx"
             android:layout_width="130dp"
             android:layout_height="23dp"
             android:layout_marginBottom="8dp"
@@ -97,12 +97,12 @@
             android:text="@string/categories_to_save_on"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtCategoriesForSaving"
-            app:layout_constraintStart_toStartOf="@+id/txtCategoriesForSaving"
-            app:layout_constraintTop_toBottomOf="@+id/txtSavePrMonth" />
+            app:layout_constraintBottom_toTopOf="@+id/txtProfilCategories"
+            app:layout_constraintStart_toStartOf="@+id/txtProfilCategories"
+            app:layout_constraintTop_toBottomOf="@+id/txtProfilMonthlyEx" />
 
     <TextView
-        android:id="@+id/txtCategoriesForSaving"
+        android:id="@+id/txtProfilCategories"
         android:layout_width="357dp"
         android:layout_height="84dp"
         android:layout_marginStart="19dp"

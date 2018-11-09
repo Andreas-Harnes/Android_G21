@@ -5,17 +5,35 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 public class ProfilActivity extends AppCompatActivity {
+    private TextView txtProfilIncome;
+    private TextView txtProfilSave;
+    private TextView txtProfilMonthlyEx;
+    private TextView txtProfilCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.profiltoolbar);
-        setSupportActionBar(toolbar);
+        txtProfilIncome = findViewById(R.id.txtProfilIncome);
+        txtProfilSave = findViewById(R.id.txtProfilSave);
+        txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
+        txtProfilCategories = findViewById(R.id.txtProfilCategories);
 
+        /*txtProfilIncome.setText(demo);
+        txtProfilSave.setText();
+        txtProfilMonthlyEx.setText();
+        txtProfilCategories.setText();*/
+
+        Toolbar toolbar = findViewById(R.id.profiltoolbar);
+        setSupportActionBar(toolbar);
     }
 
     // TODO: Items vises ikke i toolbar. får ikke plass i layout. Need Fix

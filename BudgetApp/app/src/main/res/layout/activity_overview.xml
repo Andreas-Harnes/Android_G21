@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,29 +18,18 @@
     android:fitsSystemWindows="true"
     tools:context=".overview">
 
-    <android.support.v4.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
+    <include
+        layout="@layout/side_bar_overview"
         android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        tools:openDrawer="start">
-
-        <include
-            layout="@layout/side_bar_overview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/nav_header_overview"
-            app:menu="@menu/menu_overview" />
-
-    </android.support.v4.widget.DrawerLayout>
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header_overview"
+        app:menu="@menu/menu_overview" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -41,6 +40,7 @@
 
 
         <!-- Toolbar som skal brukes andre steder-->
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -95,3 +95,4 @@
         app:srcCompat="@drawable/ic_add" />
 
 </android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.DrawerLayout>

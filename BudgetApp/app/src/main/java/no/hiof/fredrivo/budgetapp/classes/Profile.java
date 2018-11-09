@@ -11,9 +11,9 @@ public class Profile {
     private int incomePerMonth;
     private int savePerMonth;
     private int expensesPerMonth;
-    private ArrayList<String> categoryToSave;
+    private String categoryToSave;
 
-    public Profile(CircleImageView profilePic, String profileFirstName, String profileLastName, int incomePerMonth, int savePerMonth, int expensesPerMonth, ArrayList<String> category) {
+    public Profile(CircleImageView profilePic, String profileFirstName, String profileLastName, int incomePerMonth, int savePerMonth, int expensesPerMonth, String category) {
         this.profilePic = profilePic;
         this.profileFirstName = profileFirstName;
         this.profileLastName = profileLastName;
@@ -23,6 +23,12 @@ public class Profile {
         this.categoryToSave = category;
     }
 
+    public Profile(int incomePerMonth, int savePerMonth, int expensesPerMonth, String category){
+        this.incomePerMonth = incomePerMonth;
+        this.savePerMonth = savePerMonth;
+        this.expensesPerMonth = expensesPerMonth;
+        this.categoryToSave = category;
+    }
 
     // Funksjoner for profile objekter
 
@@ -74,11 +80,11 @@ public class Profile {
         this.expensesPerMonth = expensesPerMonth;
     }
 
-    public ArrayList<String> getCategoryToSave() {
+    public String getCategoryToSave() {
         return categoryToSave;
     }
 
-    public void setCategoryToSave(ArrayList<String> categoryToSave) {
+    public void setCategoryToSave(String categoryToSave) {
         this.categoryToSave = categoryToSave;
     }
 }
