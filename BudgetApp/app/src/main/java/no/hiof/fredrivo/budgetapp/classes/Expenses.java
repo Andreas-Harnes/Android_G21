@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Expenses {
 
+//    private String id;
     private int sum;
     private String date;
     private String location;
@@ -14,6 +15,7 @@ public class Expenses {
 
 
    public Expenses(int sum, String date, String location, String description, String category) {
+//        this.id = id;
         this.sum = sum;
         this.date = date;
         this.location = location;
@@ -24,6 +26,9 @@ public class Expenses {
     }
 
     public Expenses() {}
+
+//    public String getId() { return id; }
+//    public void setId(String id) { this.id = id; }
 
     public int getSum() { return sum; }
     public void setSum(int sum) { this.sum = sum; }

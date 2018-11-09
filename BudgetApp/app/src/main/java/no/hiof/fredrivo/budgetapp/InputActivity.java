@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +42,13 @@ public class InputActivity extends AppCompatActivity {
     private String category;
     private List<String> arrayCategories =  new ArrayList<>();
 
+
+//    private FirebaseDatabase dataBase;
+    private DatabaseReference myRef;
+
+
     // TODO: Legge til funksjonalitet for inputActivity
 
-    // TODO: Det er en bug som gjør at appen stopper når man trykker på add expenses for andre gang
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,10 @@ public class InputActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txtLocation);
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
+
+
+        myRef = FirebaseDatabase.getInstance().getReference("Expenses");
+
 
         //TODO: finne en måte å hente ut arraylisten med kategorier fra getUserCategories
 
@@ -88,7 +99,8 @@ public class InputActivity extends AppCompatActivity {
 
 
         // Lager 3 adaptere for dropdown menyene
-        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<>(
+        // Dette er for at dataen i arrayen kan brukes i en spinner
+        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<Integer>(
                 this, android.R.layout.simple_spinner_item, arrayDays);
 
         ArrayAdapter<Integer> adapterMonths = new ArrayAdapter<>(
@@ -116,13 +128,16 @@ public class InputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+               String id = myRef.push().getKey();
                price = Integer.parseInt(numPrice.getText().toString());
                date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
                location = txtLocation.getText().toString();
                description = txtDescription.getText().toString();
                category = drpCategory.getSelectedItem().toString();
 
-                new Expenses(price, date, location, description, category);
+
+
+                myRef.child(id).setValue(new Expenses(price, date, location, description, category));
 
                 startActivity(intentOverview);
             }
@@ -135,6 +150,7 @@ public class InputActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
                 startActivity(intentNewCategory);
             }
         });
