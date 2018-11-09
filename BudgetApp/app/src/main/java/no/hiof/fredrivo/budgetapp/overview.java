@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 public class overview extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class overview extends AppCompatActivity {
 
         //Drawer
         drawer = findViewById(R.id.drawer_layout);
+
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(drawerToggle);
 
