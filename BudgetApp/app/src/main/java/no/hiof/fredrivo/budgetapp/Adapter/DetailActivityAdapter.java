@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.List;
 
@@ -47,18 +48,21 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
         private TextView txtDetailSum;
         private TextView txtDetailDate;
         private TextView txtDetailLocation;
+        private TextView txtDetailCategory;
 
         public ExpenseViewHolder(View v) {
             super(v);
             txtDetailSum = v.findViewById(R.id.txtDetailSum);
             txtDetailDate = v.findViewById(R.id.txtDetailDate);
             txtDetailLocation = v.findViewById(R.id.txtDetailLocation);
+            txtDetailCategory = v.findViewById(R.id.txtDetailCategory);
         }
 
         public void setExpenses (Expenses ex) {
             txtDetailSum.setText(ex.getSum()+"");
             txtDetailDate.setText(ex.getDate());
             txtDetailLocation.setText(ex.getLocation());
+            txtDetailCategory.setText(ex.getCategory());
         }
     }
 

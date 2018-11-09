@@ -1,6 +1,5 @@
 package no.hiof.fredrivo.budgetapp;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,37 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
-import no.hiof.fredrivo.budgetapp.Adapter.DetailActivityAdapter;
-import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-
-
 public class day_tab extends Fragment {
-
-    private RecyclerView dayTabRecyclerView;
-
-
-    public day_tab() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
 
-        dayTabRecyclerView = root.findViewById(R.id.detailRecyclerView);
-        dayTabRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(getActivity(), Expenses.getExpenseList()));
+        //setter opp RecyclerView, LayoutManager og adapter
+
+        RecyclerView dayTabRecyclerView = root.findViewById(R.id.detailRecyclerView);
+
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        dayTabRecyclerView.setLayoutManager(layoutManager);
+
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(Expenses.getExpenseList()));
 
         return root;
     }

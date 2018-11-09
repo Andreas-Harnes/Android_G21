@@ -55,16 +55,13 @@ public class InputActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txtLocation);
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
-        drpDateDay = findViewById(R.id.drpDateDay);
-        drpDateMonth = findViewById(R.id.drpDateMonth);
-        drpDateYear = findViewById(R.id.drpDateYear);
 
 
         // Dropdown menus for date
         // TODO: Integrere på en sikkelig måte
         // Fyller opp dag, måned og års arrayene med data
         List<Integer> arrayDays =  new ArrayList<>();
-        for (int x = 1; x<32; x++) {
+        for (int x = 1; x<31; x++) {
             arrayDays.add(x);
         }
 
@@ -74,7 +71,7 @@ public class InputActivity extends AppCompatActivity {
         }
 
         List<Integer> arrayYears =  new ArrayList<>();
-        for (int x = 1970; x<2018; x++) {
+        for (int x = 2018; x>=1970; x--) {
             arrayYears.add(x);
         }
 
@@ -130,19 +127,13 @@ public class InputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
-                price = Integer.parseInt(numPrice.getText().toString());
-                date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
-                location = txtLocation.getText().toString();
-                description = txtDescription.getText().toString();
-//                category = drpCategory.getSelectedItem().toString();22
-                category = "test";
+               price = Integer.parseInt(numPrice.getText().toString());
+               date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
+               location = txtLocation.getText().toString();
+               description = txtDescription.getText().toString();
+               category = drpCategory.getSelectedItem().toString();
 
                 new Expenses(price, date, location, description, category);
-//                new Expenses(price, location, description, category);
-
-
 
                 startActivity(intentOverview);
             }

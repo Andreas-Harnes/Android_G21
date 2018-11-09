@@ -45,5 +45,12 @@
     <string name="hello">Hello</string>
     <string name="category">Category</string>
     <string name="test">test</string>
+    <string name="add_expense">Add expense</string>
+    <string name="enter_the_sum">Enter the sum</string>
+    <string name="where">Where</string>
+    <string name="description">Description</string>
+    <string name="new_cat">New</string>
+    <string name="day">Day</string>
+    <string name="year">Year</string>
     >>>>>>> Stashed changes
 </resources>
