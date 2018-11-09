@@ -13,5 +13,5 @@ public class Categories {
         userCategories.add(category);
     }
 
-    public ArrayList<String> getUserCategories() { return userCategories; }
+    public static ArrayList<String> getUserCategories() { return userCategories; }
 }

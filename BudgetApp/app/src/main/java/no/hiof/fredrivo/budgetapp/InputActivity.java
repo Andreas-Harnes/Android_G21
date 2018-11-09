@@ -58,12 +58,12 @@ public class InputActivity extends AppCompatActivity {
 
         //TODO: finne en måte å hente ut arraylisten med kategorier fra getUserCategories
 
-        arrayCategories.add("Food");
+        /*arrayCategories.add("Food");
         arrayCategories.add("Fixed expenses");
         arrayCategories.add("Transportation");
-        arrayCategories.add("Activity");
+        arrayCategories.add("Activity");*/
 
-        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayCategories);
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
 
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drpCategory.setAdapter(adapterCategories);
@@ -140,9 +140,9 @@ public class InputActivity extends AppCompatActivity {
         });
     }
 
-    public List<String> categories(String newCat) {
+    /*public List<String> categories(String newCat) {
 
         arrayCategories.add(newCat);
         return arrayCategories;
-    }
+    }*/
 }

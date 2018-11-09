@@ -15,27 +15,24 @@ public class NewCategoryActivity extends AppCompatActivity {
 
     private Intent intentAddCategory;
     private String newCategory;
-    private EditText txtNewCat;
-    private Button btnAddCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        btnAddCat = findViewById(R.id.btnAddCat);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_category);
 
         intentAddCategory = new Intent (this,InputActivity.class);
 
-        btnAddCat = findViewById(R.id.btnAddCat);
+        Button btnAddCat = findViewById(R.id.btnAddCat);
         btnAddCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                newCategory = btnAddCat.getText().toString();
+                EditText txtNewCat = findViewById(R.id.txtNewCat);
+                newCategory = txtNewCat.getText().toString();
                 new Categories(newCategory);
                 startActivity(intentAddCategory);
-                }
+            }
         });
     }
 }
