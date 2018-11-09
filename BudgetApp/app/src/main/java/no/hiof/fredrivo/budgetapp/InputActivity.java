@@ -3,18 +3,16 @@ package no.hiof.fredrivo.budgetapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.hiof.fredrivo.budgetapp.classes.Categories;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 
@@ -22,6 +20,7 @@ public class InputActivity extends AppCompatActivity {
 
     //variabler for items
     private Intent intentOverview;
+    private Intent intentNewCategory;
     private EditText numPrice;
     private EditText datePurchaseDate;
     private EditText txtLocation;
@@ -38,6 +37,7 @@ public class InputActivity extends AppCompatActivity {
     private String location;
     private String description;
     private String category;
+    private List<String> arrayCategories =  new ArrayList<>();
 
     // TODO: Legge til funksjonalitet for inputActivity
 
@@ -56,6 +56,17 @@ public class InputActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
 
+        //TODO: finne en måte å hente ut arraylisten med kategorier fra getUserCategories
+
+        arrayCategories.add("Food");
+        arrayCategories.add("Fixed expenses");
+        arrayCategories.add("Transportation");
+        arrayCategories.add("Activity");
+
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayCategories);
+
+        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpCategory.setAdapter(adapterCategories);
 
         // Dropdown menus for date
         // TODO: Integrere på en sikkelig måte
@@ -98,28 +109,6 @@ public class InputActivity extends AppCompatActivity {
         adapterYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drpDateYear.setAdapter(adapterYears);
 
-
-        // test kode slutter
-
-
-        // Kategori spinner
-
-        List<String> arrayCatergories =  new ArrayList<>();
-        arrayCatergories.add("Food");
-        arrayCatergories.add("Fixed expenses");
-        arrayCatergories.add("Transportation");
-        arrayCatergories.add("Activities");
-
-        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, arrayCatergories);
-
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drpCategory.setAdapter(adapterCategories);
-
-
-
-
-
         intentOverview = new Intent(this, overview.class);
 
         Button btnAdd = findViewById(R.id.btnRegister);
@@ -138,5 +127,22 @@ public class InputActivity extends AppCompatActivity {
                 startActivity(intentOverview);
             }
         });
+
+        intentNewCategory = new Intent (this, NewCategoryActivity.class);
+
+        Button btnNewCategory = findViewById(R.id.btnAddCategory);
+        btnNewCategory.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(intentNewCategory);
+            }
+        });
+    }
+
+    public List<String> categories(String newCat) {
+
+        arrayCategories.add(newCat);
+        return arrayCategories;
     }
 }
