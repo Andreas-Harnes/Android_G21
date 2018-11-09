@@ -113,6 +113,7 @@ public class InputActivity extends AppCompatActivity {
         drpDateYear.setAdapter(adapterYears);
 
         intentOverview = new Intent(this, overview.class);
+        finish();
 
         Button btnAdd = findViewById(R.id.btnRegister);
         btnAdd.setOnClickListener(new View.OnClickListener() {

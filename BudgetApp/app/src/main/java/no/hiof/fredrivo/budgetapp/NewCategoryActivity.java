@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import no.hiof.fredrivo.budgetapp.InputActivity;
 import no.hiof.fredrivo.budgetapp.R;
@@ -30,8 +31,17 @@ public class NewCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText txtNewCat = findViewById(R.id.txtNewCat);
                 newCategory = txtNewCat.getText().toString();
-                new Categories(newCategory);
-                startActivity(intentAddCategory);
+                if (newCategory.isEmpty()){
+                    Toast.makeText(NewCategoryActivity.this, "Please add a new category.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    new Categories(newCategory);
+                    intentAddCategory.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intentAddCategory);
+
+                    finish();
+                }
+
             }
         });
     }
