@@ -1,5 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
@@ -36,23 +36,25 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        intentSaveChanges = new Intent(this, ProfilActivity.class);
 
-        txtMonthlyEx = findViewById(R.id.txtProfilSave);
-        txtIncome = findViewById(R.id.txtProfilIncome);
-        txtSavePrMonth = findViewById(R.id.txtProfilMonthlyEx);
+        txtMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
+        txtIncome = findViewById(R.id.txtProfilSettingsIncome);
+        txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
 
+        Context context = this.getApplicationContext();
         Button saveBtn = findViewById(R.id.saveBtn);
+
+        intentSaveChanges = new Intent(context, ProfilActivity.class);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                int monthly = Integer.parseInt(txtMonthlyEx.toString());
-                int income = Integer.parseInt(txtIncome.toString());
-                int save = Integer.parseInt(txtSavePrMonth.toString());
-                String category = txtCategoriesForSaving.toString();
+                int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
+                int income = Integer.parseInt(txtIncome.getText().toString());
+                int save = Integer.parseInt(txtSavePrMonth.getText().toString());
+                String category = txtCategoriesForSaving.getText().toString();
 
                 Bundle bundle = new Bundle();
 
@@ -63,7 +65,9 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
                 intentSaveChanges.putExtras(bundle);
 
-                startActivity(intentSaveChanges);
+                setResult(Activity.RESULT_OK, intentSaveChanges);
+                finish();
+
             }
         });
     }

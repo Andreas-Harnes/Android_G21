@@ -37,16 +37,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
-        android:id="@+id/txtProfilIncome"
+        android:id="@+id/txtProfilSettingsIncome"
         android:layout_width="154dp"
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:hint="Sum"
         android:inputType="number"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtProfilMonthlyEx"
-        app:layout_constraintStart_toStartOf="@+id/txtProfilMonthlyEx"
-        app:layout_constraintTop_toBottomOf="@+id/txtProfilSave" />
+        app:layout_constraintBottom_toTopOf="@+id/txtProfilSettingsMonthlyEx"
+        app:layout_constraintStart_toStartOf="@+id/txtProfilSettingsMonthlyEx"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfilSettingsSave" />
 
     <TextView
         android:id="@+id/textView3"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/txtProfilSave"
+        android:id="@+id/txtProfilSettingsSave"
         android:layout_width="154dp"
         android:layout_height="39dp"
         android:layout_marginTop="8dp"
@@ -69,8 +69,8 @@
         android:hint="Sum"
         android:inputType="number"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtProfilIncome"
-        app:layout_constraintStart_toStartOf="@+id/txtProfilIncome"
+        app:layout_constraintBottom_toTopOf="@+id/txtProfilSettingsIncome"
+        app:layout_constraintStart_toStartOf="@+id/txtProfilSettingsIncome"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:layout_constraintVertical_chainStyle="spread" />
 
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/txtProfilMonthlyEx"
+        android:id="@+id/txtProfilSettingsMonthlyEx"
         android:layout_width="154dp"
         android:layout_height="39dp"
         android:layout_marginBottom="8dp"
@@ -97,7 +97,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/drpSettingsCat"
         app:layout_constraintStart_toStartOf="@+id/drpSettingsCat"
-        app:layout_constraintTop_toBottomOf="@+id/txtProfilIncome" />
+        app:layout_constraintTop_toBottomOf="@+id/txtProfilSettingsIncome" />
 
     <TextView
         android:id="@+id/textView7"
@@ -167,7 +167,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/txtProfilCategories"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtProfilMonthlyEx" />
+        app:layout_constraintTop_toBottomOf="@+id/txtProfilSettingsMonthlyEx" />
 
 
 </android.support.constraint.ConstraintLayout>

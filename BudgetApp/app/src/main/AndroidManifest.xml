@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InputActivity" />
-        <activity android:name=".ProfilActivity" />
+        <activity android:name=".overview" />
         <activity android:name=".GraphActivity" />
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
         <activity
-            android:name=".overview"
+            android:name=".ProfilActivity"
             android:label="@string/title_activity_overview"
             android:theme="@style/AppTheme">
             <intent-filter>
