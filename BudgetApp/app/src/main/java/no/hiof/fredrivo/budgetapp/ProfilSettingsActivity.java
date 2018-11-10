@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
@@ -38,21 +37,23 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        txtMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
-        txtIncome = findViewById(R.id.txtProfilIncome);
-        txtSavePrMonth = findViewById(R.id.txtProfilSave);
+        txtMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
+        txtIncome = findViewById(R.id.txtProfilSettingsIncome);
+        txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
 
+        Context context = this.getApplicationContext();
         Button saveBtn = findViewById(R.id.saveBtn);
-        intentSaveChanges = new Intent(this, ProfilActivity.class);
+
+        intentSaveChanges = new Intent(context, ProfilActivity.class);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                int monthly = Integer.valueOf(txtMonthlyEx.getText().toString());
-                int income = Integer.valueOf(txtIncome.getText().toString());
-                int save = Integer.valueOf(txtSavePrMonth.getText().toString());
+                int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
+                int income = Integer.parseInt(txtIncome.getText().toString());
+                int save = Integer.parseInt(txtSavePrMonth.getText().toString());
                 String category = txtCategoriesForSaving.getText().toString();
 
                 Bundle bundle = new Bundle();
@@ -65,7 +66,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 intentSaveChanges.putExtras(bundle);
 
                 setResult(Activity.RESULT_OK, intentSaveChanges);
-
                 finish();
 
             }

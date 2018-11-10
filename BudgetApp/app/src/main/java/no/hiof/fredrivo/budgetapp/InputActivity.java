@@ -98,7 +98,6 @@ public class InputActivity extends AppCompatActivity {
             arrayYears.add(x);
         }
 
-
         // Lager 3 adaptere for dropdown menyene
         // Dette er for at dataen i arrayen kan brukes i en spinner
         ArrayAdapter<Integer> adapterDays = new ArrayAdapter<Integer>(
@@ -109,8 +108,6 @@ public class InputActivity extends AppCompatActivity {
 
         ArrayAdapter<Integer> adapterYears = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, arrayYears);
-
-
 
         // Legger dataene til i dropdown menyene
         adapterDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

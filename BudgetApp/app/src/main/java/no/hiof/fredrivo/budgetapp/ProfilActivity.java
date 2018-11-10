@@ -7,8 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import no.hiof.fredrivo.budgetapp.classes.Profile;
 
@@ -18,6 +17,7 @@ public class ProfilActivity extends AppCompatActivity {
     private TextView txtProfilSave;
     private TextView txtProfilMonthlyEx;
     private TextView txtProfilCategories;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,36 +35,7 @@ public class ProfilActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-
-                Intent i = getIntent();
-
-                int income = i.getIntExtra("income", -1);
-                int save = i.getIntExtra("save", -1);
-                int monthly = i.getIntExtra("monthly", -1);
-                String category = i.getStringExtra("category");
-
-                Profile newInfo = new Profile(income, save, monthly, category);
-
-                txtProfilIncome.setText(String.valueOf(newInfo.getIncomePerMonth()));
-                txtProfilSave.setText(String.valueOf(newInfo.getSavePerMonth()));
-                txtProfilMonthlyEx.setText(String.valueOf(newInfo.getExpensesPerMonth()));
-                txtProfilCategories.setText(newInfo.getCategoryToSave());
-            }
-
-            if (resultCode == Activity.RESULT_CANCELED){
-
-                txtProfilIncome.setText("Set income");
-                txtProfilSave.setText("Set saving");
-                txtProfilMonthlyEx.setText("Set expenses");
-                txtProfilCategories.setText("Set categories");
-            }
-        }
-    }
 
    /* public void setProfileInfo() {
 
@@ -123,5 +94,34 @@ public class ProfilActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                Intent i = data;
+
+                int income = i.getIntExtra("income", -1);
+                int save = i.getIntExtra("save", -1);
+                int monthly = i.getIntExtra("monthly", -1);
+                String category = i.getStringExtra("category");
+                Profile newInfo = new Profile(income, save, monthly, category);
+
+                txtProfilIncome.setText(String.valueOf(newInfo.getIncomePerMonth()));
+                txtProfilSave.setText(String.valueOf(newInfo.getSavePerMonth()));
+                txtProfilMonthlyEx.setText(String.valueOf(newInfo.getExpensesPerMonth()));
+                txtProfilCategories.setText(newInfo.getCategoryToSave());
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED){
+
+                txtProfilIncome.setText("Set income");
+                txtProfilSave.setText("Set saving");
+                txtProfilMonthlyEx.setText("Set expenses");
+                txtProfilCategories.setText("Set categories");
+            }
+        }
     }
 }
