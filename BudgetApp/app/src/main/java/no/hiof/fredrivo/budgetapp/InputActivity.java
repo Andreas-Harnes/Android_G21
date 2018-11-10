@@ -46,8 +46,6 @@ public class InputActivity extends AppCompatActivity {
     private DatabaseReference myRef;
 
 
-    // TODO: Legge til funksjonalitet for inputActivity
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

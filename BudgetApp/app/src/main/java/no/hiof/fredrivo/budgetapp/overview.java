@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class overview extends AppCompatActivity {
 
@@ -50,9 +51,8 @@ public class overview extends AppCompatActivity {
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(drawerToggle);
 
-        /*ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Creates the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -78,6 +78,7 @@ public class overview extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
