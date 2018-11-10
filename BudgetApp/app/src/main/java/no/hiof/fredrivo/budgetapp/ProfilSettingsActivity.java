@@ -9,10 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import no.hiof.fredrivo.budgetapp.classes.Categories;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
@@ -31,7 +34,13 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_settings);
 
-        drpSettingsCat = findViewById(R.id.drpCategory);
+        drpSettingsCat = findViewById(R.id.drpSettingsCat);
+
+        ArrayAdapter<String> adapterSettingsCat = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
+        adapterSettingsCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpSettingsCat.setAdapter(adapterSettingsCat);
+
+        String fillCategories = drpSettingsCat.getSelectedItem().toString();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,6 +50,11 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         txtIncome = findViewById(R.id.txtProfilSettingsIncome);
         txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
+
+        //TODO: bruk onItemSelected for å fylle kategorier inn i txtCategoriesForSaving
+        //TODO: sett et tomt element i toppen av spinner
+        //TODO: appende flere kategorier i TextViewet
+        txtCategoriesForSaving.setText(fillCategories);
 
         Context context = this.getApplicationContext();
         Button saveBtn = findViewById(R.id.saveBtn);
