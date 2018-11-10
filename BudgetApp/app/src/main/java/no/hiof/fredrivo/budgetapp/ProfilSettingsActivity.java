@@ -21,6 +21,11 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private Intent intentSaveChanges;
     private Spinner drpSettingsCat;
 
+    private EditText txtMonthlyEx;
+    private EditText txtIncome;
+    private EditText txtSavePrMonth;
+    private TextView txtCategoriesForSaving;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,23 +38,30 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
         intentSaveChanges = new Intent(this, ProfilActivity.class);
 
+        txtMonthlyEx = findViewById(R.id.txtProfilSave);
+        txtIncome = findViewById(R.id.txtProfilIncome);
+        txtSavePrMonth = findViewById(R.id.txtProfilMonthlyEx);
+        txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
+
         Button saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
-                EditText txtMonthlyEx = findViewById(R.id.txtProfilSave);
-                EditText txtIncome = findViewById(R.id.txtProfilIncome);
-                EditText txtSavePrMonth = findViewById(R.id.txtProfilMonthlyEx);
-
-                TextView txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
 
                 int monthly = Integer.parseInt(txtMonthlyEx.toString());
                 int income = Integer.parseInt(txtIncome.toString());
                 int save = Integer.parseInt(txtSavePrMonth.toString());
                 String category = txtCategoriesForSaving.toString();
 
-                Profile demo = new Profile(income, save, monthly, category);
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("income", income);
+                bundle.putInt("save", save);
+                bundle.putInt("monthly", monthly);
+                bundle.putString("category", category);
+
+                intentSaveChanges.putExtras(bundle);
 
                 startActivity(intentSaveChanges);
             }

@@ -12,6 +12,7 @@ import org.w3c.dom.Text;
 import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 public class ProfilActivity extends AppCompatActivity {
+
     private TextView txtProfilIncome;
     private TextView txtProfilSave;
     private TextView txtProfilMonthlyEx;
@@ -27,13 +28,38 @@ public class ProfilActivity extends AppCompatActivity {
         txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtProfilCategories = findViewById(R.id.txtProfilCategories);
 
-        /*txtProfilIncome.setText(demo);
-        txtProfilSave.setText();
-        txtProfilMonthlyEx.setText();
-        txtProfilCategories.setText();*/
+        setProfileInfo();
 
         Toolbar toolbar = findViewById(R.id.profiltoolbar);
         setSupportActionBar(toolbar);
+    }
+
+    public void setProfileInfo() {
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if (extras != null) {
+
+            int income = intent.getIntExtra("income", -1000);
+            int save = intent.getIntExtra("income", -1000);
+            int monthly = intent.getIntExtra("income", -1000);
+            String category = intent.getStringExtra("category");
+
+            Profile newInfo = new Profile(income, save, monthly, category);
+
+            txtProfilIncome.setText(newInfo.getIncomePerMonth());
+            txtProfilSave.setText(newInfo.getSavePerMonth());
+            txtProfilMonthlyEx.setText(newInfo.getExpensesPerMonth());
+            txtProfilCategories.setText(newInfo.getCategoryToSave());
+        }
+
+        else {
+            txtProfilIncome.setText("Set income");
+            txtProfilSave.setText("Set saving");
+            txtProfilMonthlyEx.setText("Set expenses");
+            txtProfilCategories.setText("Set categories");
+        }
     }
 
     // TODO: Items vises ikke i toolbar. får ikke plass i layout. Need Fix
