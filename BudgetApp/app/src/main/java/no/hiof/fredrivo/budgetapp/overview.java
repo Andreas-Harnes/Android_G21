@@ -1,8 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
@@ -13,21 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class overview extends AppCompatActivity {
 
@@ -54,6 +42,12 @@ public class overview extends AppCompatActivity {
 
         //Drawer
         drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -62,29 +56,7 @@ public class overview extends AppCompatActivity {
                 drawer.closeDrawers();
 
                 //TODO: legg til funksjoner
-                return false;
-            }
-        });
-
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View view, float v) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View view) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View view) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int i) {
-
+                return true;
             }
         });
 
@@ -134,35 +106,25 @@ public class overview extends AppCompatActivity {
     }
 
     // drawer element from fredrik start
+
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
                 return true;
-        }
-
-        int id = item.getItemId();
-
-
-        if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.detail) {
-            Intent intent = new Intent(this, DetailActivity.class);
-            startActivity(intent);
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
