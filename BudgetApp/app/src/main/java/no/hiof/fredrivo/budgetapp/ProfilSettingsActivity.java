@@ -1,5 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,23 +37,23 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        intentSaveChanges = new Intent(this, ProfilActivity.class);
 
-        txtMonthlyEx = findViewById(R.id.txtProfilSave);
+        txtMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtIncome = findViewById(R.id.txtProfilIncome);
-        txtSavePrMonth = findViewById(R.id.txtProfilMonthlyEx);
+        txtSavePrMonth = findViewById(R.id.txtProfilSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
 
         Button saveBtn = findViewById(R.id.saveBtn);
+        intentSaveChanges = new Intent(this, ProfilActivity.class);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                int monthly = Integer.parseInt(txtMonthlyEx.toString());
-                int income = Integer.parseInt(txtIncome.toString());
-                int save = Integer.parseInt(txtSavePrMonth.toString());
-                String category = txtCategoriesForSaving.toString();
+                int monthly = Integer.valueOf(txtMonthlyEx.getText().toString());
+                int income = Integer.valueOf(txtIncome.getText().toString());
+                int save = Integer.valueOf(txtSavePrMonth.getText().toString());
+                String category = txtCategoriesForSaving.getText().toString();
 
                 Bundle bundle = new Bundle();
 
@@ -63,7 +64,10 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
                 intentSaveChanges.putExtras(bundle);
 
-                startActivity(intentSaveChanges);
+                setResult(Activity.RESULT_OK, intentSaveChanges);
+
+                finish();
+
             }
         });
     }
