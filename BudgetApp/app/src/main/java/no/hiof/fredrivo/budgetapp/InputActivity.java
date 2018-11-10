@@ -1,9 +1,12 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +53,16 @@ public class InputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+
+        //Gjør det mulig å hide keyboardet når man trykker på skjermen
+        findViewById(R.id.activity_input_background).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //metoden som gjømmer keyboardet
+                hideSoftKeyboard();
+                return true;
+            }
+        });
 
         numPrice = findViewById(R.id.numPrice);
         drpDateDay = findViewById(R.id.drpDateDay);
@@ -143,9 +156,8 @@ public class InputActivity extends AppCompatActivity {
         });
     }
 
-    /*public List<String> categories(String newCat) {
-
-        arrayCategories.add(newCat);
-        return arrayCategories;
-    }*/
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
+}
