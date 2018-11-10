@@ -12,14 +12,14 @@ import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class day_tab extends Fragment {
-
+     private static final String TAG = "Tab1frag";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
 
         //setter opp RecyclerView, LayoutManager og adapter
 
-        RecyclerView dayTabRecyclerView = root.findViewById(R.id.detailRecyclerView);
+        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

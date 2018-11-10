@@ -15,7 +15,7 @@ import no.hiof.fredrivo.budgetapp.R;
  */
 public class week_tab extends Fragment {
 
-
+    private static final String TAG = "Tab2frag";
     public week_tab() {
         // Required empty public constructor
     }
