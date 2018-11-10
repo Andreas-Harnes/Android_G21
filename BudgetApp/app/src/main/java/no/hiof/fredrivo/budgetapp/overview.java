@@ -1,10 +1,13 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,18 +50,61 @@ public class overview extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
         //Drawer
-        /**
-         drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawer.closeDrawers();
 
-         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-         drawer.addDrawerListener(drawerToggle);
-         **/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+                //TODO: legg til funksjoner
+                return false;
+            }
+        });
 
-// DO NOT TOUCH
-        intentInputActivity = new Intent(getApplicationContext(), InputActivity.class);
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+                
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+
+            }
+        });
+
+        // Creates the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Sets up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+       // intentInputActivity = new Intent(getApplicationContext(), InputActivity.class); */
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,44 +120,39 @@ public class overview extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-        // tablayout end
+//    @Override
+//    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        drawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        drawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_overview, menu);
+//        return true;
+//    }
 
-    }
-
-    //viewpager and adapter
-    private void setupViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new day_tab(),"Tab1");
-        adapter.addFragment(new week_tab(),"Tab2");
-        adapter.addFragment(new month_tab(),"Tab3");
-        viewPager.setAdapter(adapter);
-    }
-
-
-    /**
-     * @Override protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-     * super.onPostCreate(savedInstanceState);
-     * //   drawerToggle.syncState();
-     * }
-     * @Override public void onConfigurationChanged(Configuration newConfig) {
-     * super.onConfigurationChanged(newConfig);
-     * drawerToggle.onConfigurationChanged(newConfig);
-     * }
-     * @Override public boolean onCreateOptionsMenu(Menu menu) {
-     * // Inflate the menu; this adds items to the action bar if it is present.
-     * getMenuInflater().inflate(R.menu.menu_overview, menu);
-     * return true;
-     * }
-     **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+
         int id = item.getItemId();
+
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
