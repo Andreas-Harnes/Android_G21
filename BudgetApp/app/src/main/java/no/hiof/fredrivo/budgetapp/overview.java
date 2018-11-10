@@ -67,18 +67,22 @@ public class overview extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        intentInputActivity = new Intent(this, InputActivity.class);
+       // intentInputActivity = new Intent(getApplicationContext(), InputActivity.class); */
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentInputActivity);
+                test(view);
+
             }
         });
 
     }
-
+    public void test(View view){
+        intentInputActivity = new Intent(this, InputActivity.class);
+        startActivity(intentInputActivity);
+    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {

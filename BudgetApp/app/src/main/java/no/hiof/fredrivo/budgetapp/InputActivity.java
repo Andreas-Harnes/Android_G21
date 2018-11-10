@@ -42,9 +42,8 @@ public class InputActivity extends AppCompatActivity {
     private String category;
 
 
-//    private FirebaseDatabase dataBase;
+    //    private FirebaseDatabase dataBase;
     private DatabaseReference myRef;
-
 
 
     @Override
@@ -111,23 +110,23 @@ public class InputActivity extends AppCompatActivity {
         drpDateYear.setAdapter(adapterYears);
 
         intentOverview = new Intent(this, overview.class);
-        finish();
 
         Button btnAdd = findViewById(R.id.btnRegister);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               String id = myRef.push().getKey();
-               price = Integer.parseInt(numPrice.getText().toString());
-               date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
-               location = txtLocation.getText().toString();
-               description = txtDescription.getText().toString();
-               category = drpCategory.getSelectedItem().toString();
+                String id = myRef.push().getKey();
+                price = Integer.parseInt(numPrice.getText().toString());
+                date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
+                location = txtLocation.getText().toString();
+                description = txtDescription.getText().toString();
+                category = drpCategory.getSelectedItem().toString();
 
                 myRef.child(id).setValue(new Expenses(price, date, location, description, category));
 
                 startActivity(intentOverview);
+                finish();
             }
         });
 
@@ -149,4 +148,4 @@ public class InputActivity extends AppCompatActivity {
         arrayCategories.add(newCat);
         return arrayCategories;
     }*/
-}
+    }
