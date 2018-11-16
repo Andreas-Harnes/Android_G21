@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +30,6 @@ public class InputActivity extends AppCompatActivity {
     private Intent intentOverview;
     private Intent intentNewCategory;
     private EditText numPrice;
-    private EditText datePurchaseDate;
     private EditText txtLocation;
     private EditText txtDescription;
 
@@ -54,6 +55,10 @@ public class InputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
 
+        // Google login
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+
         //Gjør det mulig å hide keyboardet når man trykker på skjermen
         findViewById(R.id.activity_input_background).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -73,7 +78,7 @@ public class InputActivity extends AppCompatActivity {
         drpCategory = findViewById(R.id.drpCategory);
 
 
-        myRef = FirebaseDatabase.getInstance().getReference("Expenses");
+        myRef = FirebaseDatabase.getInstance().getReference(account.getId());
 
         ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
 
@@ -120,7 +125,6 @@ public class InputActivity extends AppCompatActivity {
         drpDateYear.setAdapter(adapterYears);
 
         intentOverview = new Intent(this, overview.class);
-
         Button btnAdd = findViewById(R.id.btnRegister);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +137,7 @@ public class InputActivity extends AppCompatActivity {
                 description = txtDescription.getText().toString();
                 category = drpCategory.getSelectedItem().toString();
 
-                myRef.child(id).setValue(new Expenses(price, date, location, description, category));
+                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
 
                 startActivity(intentOverview);
                 finish();

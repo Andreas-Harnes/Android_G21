@@ -16,6 +16,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import static java.util.Calendar.LONG;
+import static java.util.Calendar.SHORT;
 
 public class overview extends AppCompatActivity {
 
@@ -28,17 +36,34 @@ public class overview extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Google login
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        
+        if(account != null) {
+            Toast.makeText(this, account.getGivenName(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
+        }
+        
+        
         setContentView(R.layout.activity_overview);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        intentInputActivity = new Intent(this, InputActivity.class);
+
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
 
         //Drawer
         drawer = findViewById(R.id.drawer_layout);
@@ -52,13 +77,22 @@ public class overview extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawer.closeDrawers();
+
+
+                switch (menuItem.getItemId()) {
+                    case R.id.overview:
+                        menuItem.setChecked(true);
+                        Toast.makeText(overview.this, "overview", Toast.LENGTH_SHORT).show();
+                        //drawer.closeDrawers();
+                        return true;
+
+                }
 
                 //TODO: legg til funksjoner
-                return true;
+                return false;
             }
         });
+
 
         // Creates the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -79,8 +113,8 @@ public class overview extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentInputActivity);
 
+                startActivity(intentInputActivity);
             }
         });
 
@@ -91,9 +125,9 @@ public class overview extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
-        // TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        // tablayout end
+//         tablayout end
     }
 
     //viewpager and adapter

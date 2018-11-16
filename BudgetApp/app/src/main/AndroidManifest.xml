@@ -15,7 +15,7 @@
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
         <activity
-            android:name=".overview"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_overview"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewCategoryActivity"></activity>
+        <activity android:name=".NewCategoryActivity" />
+        <activity android:name=".overview"></activity>
     </application>
 
 </manifest>

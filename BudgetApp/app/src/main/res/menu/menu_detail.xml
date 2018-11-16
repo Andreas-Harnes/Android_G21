@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="no.hiof.fredrivo.budgetapp.DetailActivity">
 
-
     <item
         android:id="@+id/overview"
         android:orderInCategory="100"
         android:title="@string/home"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        />
     <item
         android:id="@+id/profile"
         android:orderInCategory="100"
@@ -20,4 +20,6 @@
         android:orderInCategory="100"
         android:title="@string/Detail"
         app:showAsAction="never" />
+
+
 </menu>
