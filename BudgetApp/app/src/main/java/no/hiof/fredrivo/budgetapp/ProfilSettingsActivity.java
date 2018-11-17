@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import no.hiof.fredrivo.budgetapp.classes.Categories;
 
@@ -28,6 +31,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private EditText txtIncome;
     private EditText txtSavePrMonth;
     private TextView txtCategoriesForSaving;
+    private ArrayList<String> saveCategoriesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterSettingsCat = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
         adapterSettingsCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drpSettingsCat.setAdapter(adapterSettingsCat);
-
-        String fillCategories = drpSettingsCat.getSelectedItem().toString();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,7 +56,46 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         //TODO: bruk onItemSelected for å fylle kategorier inn i txtCategoriesForSaving
         //TODO: sett et tomt element i toppen av spinner
         //TODO: appende flere kategorier i TextViewet
-        txtCategoriesForSaving.setText(fillCategories);
+
+        Button btnAddCategory = findViewById(R.id.btnAddCatSettings);
+        btnAddCategory.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String fillCategories = drpSettingsCat.getSelectedItem().toString();
+
+                if (saveCategoriesList.contains(fillCategories)) {
+                    Toast.makeText(ProfilSettingsActivity.this, "Category already added", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    saveCategoriesList.add(fillCategories);
+                }
+
+                StringBuilder builder = new StringBuilder();
+
+                int i = 0;
+
+                for (String s : saveCategoriesList) {
+
+                    if (i == 4) {
+                        Toast.makeText(getApplicationContext(), "Maximum 4 categories", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if (i == 0) {
+                        builder.append(s);
+                    }
+
+                    else {
+                        String s2 = ", " + s;
+                        builder.append(s2);
+                    }
+
+                    i++;
+                }
+                txtCategoriesForSaving.setText(builder);
+            }
+        });
 
         Context context = this.getApplicationContext();
         Button saveBtn = findViewById(R.id.saveBtn);
@@ -85,6 +126,8 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public ArrayList<String> getSaveCategoriesList() { return saveCategoriesList; }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

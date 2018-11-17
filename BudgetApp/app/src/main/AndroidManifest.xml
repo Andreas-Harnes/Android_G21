@@ -10,14 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InputActivity" />
-        <activity android:name=".ProfilActivity" />
+        <activity android:name=".ChartActivity" />
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".LoginActivity" />
         <activity
-            android:name=".ChartActivity"
+            android:name=".ProfilActivity"
             android:label="@string/title_activity_overview"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".NewCategoryActivity" />

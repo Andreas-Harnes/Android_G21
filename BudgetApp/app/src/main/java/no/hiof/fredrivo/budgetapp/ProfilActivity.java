@@ -109,9 +109,9 @@ public class ProfilActivity extends AppCompatActivity {
                 String category = i.getStringExtra("category");
                 Profile newInfo = new Profile(income, save, monthly, category);
 
-                txtProfilIncome.setText(String.valueOf(newInfo.getIncomePerMonth()));
-                txtProfilSave.setText(String.valueOf(newInfo.getSavePerMonth()));
-                txtProfilMonthlyEx.setText(String.valueOf(newInfo.getExpensesPerMonth()));
+                txtProfilIncome.setText(String.valueOf(newInfo.getIncomePerMonth() + ",-"));
+                txtProfilSave.setText(String.valueOf(newInfo.getSavePerMonth() + ",-"));
+                txtProfilMonthlyEx.setText(String.valueOf(newInfo.getExpensesPerMonth() + ",-"));
                 txtProfilCategories.setText(newInfo.getCategoryToSave());
             }
 
