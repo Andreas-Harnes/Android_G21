@@ -87,6 +87,8 @@ public class InputActivity extends AppCompatActivity {
 
         // Dropdown menus for date
         // TODO: Integrere på en sikkelig måte
+
+        // TODO: Fikse slik at dropdown menyene starter på dagens dato
         // Fyller opp dag, måned og års arrayene med data
         List<Integer> arrayDays =  new ArrayList<>();
         for (int x = 1; x<31; x++) {
