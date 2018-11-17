@@ -51,7 +51,7 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpense
 
         //setter innhold i view til å være info fra expenselist
         public void setExpenses (Expenses ex) {
-            txtDaySum.setText(ex.getSum()+"");
+            txtDaySum.setText(ex.getSum()+ ",-");
             txtDayCategory.setText(ex.getCategory());
         }
     }
