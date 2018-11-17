@@ -44,7 +44,7 @@ public class InputActivity extends AppCompatActivity {
     private String location;
     private String description;
     private String category;
-
+    private  GoogleSignInAccount account;
 
     //    private FirebaseDatabase dataBase;
     private DatabaseReference myRef;
@@ -55,9 +55,15 @@ public class InputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
 
-        // Google login
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
+
+
+        try {
+            // Google login
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //Gjør det mulig å hide keyboardet når man trykker på skjermen
         findViewById(R.id.activity_input_background).setOnTouchListener(new View.OnTouchListener() {
