@@ -11,21 +11,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".InputActivity" />
         <activity android:name=".ProfilActivity" />
-        <activity android:name=".GraphActivity" />
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ChartActivity"
             android:label="@string/title_activity_overview"
             android:theme="@style/AppTheme">
 
         </activity>
         <activity android:name=".NewCategoryActivity" />
-        <activity android:name=".overview"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".overview" />
     </application>
 
 </manifest>

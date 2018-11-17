@@ -14,8 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import static java.util.TimeZone.SHORT;
 
@@ -24,18 +22,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "";
     private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 1;
-    private DatabaseReference mDatabase;
-
 
     private Intent intentOverview;
 
-    // TODO: Fikse design på denne activityen
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         intentOverview = new Intent(this, overview.class);
 
@@ -101,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Toast.makeText(this, account.getGivenName(), SHORT).show();
+//            Toast.makeText(this, account.getGivenName(), SHORT).show();
             startActivity(intentOverview);
             finish();
 
