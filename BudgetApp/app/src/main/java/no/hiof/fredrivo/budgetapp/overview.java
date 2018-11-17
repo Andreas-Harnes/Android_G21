@@ -1,6 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
-import android.annotation.SuppressLint;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,14 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-import static java.util.Calendar.LONG;
-import static java.util.Calendar.SHORT;
 
 public class overview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -159,6 +156,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             // Handle the camera action
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
@@ -166,9 +164,11 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
             startActivity(intent);
+        
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

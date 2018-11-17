@@ -58,11 +58,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         List<PieEntry> pieChartList = new ArrayList<>();
 
         //TestData
-        List<Expenses> TestData = new ArrayList<>();
-//        TestData.add(new Expenses(100, "11/04/2017", "Halden", "Sulten","Mat"));
-//        TestData.add(new Expenses(200, "04/04/2018", "Halden", "bleh","Bil"));
-//        TestData.add(new Expenses(150, "03/11/2017", "Halden", "Mat?","Drikke"));
-//        TestData.add(new Expenses(400, "17/08/2017", "Halden", "namm","Pølse"));
+        List<Expenses> TestData = Expenses.TestData();
 
         //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke.
         int moneyLeft = 1000;
@@ -81,6 +77,13 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueTextSize(16f);
 
+        Legend legend = pieChart.getLegend();
+        legend.setTextSize(16f);
+        legend.setWordWrapEnabled(true);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+
         PieData pieData = new PieData(dataSet);
 
         pieChart.setData(pieData);
@@ -97,16 +100,21 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         if (id == R.id.home) {
             // Handle the camera action
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
-
+            finish();
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
             startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
