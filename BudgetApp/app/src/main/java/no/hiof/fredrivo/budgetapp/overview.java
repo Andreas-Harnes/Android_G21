@@ -1,5 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -25,7 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import static java.util.Calendar.LONG;
 import static java.util.Calendar.SHORT;
 
-public class overview extends AppCompatActivity {
+public class overview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -33,7 +34,7 @@ public class overview extends AppCompatActivity {
 
     //Ha med på flere activities
     private DrawerLayout drawer;
-    private ActionBarDrawerToggle drawerToggle;
+  //  private ActionBarDrawerToggle drawerToggle;
 
 
 
@@ -41,17 +42,17 @@ public class overview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         // Google login
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        
+
         if(account != null) {
             Toast.makeText(this, account.getGivenName(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
         }
-        
-        
+
+
         setContentView(R.layout.activity_overview);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -65,34 +66,26 @@ public class overview extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
-        //Drawer
+        //Drawer on create
+        /**
         drawer = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle Dtoggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        drawer.addDrawerListener(Dtoggle);
+        Dtoggle.syncState();
 
         NavigationView navView = findViewById(R.id.nav_view);
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        navView.setNavigationItemSelectedListener(this);
+        **/
 
+        DrawerLayout draw = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        draw.addDrawerListener(toggle);
+        toggle.syncState();
 
-                switch (menuItem.getItemId()) {
-                    case R.id.overview:
-                        menuItem.setChecked(true);
-                        Toast.makeText(overview.this, "overview", Toast.LENGTH_SHORT).show();
-                        //drawer.closeDrawers();
-                        return true;
-
-                }
-
-                //TODO: legg til funksjoner
-                return false;
-            }
-        });
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Creates the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -139,32 +132,24 @@ public class overview extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    // drawer element from fredrik start
-
 
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.home) {
+            // Handle the camera action
+        } else if (id == R.id.profile) {
+            Intent intent = new Intent(this, ProfilActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.detail) {
+            Intent intent = new Intent(this,DetailActivity.class);
+            startActivity(intent);
         }
-        else {
-            super.onBackPressed();
-        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    // slutt
-
-
 }

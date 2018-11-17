@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Toast.makeText(this, account.getGivenName(), SHORT).show();
             startActivity(intentOverview);
-//            finish();
+            finish();
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
