@@ -44,6 +44,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Google login
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -73,6 +74,8 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         draw.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         // slutt for navi drawer
@@ -90,14 +93,19 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+
+
+
        intentInputActivity = new Intent(getApplicationContext(), InputActivity.class);
 
+        // FAB button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 startActivity(intentInputActivity);
+                finish();
             }
         });
 
@@ -111,6 +119,9 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 //        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 //         tablayout end
+
+
+
     }
 
     //viewpager and adapter

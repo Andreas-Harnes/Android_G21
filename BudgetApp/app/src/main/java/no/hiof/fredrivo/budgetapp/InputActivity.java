@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -136,6 +137,8 @@ public class InputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Expenses userExpense = new Expenses();
+
                 String id = myRef.push().getKey();
                 price = Integer.parseInt(numPrice.getText().toString());
                 date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
@@ -143,7 +146,17 @@ public class InputActivity extends AppCompatActivity {
                 description = txtDescription.getText().toString();
                 category = drpCategory.getSelectedItem().toString();
 
-                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
+
+                userExpense.setCategory(category);
+                userExpense.setDate(date);
+                userExpense.setDescription(description);
+                userExpense.setLocation(location);
+                userExpense.setSum(price);
+
+                Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
+
+//                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
+                myRef.child("Expenses").child(id).setValue(userExpense);
 
                 startActivity(intentOverview);
                 finish();

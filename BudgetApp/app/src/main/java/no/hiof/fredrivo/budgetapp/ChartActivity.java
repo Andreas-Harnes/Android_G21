@@ -59,10 +59,10 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         //TestData
         List<Expenses> TestData = new ArrayList<>();
-        TestData.add(new Expenses(100, "11/04/2017", "Halden", "Sulten","Mat"));
-        TestData.add(new Expenses(200, "04/04/2018", "Halden", "bleh","Bil"));
-        TestData.add(new Expenses(150, "03/11/2017", "Halden", "Mat?","Drikke"));
-        TestData.add(new Expenses(400, "17/08/2017", "Halden", "namm","Pølse"));
+//        TestData.add(new Expenses(100, "11/04/2017", "Halden", "Sulten","Mat"));
+//        TestData.add(new Expenses(200, "04/04/2018", "Halden", "bleh","Bil"));
+//        TestData.add(new Expenses(150, "03/11/2017", "Halden", "Mat?","Drikke"));
+//        TestData.add(new Expenses(400, "17/08/2017", "Halden", "namm","Pølse"));
 
         //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke.
         int moneyLeft = 1000;
