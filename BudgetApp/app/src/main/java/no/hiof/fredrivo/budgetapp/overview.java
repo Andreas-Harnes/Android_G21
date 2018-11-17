@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -65,19 +67,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
-        //Drawer on create
-        /**
-        drawer = findViewById(R.id.drawer_layout);
-
-        ActionBarDrawerToggle Dtoggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(Dtoggle);
-        Dtoggle.syncState();
-
-        NavigationView navView = findViewById(R.id.nav_view);
-        navView.setNavigationItemSelectedListener(this);
-        **/
-
+        // implementering av navigation drawer!
         DrawerLayout draw = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         draw.addDrawerListener(toggle);
@@ -85,6 +75,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        // slutt for navi drawer
 
         // Creates the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -131,6 +122,23 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         viewPager.setAdapter(adapter);
     }
 
+    // inflating button for camera
+    @Override
+    public boolean onCreateOptionsMenu(Menu m){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.camera_button,m);
+
+        return true;
+    }
+    //action when button is pressed
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.camera_button){
+            Toast.makeText(this, "Opening Camera", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
