@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InputActivity" />
-        <activity android:name=".ChartActivity" />
+        <activity android:name=".overview" />
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".LoginActivity" />
         <activity
-            android:name=".ProfilActivity"
+            android:name=".ChartActivity"
             android:label="@string/title_activity_overview"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -26,7 +26,7 @@
 
         </activity>
         <activity android:name=".NewCategoryActivity" />
-        <activity android:name=".overview" />
+        <activity android:name=".ProfilActivity" />
     </application>
 
 </manifest>

@@ -146,12 +146,17 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         if (id == R.id.home) {
             // Handle the camera action
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.chart) {
+            Intent intent = new Intent(this,ChartActivity.class);
             startActivity(intent);
         }
 
