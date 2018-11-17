@@ -79,10 +79,9 @@ public class day_tab extends Fragment {
         View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
 
         //setter opp RecyclerView, LayoutManager og adapter
-
         RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
 
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 

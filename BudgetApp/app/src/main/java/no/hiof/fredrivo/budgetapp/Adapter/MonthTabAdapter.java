@@ -11,25 +11,25 @@ import java.util.List;
 import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
-public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpenseViewHolder> {
+public class MonthTabAdapter extends RecyclerView.Adapter<MonthTabAdapter.MonthExpenseViewHolder> {
 
     private List<Expenses> expenseList;
 
     //konstruktør
-    public DayTabAdapter(List<Expenses> expenseList) { this.expenseList = expenseList; }
+    public MonthTabAdapter(List<Expenses> expenseList) { this.expenseList = expenseList; }
 
-    //setter ViewHolder til day_tab_list_item.xml
+    //setter ViewHolder til month_tab_list_item.xml
     @NonNull
     @Override
-    public DayTabAdapter.DayExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.day_tab_list_item, viewGroup, false);
+    public MonthTabAdapter.MonthExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.month_tab_list_item, viewGroup, false);
 
-        return new DayTabAdapter.DayExpenseViewHolder(v);
+        return new MonthTabAdapter.MonthExpenseViewHolder(v);
     }
 
     //henter posisjon i expenseList, kaller setExpenses-metoden
     @Override
-    public void onBindViewHolder(DayTabAdapter.DayExpenseViewHolder expenseViewHolder, int i) {
+    public void onBindViewHolder(MonthTabAdapter.MonthExpenseViewHolder expenseViewHolder, int i) {
         Expenses ex = expenseList.get(i);
         expenseViewHolder.setExpenses(ex);
     }
@@ -38,12 +38,12 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpense
     public int getItemCount() { return expenseList.size(); }
 
     //indre klasse for fylling av CardView/ViewHolder
-    class DayExpenseViewHolder extends RecyclerView.ViewHolder {
+    class MonthExpenseViewHolder extends RecyclerView.ViewHolder {
         private TextView txtDaySum;
         private TextView txtDayCategory;
 
         //konstruktør som tar imot ViewHolder og henter info fra den
-        public DayExpenseViewHolder(View v) {
+        public MonthExpenseViewHolder(View v) {
             super(v);
             txtDaySum = v.findViewById(R.id.txtDaySum);
             txtDayCategory = v.findViewById(R.id.txtDayCategory);
