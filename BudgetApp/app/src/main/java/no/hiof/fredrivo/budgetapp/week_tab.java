@@ -30,7 +30,8 @@ public class week_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         WeekTabRecyclerView.setLayoutManager(layoutManager);
 
-        WeekTabRecyclerView.setAdapter(new WeekTabAdapter(Expenses.getExpenseList()));
+        //TODO: ta bort TestData når vi har funksjonalitet
+        WeekTabRecyclerView.setAdapter(new WeekTabAdapter(Expenses.TestData()));
 
         return root;
     }

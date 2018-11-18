@@ -51,27 +51,21 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
         }
 
-
         setContentView(R.layout.activity_overview);
 
+        //Toolbar og navigationDrawer start:
         Toolbar toolbar = findViewById(R.id.toolbar);
-
-        intentInputActivity = new Intent(this, InputActivity.class);
-
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-
         // implementering av navigation drawer!
         draw = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         draw.addDrawerListener(toggle);
         toggle.syncState();
-
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -94,7 +88,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
 
        intentInputActivity = new Intent(getApplicationContext(), InputActivity.class);
-
         // FAB button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -152,9 +145,9 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if (id == R.id.home) {
-            // Handle the camera action
+        if (id == R.id.overview) {
             draw.closeDrawers();
+
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);

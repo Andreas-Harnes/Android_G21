@@ -23,8 +23,6 @@
     <string name="today">Today</string>
     <string name="month">This Month</string>
     <string name="week">This Week</string>
-
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save_changes">Save Changes</string>
     <string name="overview">Overview</string>
@@ -40,7 +38,6 @@
     <string name="sum_test">1000.00 kr</string>
     <string name="test_butikk">Butikk</string>
     <string name="Detail">Detail</string>
-    =======
     <string name="home">Home</string>
     <string name="hello">Hello</string>
     <string name="category">Category</string>
@@ -57,5 +54,4 @@
     <string name="google_navn">her skal det stå et navn fra google konto</string>
     <string name="Chart">Chart</string>
     <string name="your_total_expenses">Your total Expenses</string>
-    >>>>>>> Stashed changes
 </resources>

@@ -29,7 +29,8 @@ public class month_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         monthTabRecyclerView.setLayoutManager(layoutManager);
 
-        monthTabRecyclerView.setAdapter(new MonthTabAdapter(Expenses.getExpenseList()));
+        //TODO: ta bort TestData når vi har funksjonalitet
+        monthTabRecyclerView.setAdapter(new MonthTabAdapter(Expenses.TestData()));
 
         return root;
     }

@@ -1,6 +1,12 @@
 package no.hiof.fredrivo.budgetapp;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,12 +17,13 @@ import android.widget.Toast;
 
 import no.hiof.fredrivo.budgetapp.classes.Profile;
 
-public class ProfilActivity extends AppCompatActivity {
+public class ProfilActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private TextView txtProfilIncome;
     private TextView txtProfilSave;
     private TextView txtProfilMonthlyEx;
     private TextView txtProfilCategories;
+    private DrawerLayout draw;
 
 
     @Override
@@ -29,10 +36,25 @@ public class ProfilActivity extends AppCompatActivity {
         txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtProfilCategories = findViewById(R.id.txtProfilCategories);
 
-        //setProfileInfo();
 
+
+        //Toolbar og navigationDrawer start:
         Toolbar toolbar = findViewById(R.id.profiltoolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        // implementering av navigation drawer!
+        draw = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        draw.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        // slutt for navi drawer
     }
 
 
@@ -82,17 +104,6 @@ public class ProfilActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -123,5 +134,31 @@ public class ProfilActivity extends AppCompatActivity {
                 txtProfilCategories.setText("Set categories");
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.overview) {
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
+            finish();
+
+        } else if (id == R.id.profile) {
+            draw.closeDrawers();
+
+        } else if (id == R.id.detail) {
+            Intent intent = new Intent(this,DetailActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.chart) {
+            Intent intent = new Intent(this,ChartActivity.class);
+            startActivity(intent);
+
+        }
+
+        draw.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

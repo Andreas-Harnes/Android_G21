@@ -14,7 +14,6 @@ public class Expenses {
     private String description;
     private String category;
 
-
    public Expenses() {
 
     }
@@ -49,6 +48,7 @@ public class Expenses {
 
 
     public static List<Expenses> TestData(){
+
        List<Expenses> expenseList = new ArrayList<>();
 
        Expenses data1 = new Expenses();
@@ -82,8 +82,14 @@ public class Expenses {
         data4.setDescription("namm");
         data4.setCategory("Pølse");
 
+        expenseList.add(data1);
+        expenseList.add(data2);
+        expenseList.add(data3);
+        expenseList.add(data4);
 
-       return expenseList;
+
+
+        return expenseList;
     }
 
 }

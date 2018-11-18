@@ -85,7 +85,8 @@ public class day_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(expensesArrayList));
+        //TODO: ta bort TestData når vi har funksjonalitet
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(Expenses.TestData()));
 
         return root;
     }
