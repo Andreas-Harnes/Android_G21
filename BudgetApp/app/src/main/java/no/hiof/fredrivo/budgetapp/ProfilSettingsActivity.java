@@ -40,46 +40,46 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_settings);
 
-        //finds views from xml file
+        //finner views fra xml
         drpSettingsCat = findViewById(R.id.drpSettingsCat);
         txtMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
         txtIncome = findViewById(R.id.txtProfilSettingsIncome);
         txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
 
-        //adapter to put categories from arraylist into dropdown menu
+        //adapter for å putte kategorier fra arraylist inni dropdownmeny
         ArrayAdapter<String> adapterSettingsCat = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
         adapterSettingsCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         drpSettingsCat.setAdapter(adapterSettingsCat);
 
-        //sets toolbar for this activity
+        //setter toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //onclicklistener on background to hide keyboard
-        /*findViewById(R.id.profilSettingsBackground).setOnTouchListener(new View.OnTouchListener() {
+        //onclicklistener på bakgrunn for å gjemme tastatur
+        findViewById(R.id.profilSettingsBackground).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                //calls method to hide keyboard
+                //kaller metode som gjemmer tastatur
                 hideSoftKeyboard();
                 return true;
             }
-        });*/
+        });
 
-        //finds button for adding category from xml
+        //finner knapp for å legge til kategori
         Button btnAddCategory = findViewById(R.id.btnAddCatSettings);
 
-        //sets onclicklistener to category button
+        //setter onClickListener på kategoriknapp
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                //current item in dropdown menu
+                //nåværende objekt i dropdownmeny
                 String fillCategories = drpSettingsCat.getSelectedItem().toString();
 
-                //adds current item to arraylist, if it is not already added
+                //legger til nåværende objekt i arraylist, hvis det ikke er det allerede
                 if (saveCategoriesList.contains(fillCategories)) {
                     Toast.makeText(ProfilSettingsActivity.this, "Category already added", Toast.LENGTH_SHORT).show();
                 }
@@ -87,26 +87,26 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                     saveCategoriesList.add(fillCategories);
                 }
 
-                //creates stringbuilder to contain chosen categories and append new ones
+                //lager stringbuilder for å holde på valgte kategorier og legge på nye
                 StringBuilder builder = new StringBuilder();
 
-                //creates index to check which element it is
+                //lager index for å sjekke hvilket element vi er på
                 int i = 0;
 
-                //for each loop to add elements from arraylist to textview
+                //for each for å legge til elementer fra arraylist til textview
                 for (String s : saveCategoriesList) {
 
-                    //checks if there are more than 4 elements in the list, gives toast if true
+                    //sjekker om der er mer enn 4 elementer i lista, sier ifra med toast
                     if (i == 4) {
                         Toast.makeText(getApplicationContext(), "Maximum 4 categories", Toast.LENGTH_SHORT).show();
                     }
 
-                    //checks if this is the first element, adds element without comma
+                    //sjekker om dette er det første elementet, legger til kategori uten komma
                     else if (i == 0) {
                         builder.append(s);
                     }
 
-                    //adds element with comma
+                    //legger til kategori med komma
                     else {
                         String s2 = ", " + s;
                         builder.append(s2);
@@ -115,44 +115,44 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                     i++;
                 }
 
-                //sets content of textview to be string in stringbuilder
+                //setter innholder til textview til å være stringen i stringbuilder
                 txtCategoriesForSaving.setText(builder);
             }
         });
 
         Context context = this.getApplicationContext();
 
-        //finds button for saving changes from xml
+        //finner knapp for å lagre endringer
         Button saveBtn = findViewById(R.id.saveBtn);
 
-        //new intent to ProfilActivity
+        //intent for å gå til ProfilActivity
         intentSaveChanges = new Intent(context, ProfilActivity.class);
 
-        //sets onclicklistener to button for saving changes
+        //setter onClickListener på knapp for å lagre endringer
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                //gets text from views
+                //henter ut tekst fra views
                 int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
                 int income = Integer.parseInt(txtIncome.getText().toString());
                 int save = Integer.parseInt(txtSavePrMonth.getText().toString());
                 String category = txtCategoriesForSaving.getText().toString();
 
-                //creates bundle for transferring info to ProfilActivity
+                //lager bundle for å overføre info til ProfilActivity
                 Bundle bundle = new Bundle();
 
-                //puts info into bundle
+                //putter info inn i bundle
                 bundle.putInt("income", income);
                 bundle.putInt("save", save);
                 bundle.putInt("monthly", monthly);
                 bundle.putString("category", category);
 
-                //puts bundle into extra
+                //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);
 
-                //starts intent with result ok
+                //starter intent med result ok
                 setResult(Activity.RESULT_OK, intentSaveChanges);
                 finish();
 
@@ -160,11 +160,11 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         });
     }
 
-    //method to hide keyboard
-   /* public void hideSoftKeyboard() {
+    //metode for å gjemme tastatur
+   public void hideSoftKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-    }*/
+    }
 
     public ArrayList<String> getSaveCategoriesList() { return saveCategoriesList; }
 

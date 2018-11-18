@@ -95,37 +95,38 @@ public class InputActivity extends AppCompatActivity {
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         drpCategory.setAdapter(adapterCategories);
 
-        //creates calendar object and gets todays date
+        //utgangspunkt for date picker: https://www.youtube.com/watch?v=hwe1abDO2Ag
+        //lager Calendar objekt og henter dagens dato
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        //january is month nr 0, increments with one to correct
+        //januar er mnd nr 0, plusser på 1 for korreksjon
         month++;
 
-        //puts todays date into string today and sets it in txtdatepicker
+        //putter dagens dato i string today og setter den i txtDatePicker
         String today = day + "/" + month + "/" + year;
         txtDatePicker.setText(today);
 
-        //sets onclicklistener to button changedate
+        //setter en onClickListener til knappen changeDate
         btnChangeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //gets todays date from calendar object
+                //henter dagens dato fra Calendar objekt
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                //creates datepickerdialog
+                //lager datepickerdialog - selve "vinduet" der man velger dato
                 DatePickerDialog dialog = new DatePickerDialog(InputActivity.this, R.style.datepicker, dateDialog, year, month, day);
                 dialog.show();
             }
         });
 
-        //when date is picked, put into txtDatePicker
+        //når dato er valgt, sett den i txtDatePicker
         dateDialog = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
