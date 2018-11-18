@@ -32,6 +32,8 @@ import java.util.List;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class ChartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private DrawerLayout draw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        DrawerLayout draw = findViewById(R.id.drawer_layout);
+        draw = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         draw.addDrawerListener(toggle);
         toggle.syncState();
@@ -112,13 +114,10 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
             finish();
         } else if (id == R.id.chart) {
-            Intent intent = new Intent(this,ChartActivity.class);
-            startActivity(intent);
-            finish();
+            draw.closeDrawers();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        draw.closeDrawer(GravityCompat.START);
         return true;
     }
 }

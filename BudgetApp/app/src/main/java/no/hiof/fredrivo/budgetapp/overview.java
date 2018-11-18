@@ -31,7 +31,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private Intent intentInputActivity;
 
     //Ha med på flere activities
-    private DrawerLayout drawer;
+    private DrawerLayout draw;
   //  private ActionBarDrawerToggle drawerToggle;
 
 
@@ -66,7 +66,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
 
         // implementering av navigation drawer!
-        DrawerLayout draw = findViewById(R.id.drawer_layout);
+        draw = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         draw.addDrawerListener(toggle);
         toggle.syncState();
@@ -154,9 +154,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         if (id == R.id.home) {
             // Handle the camera action
-            Intent intent = new Intent(this, overview.class);
-            startActivity(intent);
-            finish();
+            draw.closeDrawers();
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
@@ -168,11 +166,10 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
             startActivity(intent);
-        
+
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        draw.closeDrawer(GravityCompat.START);
         return true;
     }
 }
