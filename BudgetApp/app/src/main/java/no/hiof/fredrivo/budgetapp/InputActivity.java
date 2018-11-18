@@ -159,7 +159,6 @@ public class InputActivity extends AppCompatActivity {
 
                     String id = myRef.push().getKey();
                     price = Integer.parseInt(numPrice.getText().toString());
-                    date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
                     location = txtLocation.getText().toString();
                     description = txtDescription.getText().toString();
                     category = drpCategory.getSelectedItem().toString();
