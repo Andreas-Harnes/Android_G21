@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="no.hiof.fredrivo.budgetapp.overview"
     tools:showIn="navigation_view">
@@ -9,23 +8,18 @@
         <item
             android:icon="@drawable/ic_action_home"
             android:id="@+id/overview"
-            android:title="@string/overview"
-             />
+            android:title="@string/overview" />
         <item
             android:icon="@drawable/ic_person"
             android:id="@+id/profile"
-            android:title="@string/Profile"
-            />
+            android:title="@string/Profile" />
         <item
             android:icon="@drawable/ic_format_align_left"
             android:id="@+id/detail"
-            android:title="@string/Detail"
-            app:showAsAction="never" />
+            android:title="@string/Detail" />
         <item
             android:icon="@drawable/ic_pie_chart"
             android:id="@+id/chart"
-            android:orderInCategory="100"
-            android:title="@string/Chart"
-            app:showAsAction="never" />
+            android:title="@string/Chart" />
     </group>
 </menu>

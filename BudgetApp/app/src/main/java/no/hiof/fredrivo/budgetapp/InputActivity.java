@@ -3,8 +3,6 @@ package no.hiof.fredrivo.budgetapp;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,19 +16,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
 import no.hiof.fredrivo.budgetapp.classes.Categories;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
-
 
 public class InputActivity extends AppCompatActivity {
 

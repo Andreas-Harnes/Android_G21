@@ -155,6 +155,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
             startActivity(intent);
+            finish();
 
         }
 

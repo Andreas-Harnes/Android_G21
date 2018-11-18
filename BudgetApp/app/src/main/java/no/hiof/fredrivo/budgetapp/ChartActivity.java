@@ -100,19 +100,18 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if (id == R.id.home) {
-            // Handle the camera action
+        if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
             startActivity(intent);
-            finish();
+
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
-            finish();
+
         } else if (id == R.id.detail) {
-            Intent intent = new Intent(this,DetailActivity.class);
+            Intent intent = new Intent(this, DetailActivity.class);
             startActivity(intent);
-            finish();
+
         } else if (id == R.id.chart) {
             draw.closeDrawers();
         }
