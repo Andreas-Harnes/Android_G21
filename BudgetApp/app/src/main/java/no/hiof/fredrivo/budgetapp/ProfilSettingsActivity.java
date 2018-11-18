@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +56,16 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         //sets toolbar for this activity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //onclicklistener on background to hide keyboard
+        /*findViewById(R.id.profilSettingsBackground).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //calls method to hide keyboard
+                hideSoftKeyboard();
+                return true;
+            }
+        });*/
 
         //finds button for adding category from xml
         Button btnAddCategory = findViewById(R.id.btnAddCatSettings);
@@ -147,6 +159,12 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method to hide keyboard
+   /* public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }*/
 
     public ArrayList<String> getSaveCategoriesList() { return saveCategoriesList; }
 

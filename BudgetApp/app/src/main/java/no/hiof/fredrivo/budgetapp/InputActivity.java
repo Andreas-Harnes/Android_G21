@@ -1,7 +1,10 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,8 +12,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.classes.Categories;
@@ -27,27 +33,28 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class InputActivity extends AppCompatActivity {
 
-    //variabler for items
+    //variabler for views
     private Intent intentOverview;
     private Intent intentNewCategory;
     private EditText numPrice;
     private EditText txtLocation;
     private EditText txtDescription;
-
+    private TextView txtDatePicker;
+    private Button btnChangeDate;
     private Spinner drpCategory;
 
-    private Spinner drpDateDay;
-    private Spinner drpDateMonth;
-    private Spinner drpDateYear;
+    //variabel for datepickerdialog
+    private DatePickerDialog.OnDateSetListener dateDialog;
 
     private int price;
     private String date;
     private String location;
     private String description;
     private String category;
+
     private  GoogleSignInAccount account;
 
-    //    private FirebaseDatabase dataBase;
+    //firebase reference
     private DatabaseReference myRef;
 
 
@@ -55,9 +62,6 @@ public class InputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
-
-
-
 
         try {
             // Google login
@@ -77,59 +81,53 @@ public class InputActivity extends AppCompatActivity {
         });
 
         numPrice = findViewById(R.id.numPrice);
-        drpDateDay = findViewById(R.id.drpDateDay);
-        drpDateMonth = findViewById(R.id.drpDateMonth);
-        drpDateYear = findViewById(R.id.drpDateYear);
         txtLocation = findViewById(R.id.txtLocation);
         txtDescription = findViewById(R.id.txtDescription);
         drpCategory = findViewById(R.id.drpCategory);
-
+        txtDatePicker = findViewById(R.id.txtDatePicker);
+        btnChangeDate = findViewById(R.id.btnChangeDate);
 
         myRef = FirebaseDatabase.getInstance().getReference(account.getId());
 
-        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
+        //creates calendar object and gets todays date
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drpCategory.setAdapter(adapterCategories);
+        //january is month nr 0, increments with one to correct
+        month++;
 
-        // Dropdown menus for date
-        // TODO: Integrere på en sikkelig måte
-        // Fyller opp dag, måned og års arrayene med data
-        List<Integer> arrayDays =  new ArrayList<>();
-        for (int x = 1; x<31; x++) {
-            arrayDays.add(x);
-        }
+        //puts todays date into string today and sets it in txtdatepicker
+        String today = day + "/" + month + "/" + year;
+        txtDatePicker.setText(today);
 
-        List<Integer> arrayMonths =  new ArrayList<>();
-        for (int x = 1; x<13; x++) {
-            arrayMonths.add(x);
-        }
+        //sets onclicklistener to button changedate
+        btnChangeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        List<Integer> arrayYears =  new ArrayList<>();
-        for (int x = 2018; x>=1970; x--) {
-            arrayYears.add(x);
-        }
+                //gets todays date from calendar object
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Lager 3 adaptere for dropdown menyene
-        // Dette er for at dataen i arrayen kan brukes i en spinner
-        ArrayAdapter<Integer> adapterDays = new ArrayAdapter<Integer>(
-                this, android.R.layout.simple_spinner_item, arrayDays);
+                //creates datepickerdialog
+                DatePickerDialog dialog = new DatePickerDialog(InputActivity.this, R.style.datepicker, dateDialog, year, month, day);
+                dialog.show();
+            }
+        });
 
-        ArrayAdapter<Integer> adapterMonths = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, arrayMonths);
-
-        ArrayAdapter<Integer> adapterYears = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, arrayYears);
-
-        // Legger dataene til i dropdown menyene
-        adapterDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drpDateDay.setAdapter(adapterDays);
-
-        adapterMonths.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drpDateMonth.setAdapter(adapterMonths);
-
-        adapterYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        drpDateYear.setAdapter(adapterYears);
+        //when date is picked, put into txtDatePicker
+        dateDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
+                date = dayOfMonth + "/" + month + "/" + year;
+                txtDatePicker.setText(date);
+            }
+        };
 
         intentOverview = new Intent(this, overview.class);
         Button btnAdd = findViewById(R.id.btnRegister);
@@ -141,7 +139,6 @@ public class InputActivity extends AppCompatActivity {
 
                 String id = myRef.push().getKey();
                 price = Integer.parseInt(numPrice.getText().toString());
-                date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
                 location = txtLocation.getText().toString();
                 description = txtDescription.getText().toString();
                 category = drpCategory.getSelectedItem().toString();
