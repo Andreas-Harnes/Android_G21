@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
+import no.hiof.fredrivo.budgetapp.classes.Categories;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class day_tab extends Fragment {
@@ -36,7 +37,6 @@ public class day_tab extends Fragment {
     private DatabaseReference mDatabaseRef;
 
     private GoogleSignInAccount account;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class day_tab extends Fragment {
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
         //TODO: ta bort TestData når vi har funksjonalitet
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(Expenses.TestData()));
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(Expenses.expensesSortedCategory()));
 
         return root;
     }

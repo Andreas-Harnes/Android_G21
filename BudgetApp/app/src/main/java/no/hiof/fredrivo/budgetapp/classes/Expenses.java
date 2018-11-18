@@ -14,6 +14,11 @@ public class Expenses {
     private String description;
     private String category;
 
+    public Expenses(int sum, String category) {
+        this.sum = sum;
+        this.category = category;
+    }
+
    public Expenses() {
 
     }
@@ -47,9 +52,9 @@ public class Expenses {
     }
 
 
-    public static List<Expenses> TestData(){
+    public static ArrayList<Expenses> TestData(){
 
-       List<Expenses> expenseList = new ArrayList<>();
+       ArrayList<Expenses> expenseList = new ArrayList<>();
 
        Expenses data1 = new Expenses();
        Expenses data2 = new Expenses();
@@ -60,42 +65,59 @@ public class Expenses {
        data1.setDate("11/04/2017");
        data1.setLocation("Halden");
        data1.setDescription("Sulten");
-       data1.setCategory("Mat");
+       data1.setCategory("Food");
 
        data2.setSum(200);
         data2.setDate("04/04/2018");
         data2.setLocation("Halden");
         data2.setDescription("Bleh");
-        data2.setCategory("Bil");
+        data2.setCategory("Activity");
 
 
         data3.setSum(150);
         data3.setDate("03/11/2017");
         data3.setLocation("Halden");
         data3.setDescription("Mat?");
-        data3.setCategory("Drikke");
+        data3.setCategory("Food");
 
 
         data4.setSum(400);
         data4.setDate("17/08/17");
         data4.setLocation("Halden");
         data4.setDescription("namm");
-        data4.setCategory("Mat");
+        data4.setCategory("Transportation");
 
         expenseList.add(data1);
         expenseList.add(data2);
         expenseList.add(data3);
         expenseList.add(data4);
 
-
-
         return expenseList;
     }
 
-    public List<Expenses> expensesSortedCategory(ArrayList<Expenses> list){
+    public static ArrayList<Expenses> expensesSortedCategory(){
+        ArrayList<Expenses> sortedByCategory = new ArrayList<>();
+        ArrayList<String> categoryList = Categories.getUserCategories();
 
+        //TODO: endre til realtime data sortert på dag/uke/måned
+        ArrayList<Expenses> expenseList = TestData();
 
-       return list;
+        for (String i : categoryList) {
+            int totalSum = 0;
+            Expenses categoryEx;
+
+            for (Expenses j : expenseList) {
+
+                if (i.equals(j.getCategory())) {
+                    totalSum += j.getSum();
+                }
+            }
+
+            categoryEx = new Expenses(totalSum, i);
+            sortedByCategory.add(categoryEx);
+        }
+
+        return sortedByCategory;
     }
 
 }
