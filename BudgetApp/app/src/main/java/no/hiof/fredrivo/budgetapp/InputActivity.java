@@ -89,6 +89,11 @@ public class InputActivity extends AppCompatActivity {
 
         myRef = FirebaseDatabase.getInstance().getReference(account.getId());
 
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
+
+        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        drpCategory.setAdapter(adapterCategories);
+
         //creates calendar object and gets todays date
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
