@@ -80,7 +80,7 @@ public class Expenses {
         data4.setDate("17/08/17");
         data4.setLocation("Halden");
         data4.setDescription("namm");
-        data4.setCategory("Pølse");
+        data4.setCategory("Mat");
 
         expenseList.add(data1);
         expenseList.add(data2);
@@ -90,6 +90,12 @@ public class Expenses {
 
 
         return expenseList;
+    }
+
+    public List<Expenses> expensesSortedCategory(ArrayList<Expenses> list){
+
+
+       return list;
     }
 
 }

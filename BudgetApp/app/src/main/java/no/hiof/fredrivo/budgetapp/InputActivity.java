@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -142,26 +143,43 @@ public class InputActivity extends AppCompatActivity {
 
                 Expenses userExpense = new Expenses();
 
-                String id = myRef.push().getKey();
-                price = Integer.parseInt(numPrice.getText().toString());
-                location = txtLocation.getText().toString();
-                description = txtDescription.getText().toString();
-                category = drpCategory.getSelectedItem().toString();
+                if (TextUtils.isEmpty(numPrice.getText().toString())){
+                    Toast.makeText(InputActivity.this, "Please fill inn a price.", Toast.LENGTH_SHORT).show();
+
+                }
+                else if (TextUtils.isEmpty(txtLocation.getText().toString())){
+                    Toast.makeText(InputActivity.this, "Please fill inn a location.", Toast.LENGTH_SHORT).show();
+
+                }
+                else if (TextUtils.isEmpty(txtDescription.getText().toString())){
+                    Toast.makeText(InputActivity.this, "Please fill inn a description.", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+
+                    String id = myRef.push().getKey();
+                    price = Integer.parseInt(numPrice.getText().toString());
+                    date = drpDateDay.getSelectedItem().toString() + "/" + drpDateMonth.getSelectedItem().toString() + "/" + drpDateYear.getSelectedItem().toString();
+                    location = txtLocation.getText().toString();
+                    description = txtDescription.getText().toString();
+                    category = drpCategory.getSelectedItem().toString();
 
 
-                userExpense.setCategory(category);
-                userExpense.setDate(date);
-                userExpense.setDescription(description);
-                userExpense.setLocation(location);
-                userExpense.setSum(price);
+                    userExpense.setCategory(category);
+                    userExpense.setDate(date);
+                    userExpense.setDescription(description);
+                    userExpense.setLocation(location);
+                    userExpense.setSum(price);
 
-                Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
 
 //                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
-                myRef.child("Expenses").child(id).setValue(userExpense);
+                    myRef.child("Expenses").child(id).setValue(userExpense);
 
-                startActivity(intentOverview);
-                finish();
+
+                    startActivity(intentOverview);
+                    finish();
+                }
             }
         });
 
@@ -172,8 +190,8 @@ public class InputActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
                 startActivity(intentNewCategory);
+
             }
         });
     }

@@ -16,7 +16,10 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpense
     private List<Expenses> expenseList;
 
     //konstruktør
-    public DayTabAdapter(List<Expenses> expenseList) { this.expenseList = expenseList; }
+    public DayTabAdapter(List<Expenses> expenseList) {
+        this.expenseList = expenseList;
+
+    }
 
     //setter ViewHolder til day_tab_list_item.xml
     @NonNull
@@ -49,10 +52,16 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpense
             txtDayCategory = v.findViewById(R.id.txtDayCategory);
         }
 
+        public int sum(Expenses ex){
+            int sum = ex.getSum();
+
+            return sum;
+        }
+
         //setter innhold i view til å være info fra expenselist
         public void setExpenses (Expenses ex) {
-            txtDaySum.setText(ex.getSum()+ ",-");
             txtDayCategory.setText(ex.getCategory());
+            txtDaySum.setText(sum(ex)+ ",-");
         }
     }
 }
