@@ -11,6 +11,10 @@ import java.util.List;
 import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
+//brukte kode fra denne linken som utgangspunkt:
+//https://medium.com/@Pang_Yao/android-fragment-use-recyclerview-cardview-4bc10beac446
+//i tillegg til Lars Emil sitt RecyclerViewExercise eksempel med Animal
+
 public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpenseViewHolder> {
 
     private List<Expenses> expenseList;

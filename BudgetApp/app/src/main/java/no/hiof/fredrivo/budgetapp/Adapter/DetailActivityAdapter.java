@@ -13,6 +13,8 @@ import java.util.List;
 import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
+//brukte Lars Emil sitt RecyclerViewExercise eksempel med Animal som utgangspunkt
+
 public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAdapter.ExpenseViewHolder> {
 
     private List<Expenses> expenseList;

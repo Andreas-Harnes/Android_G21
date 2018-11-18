@@ -27,6 +27,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_category);
 
+        //intent for å åpne InputActivity
         intentAddCategory = new Intent (this,InputActivity.class);
 
         //Gjør det mulig å hide keyboardet når man trykker på skjermen
@@ -38,18 +39,28 @@ public class NewCategoryActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //onClickListener på knappen for å legge til kategori
         Button btnAddCat = findViewById(R.id.btnAddCat);
         btnAddCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //finner TextView der kategori skrives inn og henter teksten derifra
                 EditText txtNewCat = findViewById(R.id.txtNewCat);
                 newCategory = txtNewCat.getText().toString();
+
+                //hvis tekstfeltet er tomt, si ifra med toast
                 if (newCategory.isEmpty()){
                     Toast.makeText(NewCategoryActivity.this, "Please add a new category.", Toast.LENGTH_SHORT).show();
                 }
+
+                //hvis kategorilisten allerede har denne kategorien, si ifra med toast
                 else if (Categories.getUserCategories().contains(newCategory)) {
                     Toast.makeText(NewCategoryActivity.this, "Category already exists. Please add a new category    .", Toast.LENGTH_SHORT).show();
                 }
+
+                //legg til kategorien i lista og start intent for å åpne InputActivity
                 else{
                     new Categories(newCategory);
                     intentAddCategory.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -62,8 +73,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         });
     }
 
-
-
+    //metode som gjemmer tastatur
     public void hideSoftKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);

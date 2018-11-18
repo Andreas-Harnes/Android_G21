@@ -19,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -95,7 +94,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(View view) {
 
                 startActivity(intentInputActivity);
-                finish();
             }
         });
 
