@@ -23,6 +23,30 @@
           }
         },
         {
+          "client_id": "625821813999-i50ehnnllv4nvneq6rju5gdbcuccsar3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.hiof.fredrivo.budgetapp",
+            "certificate_hash": "c741f0fce6f775ab625f31f145ed42901611dfcb"
+          }
+        },
+        {
+          "client_id": "625821813999-flmc1utv5tmhntgs2a1k7618unoge7pu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.hiof.fredrivo.budgetapp",
+            "certificate_hash": "f0e714edb83ceac47c0fa1719b29bef665b16f4b"
+          }
+        },
+        {
+          "client_id": "625821813999-sccfmgsh2t4rhmn0022keqipml0oj1r9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.hiof.fredrivo.budgetapp",
+            "certificate_hash": "b497f96188474d47f5f76042cd58ed1bf0a099d8"
+          }
+        },
+        {
           "client_id": "625821813999-ukq6mh4j2c58qin7a5fsgs1ak2aboceb.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -40,7 +64,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "625821813999-ukq6mh4j2c58qin7a5fsgs1ak2aboceb.apps.googleusercontent.com",
+              "client_id": "625821813999-ea8p8oiddos4g882tusrnrh9ahajg9iv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
