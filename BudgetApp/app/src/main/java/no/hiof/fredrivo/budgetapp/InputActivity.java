@@ -44,6 +44,7 @@ public class InputActivity extends AppCompatActivity {
     private String location;
     private String description;
     private String category;
+    private String today;
 
     private  GoogleSignInAccount account;
 
@@ -91,29 +92,47 @@ public class InputActivity extends AppCompatActivity {
         //lager Calendar objekt og henter dagens dato
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int intMonth = calendar.get(Calendar.MONTH);
+        int intDay = calendar.get(Calendar.DAY_OF_MONTH);
+        String day;
+        String month;
 
-        //januar er mnd nr 0, plusser på 1 for korreksjon
-        month++;
+        intMonth++;
 
-        //putter dagens dato i string today og setter den i txtDatePicker
-        String today = day + "/" + month + "/" + year;
-        txtDatePicker.setText(today);
+
+//         Setter day variabelen
+        if(intDay < 10){
+            day = "0" + String.valueOf(intDay);
+        } else {
+            day = String.valueOf(intDay);
+        }
+
+
+        // Setter month variabelen
+        if(intMonth < 10){
+            month = "0" + String.valueOf(intMonth);
+        } else {
+            month = String.valueOf(intMonth);
+        }
+
+
+        //puts todays date into string today and sets it in txtdatepicker
+        date = day + "/" + month + "/" + year;
+        txtDatePicker.setText(date);
 
         //setter en onClickListener til knappen changeDate
         btnChangeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //henter dagens dato fra Calendar objekt
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int intMonth = calendar.get(Calendar.MONTH);
+                int intDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-                //lager datepickerdialog - selve "vinduet" der man velger dato
-                DatePickerDialog dialog = new DatePickerDialog(InputActivity.this, R.style.datepicker, dateDialog, year, month, day);
+
+                //creates datepickerdialog
+                DatePickerDialog dialog = new DatePickerDialog(InputActivity.this, R.style.datepicker, dateDialog, year, intMonth, intDay);
                 dialog.show();
             }
         });
@@ -122,8 +141,28 @@ public class InputActivity extends AppCompatActivity {
         dateDialog = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String sDay;
+                String sMonth;
+
                 month++;
-                date = dayOfMonth + "/" + month + "/" + year;
+
+                // Setter day variabelen
+                if(dayOfMonth < 10){
+                    sDay = "0" + String.valueOf(dayOfMonth);
+                } else {
+                    sDay = String.valueOf(dayOfMonth);
+                }
+
+
+                // Setter month variabelen
+                if(month < 10){
+                    sMonth = "0" + String.valueOf(month);
+                } else {
+                    sMonth = String.valueOf(month);
+                }
+
+
+                date = sDay + "/" + sMonth + "/" + year;
                 txtDatePicker.setText(date);
             }
         };
@@ -155,6 +194,7 @@ public class InputActivity extends AppCompatActivity {
                     location = txtLocation.getText().toString();
                     description = txtDescription.getText().toString();
                     category = drpCategory.getSelectedItem().toString();
+
 
 
                     userExpense.setCategory(category);
