@@ -7,8 +7,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_dollar_foreground"
+        android:label="@string/wonder_save"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,7 +20,7 @@
         <activity android:name=".overview" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_overview"
+            android:label="@string/wonder_save"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

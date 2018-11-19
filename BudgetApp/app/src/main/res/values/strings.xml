@@ -54,4 +54,5 @@
     <string name="google_navn">her skal det stå et navn fra google konto</string>
     <string name="Chart">Chart</string>
     <string name="your_total_expenses">Your total Expenses</string>
+    <string name="wonder_save">WonderSave</string>
 </resources>
