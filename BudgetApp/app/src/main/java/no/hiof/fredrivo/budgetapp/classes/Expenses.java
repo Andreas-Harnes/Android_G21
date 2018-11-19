@@ -95,12 +95,9 @@ public class Expenses {
         return expenseList;
     }
 
-    public static ArrayList<Expenses> expensesSortedCategory(){
+    public static ArrayList<Expenses> expensesSortedCategory(ArrayList<Expenses> expenseList){
         ArrayList<Expenses> sortedByCategory = new ArrayList<>();
         ArrayList<String> categoryList = Categories.getUserCategories();
-
-        //TODO: endre til realtime data sortert på dag/uke/måned
-        ArrayList<Expenses> expenseList = TestData();
 
         for (String i : categoryList) {
             int totalSum = 0;

@@ -36,7 +36,7 @@ public class day_tab extends Fragment {
 
     private static final String TAG = "Tab1frag";
 
-    private static List<Expenses> expensesArrayList = new ArrayList<>();
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
 
     private GoogleSignInAccount account;
@@ -76,10 +76,6 @@ public class day_tab extends Fragment {
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses x = ds.getValue(Expenses.class);
-
-            if(validData(x)){
-
-            }
 
             if(validData(ds.getValue(Expenses.class))){
                 Expenses userExpense = new Expenses();
@@ -164,8 +160,10 @@ public class day_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
+        ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+
         //TODO: ta bort TestData når vi har funksjonalitet
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(Expenses.expensesSortedCategory()));
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(dayCategoryList));
 
         return root;
     }
