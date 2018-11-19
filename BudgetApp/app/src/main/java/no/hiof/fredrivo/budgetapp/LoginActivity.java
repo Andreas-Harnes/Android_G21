@@ -61,33 +61,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                showData(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+
 
 
     }
 
-//    private void showData(DataSnapshot dataSnapshot) {
-//        for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
-//            Expenses userExpense = new Expenses();
-//            userExpense.setSum(ds.getValue(Expenses.class).getSum());
-//            userExpense.setDate(ds.getValue(Expenses.class).getDate());
-//            userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
-//            userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
-//            userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
-//
-//
-//        }
-//    }
 
 
     private void signIn() {
@@ -107,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Sjekker om brukeren er pålogget når appen starter
-//        if(account != null){
-//            startActivity(intentOverview);
-//            finish();
-//        }
+        if(account != null){
+            startActivity(intentOverview);
+            finish();
+        }
     }
 
 

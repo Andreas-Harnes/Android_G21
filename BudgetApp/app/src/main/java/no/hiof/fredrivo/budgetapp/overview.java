@@ -1,6 +1,10 @@
 package no.hiof.fredrivo.budgetapp;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -14,13 +18,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
 
 
 public class overview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +38,9 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private Intent intentInputActivity;
+
+
+    private GoogleSignInAccount account;
 
     //Ha med på flere activities
     private DrawerLayout draw;
@@ -40,15 +53,15 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Google login
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
-        if(account != null) {
-            Toast.makeText(this, account.getGivenName(), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
-        }
+
+//        if(account != null) {
+//            Toast.makeText(this, account.getGivenName(), Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
+//        }
 
         setContentView(R.layout.activity_overview);
 
@@ -68,6 +81,21 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
+        txtProfileName.setText(account.getDisplayName());
+
+        ImageView imgProfilePicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+//        imgProfilePicture.setImageURI(account.getPhotoUrl());
+
+//        String photoURL = account.getPhotoUrl();
+//
+//        // show The Image in a ImageView
+//        new DownloadImageTask((ImageView) findViewById(R.id.imageView))
+//                .execute(account.getPhotoUrl());
+
+        Picasso.get().load(account.getPhotoUrl()).into(imgProfilePicture);
+
         // slutt for navi drawer
 
         // Creates the adapter that will return a fragment for each of the three
@@ -143,6 +171,8 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
@@ -165,4 +195,10 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         draw.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
 }
+
+
