@@ -135,6 +135,8 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
         if(id == R.id.camera_button){
             Toast.makeText(this, "Opening Camera", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,Camera_activity.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
