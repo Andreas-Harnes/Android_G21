@@ -25,6 +25,8 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     private TextView txtProfilCategories;
     private DrawerLayout draw;
 
+    private static int income;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,37 +59,6 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         // slutt for navi drawer
     }
 
-
-
-   /* public void setProfileInfo() {
-
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
-        int income = intent.getIntExtra("income", -1000);
-        int save = intent.getIntExtra("income", -1000);
-        int monthly = intent.getIntExtra("income", -1000);
-        String category = intent.getStringExtra("category");
-
-        if (income != -1000) {
-
-            Profile newInfo = new Profile(income, save, monthly, category);
-
-            txtProfilIncome.setText(newInfo.getIncomePerMonth());
-            txtProfilSave.setText(newInfo.getSavePerMonth());
-            txtProfilMonthlyEx.setText(newInfo.getExpensesPerMonth());
-            txtProfilCategories.setText(newInfo.getCategoryToSave());
-        }
-
-        else {
-            txtProfilIncome.setText("Set income");
-            txtProfilSave.setText("Set saving");
-            txtProfilMonthlyEx.setText("Set expenses");
-            txtProfilCategories.setText("Set categories");
-        }
-    }*/
-
-    // TODO: Items vises ikke i toolbar. får ikke plass i layout. Need Fix
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_profile_settings, menu);
@@ -114,7 +85,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
             if (resultCode == Activity.RESULT_OK) {
                 Intent i = data;
 
-                int income = i.getIntExtra("income", -1);
+                income = i.getIntExtra("income", -1);
                 int save = i.getIntExtra("save", -1);
                 int monthly = i.getIntExtra("monthly", -1);
                 String category = i.getStringExtra("category");
@@ -154,13 +125,23 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            Intent intent = new Intent(this,ChartActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
+            if (ProfilActivity.getIncome() == 0){
+                draw.closeDrawers();
+                Toast.makeText(this, "Pleas fill out profile settings", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent intent = new Intent(this,ChartActivity.class);
+                startActivity(intent);
+
+            }
 
         }
 
         draw.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public static int getIncome(){
+        return income;
     }
 }

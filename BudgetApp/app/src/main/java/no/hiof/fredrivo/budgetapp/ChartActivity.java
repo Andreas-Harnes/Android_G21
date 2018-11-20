@@ -60,10 +60,11 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         List<PieEntry> pieChartList = new ArrayList<>();
 
         //TestData
+        //TODO: Endre til fullstendig expenses list.
         List<Expenses> TestData = Expenses.TestData();
 
-        //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke.
-        int moneyLeft = 1000;
+        //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke. ProfilActivity.getIncome()
+        int moneyLeft = ProfilActivity.getIncome();
 
         //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
         for (Expenses values : TestData) {
@@ -74,8 +75,15 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         }
 
         //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
-        PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Money Left");
-        pieChartList.add(moneyLeftEntry);
+        if (moneyLeft < 0){
+            moneyLeft = 0;
+            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
+            pieChartList.add(moneyLeftEntry);
+        }
+        else {
+            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
+            pieChartList.add(moneyLeftEntry);
+        }
 
         PieDataSet dataSet = new PieDataSet(pieChartList, "");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);

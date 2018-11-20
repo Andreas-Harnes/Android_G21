@@ -203,7 +203,7 @@ public class month_tab extends Fragment {
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
 
         int sum = daySum(arrayList);
-        String s = "Today's total: " + Integer.toString(sum) + ",-";
+        String s = "Monthly total: " + Integer.toString(sum) + ",-";
         textField.setText(s);
 
     }
