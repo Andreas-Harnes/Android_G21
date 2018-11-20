@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,18 +34,53 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class month_tab extends Fragment {
     private static final String TAG = "Tab3frag";
 
-    private static List<Expenses> expensesArrayList = new ArrayList<>();
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
 
+    private ArrayList<Expenses> dayCategoryList = new ArrayList<>();
+
     private GoogleSignInAccount account;
+    private TextView txtDaySum;
+
+    private DayTabAdapter dayTabAdapter;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        expensesArrayList.clear();
+
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         account = GoogleSignIn.getLastSignedInAccount(getContext());
+
+//        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
+
+        //dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
+
+        //setter opp RecyclerView, LayoutManager og adapter
+        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        dayTabRecyclerView.setLayoutManager(layoutManager);
+
+        //ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        dayTabAdapter = new DayTabAdapter(dayCategoryList);
+        dayTabRecyclerView.setAdapter(dayTabAdapter);
+
+        txtDaySum = root.findViewById(R.id.txtDaySum);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,6 +96,10 @@ public class month_tab extends Fragment {
 
             }
         });
+
+
+
+        return root;
     }
 
     // Sjekker om datoen på expens objektet er fra dags Måned
@@ -97,6 +138,7 @@ public class month_tab extends Fragment {
         year = String.valueOf(intYear);
 
         // TODO: Ma fikses slik at den viser til denne måneden
+
         regex = "((.)(.))(/)(("
                 + month.substring(0,1) + ")(" + month.substring(1) +
                 "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
@@ -119,13 +161,11 @@ public class month_tab extends Fragment {
     }
 
     private void showData(DataSnapshot dataSnapshot) {
+        expensesArrayList.clear();
+        dayCategoryList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses x = ds.getValue(Expenses.class);
-
-            if(validData(x)){
-
-            }
 
             if(validData(ds.getValue(Expenses.class))){
                 Expenses userExpense = new Expenses();
@@ -136,34 +176,37 @@ public class month_tab extends Fragment {
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
                 expensesArrayList.add(userExpense);
+
             }
 
 
         }
-    }
+        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
+        dayCategoryList.addAll(tempList);
+        changeTotalSpent(dayCategoryList, txtDaySum);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_month_tab, container, false);
-
-        //setter opp RecyclerView, LayoutManager og adapter
-        RecyclerView monthTabRecyclerView = root.findViewById(R.id.monthTabRecyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        monthTabRecyclerView.setLayoutManager(layoutManager);
-
-        //TODO: ta bort TestData når vi har funksjonalitet
-        monthTabRecyclerView.setAdapter(new MonthTabAdapter(Expenses.TestData()));
-
-        return root;
+        // Det er denne som oppdaterer viewet
+        dayTabAdapter.notifyDataSetChanged();
     }
 
 
+    private int daySum(ArrayList<Expenses> expenses) {
+        int total = 0;
 
+        for (Expenses i : expenses) {
+            total += i.getSum();
+        }
 
+        return total;
+    }
 
+    private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
 
+        int sum = daySum(arrayList);
+        String s = "Today's total: " + Integer.toString(sum) + ",-";
+        textField.setText(s);
+
+    }
 
 
 }

@@ -124,6 +124,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View view) {
 
+//                day_tab.clearExpensesList();
                 startActivity(intentInputActivity);
             }
         });

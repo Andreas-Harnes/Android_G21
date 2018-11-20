@@ -40,12 +40,22 @@ public class day_tab extends Fragment {
     private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
 
+    private ArrayList<Expenses> dayCategoryList = new ArrayList<>();
+
     private GoogleSignInAccount account;
     private TextView txtDaySum;
+
+    private DayTabAdapter dayTabAdapter;
+
+    private int totalSpent;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        expensesArrayList.clear();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -54,6 +64,29 @@ public class day_tab extends Fragment {
 //        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
         Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
+
+
+
+        //dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
+
+        //setter opp RecyclerView, LayoutManager og adapter
+        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        dayTabRecyclerView.setLayoutManager(layoutManager);
+
+        //ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        dayTabAdapter = new DayTabAdapter(dayCategoryList);
+        dayTabRecyclerView.setAdapter(dayTabAdapter);
+
+        txtDaySum = root.findViewById(R.id.txtDaySum);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,28 +102,8 @@ public class day_tab extends Fragment {
 
             }
         });
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
 
-        //setter opp RecyclerView, LayoutManager og adapter
-        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dayTabRecyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(dayCategoryList));
-
-        txtDaySum = root.findViewById(R.id.txtDaySum);
-        int sum = daySum(dayCategoryList);
-
-        String s = "Today's total: " + Integer.toString(sum) + ",-";
-
-        txtDaySum.setText(s);
 
         return root;
     }
@@ -107,6 +120,8 @@ public class day_tab extends Fragment {
 
 
     private void showData(DataSnapshot dataSnapshot) {
+        expensesArrayList.clear();
+        dayCategoryList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses x = ds.getValue(Expenses.class);
@@ -120,10 +135,21 @@ public class day_tab extends Fragment {
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
                 expensesArrayList.add(userExpense);
+
+
+
             }
 
 
         }
+        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
+
+        dayCategoryList.addAll(tempList);
+
+        changeTotalSpent(dayCategoryList, txtDaySum);
+
+        // Det er denne som oppdaterer viewet
+        dayTabAdapter.notifyDataSetChanged();
     }
 
     // Sjekker om datoen på expens objektet er fra dags dato
@@ -166,7 +192,6 @@ public class day_tab extends Fragment {
                 "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
                 year.substring(2,3) + ")(" + year.substring(3) + "))";
 
-//        Toast.makeText(getContext(), data.getDate(), Toast.LENGTH_SHORT).show();
 
         if(data.getDate().matches(regex)){
             fBoolean = 1;
@@ -178,7 +203,15 @@ public class day_tab extends Fragment {
             return false;
         }
 
-        //Toast.makeText(getContext(), data, Toast.LENGTH_LONG).show();
+
+    }
+
+
+    private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
+
+        int sum = daySum(arrayList);
+        String s = "Today's total: " + Integer.toString(sum) + ",-";
+        textField.setText(s);
 
     }
 }
