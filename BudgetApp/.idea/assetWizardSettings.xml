@@ -13,6 +13,19 @@
                       <PersistentState>
                         <option name="children">
                           <map>
+                            <entry key="actionbar">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\User\Documents\Skole\AndroidProgrammering\Android_G21\BudgetApp\app\src\main\res\drawable\snoop.jpg" />
+                                      <entry key="outputName" value="ic_action_snoop" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
@@ -34,15 +47,18 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundLayerName" value="ic_dollar_background" />
-                                      <entry key="foregroundImage" value="C:\Users\Fredrik\Pictures\AndroidApp\dollar_sign.png" />
-                                      <entry key="foregroundLayerName" value="ic_dollar_foreground" />
-                                      <entry key="outputName" value="ic_dollar_sign" />
+                                      <entry key="foregroundImage" value="C:\Users\User\Documents\Skole\AndroidProgrammering\Android_G21\BudgetApp\app\src\main\res\drawable\snoop.jpg" />
+                                      <entry key="outputName" value="ic_snoop" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

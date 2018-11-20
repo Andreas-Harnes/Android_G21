@@ -65,13 +65,15 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke.
         int moneyLeft = 1000;
 
-        //Legger til expense objekter som entries som pieChartData
+        //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
         for (Expenses values : TestData) {
             pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
             moneyLeft = moneyLeft - values.getSum();
 
 
         }
+
+        //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
         PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Money Left");
         pieChartList.add(moneyLeftEntry);
 
@@ -102,14 +104,17 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this, DetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.chart) {

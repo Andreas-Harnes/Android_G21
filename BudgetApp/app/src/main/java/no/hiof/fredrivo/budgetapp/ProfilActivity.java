@@ -142,20 +142,21 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
-            finish();
 
         } else if (id == R.id.profile) {
             draw.closeDrawers();
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
-            finish();
 
         }
 

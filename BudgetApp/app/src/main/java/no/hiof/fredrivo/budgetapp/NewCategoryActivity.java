@@ -73,9 +73,9 @@ public class NewCategoryActivity extends AppCompatActivity {
         });
     }
 
-    //metode som gjemmer tastatur
+    //metode som gjemmer tastatur, inspirert fra https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
     public void hideSoftKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 }

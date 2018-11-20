@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -39,7 +40,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private ViewPager mViewPager;
     private Intent intentInputActivity;
 
-
+    private NotificationCompat.Builder notification;
     private GoogleSignInAccount account;
 
     //Ha med på flere activities
@@ -97,6 +98,8 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         Picasso.get().load(account.getPhotoUrl()).into(imgProfilePicture);
 
         // slutt for navi drawer
+
+        notification = new NotificationCompat.Builder(this);
 
         // Creates the adapter that will return a fragment for each of the three
         // primary sections of the activity.

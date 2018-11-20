@@ -85,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Sjekker om brukeren er pålogget når appen starter
-        if(account != null){
-            startActivity(intentOverview);
-            finish();
-        }
+        //if(account != null){
+        //    startActivity(intentOverview);
+      //      finish();
+       // }
     }
 
 
