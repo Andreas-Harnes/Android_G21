@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -40,6 +41,7 @@ public class day_tab extends Fragment {
     private DatabaseReference mDatabaseRef;
 
     private GoogleSignInAccount account;
+    private TextView txtDaySum;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +52,6 @@ public class day_tab extends Fragment {
         account = GoogleSignIn.getLastSignedInAccount(getContext());
 
 //        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-
 
         Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
@@ -69,6 +69,40 @@ public class day_tab extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
+
+        //setter opp RecyclerView, LayoutManager og adapter
+        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        dayTabRecyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        dayTabRecyclerView.setAdapter(new DayTabAdapter(dayCategoryList));
+
+        txtDaySum = root.findViewById(R.id.txtDaySum);
+        int sum = daySum(dayCategoryList);
+
+        String s = "Today's total: " + Integer.toString(sum) + ",-";
+
+        txtDaySum.setText(s);
+
+        return root;
+    }
+
+    private int daySum(ArrayList<Expenses> expenses) {
+        int total = 0;
+
+        for (Expenses i : expenses) {
+            total += i.getSum();
+        }
+
+        return total;
     }
 
 
@@ -146,25 +180,5 @@ public class day_tab extends Fragment {
 
         //Toast.makeText(getContext(), data, Toast.LENGTH_LONG).show();
 
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
-
-        //setter opp RecyclerView, LayoutManager og adapter
-        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dayTabRecyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
-
-        //TODO: ta bort TestData når vi har funksjonalitet
-        dayTabRecyclerView.setAdapter(new DayTabAdapter(dayCategoryList));
-
-        return root;
     }
 }

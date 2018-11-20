@@ -3,7 +3,6 @@ package no.hiof.fredrivo.budgetapp.classes;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Expenses {
 
