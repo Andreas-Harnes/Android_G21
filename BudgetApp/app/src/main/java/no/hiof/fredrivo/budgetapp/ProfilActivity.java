@@ -12,8 +12,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
 
 import no.hiof.fredrivo.budgetapp.classes.Profile;
 
@@ -24,6 +29,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     private TextView txtProfilMonthlyEx;
     private TextView txtProfilCategories;
     private DrawerLayout draw;
+    private GoogleSignInAccount account;
 
 
     @Override
@@ -31,10 +37,24 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
+        // Google login
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
         txtProfilIncome = findViewById(R.id.txtProfilIncome);
         txtProfilSave = findViewById(R.id.txtProfilSave);
         txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtProfilCategories = findViewById(R.id.txtProfilCategories);
+
+
+
+        // Sette profilbildet
+        ImageView imgProfilePicture = findViewById(R.id.imageView);
+        Picasso.get().load(account.getPhotoUrl()).into(imgProfilePicture);
+
+        // Setter navnet til navnet på profilen
+        TextView txtProfileName = findViewById(R.id.txtProfileName);
+        txtProfileName.setText(account.getDisplayName());
+
 
 
 
@@ -45,6 +65,8 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+
 
         // implementering av navigation drawer!
         draw = findViewById(R.id.drawer_layout);

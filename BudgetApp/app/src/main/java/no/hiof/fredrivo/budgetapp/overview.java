@@ -87,13 +87,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         txtProfileName.setText(account.getDisplayName());
 
         ImageView imgProfilePicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
-//        imgProfilePicture.setImageURI(account.getPhotoUrl());
-
-//        String photoURL = account.getPhotoUrl();
-//
-//        // show The Image in a ImageView
-//        new DownloadImageTask((ImageView) findViewById(R.id.imageView))
-//                .execute(account.getPhotoUrl());
 
         Picasso.get().load(account.getPhotoUrl()).into(imgProfilePicture);
 
