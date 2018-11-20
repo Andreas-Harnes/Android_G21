@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -14,6 +17,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.plattysoft.leonids.ParticleSystem;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,8 +26,12 @@ public class LoginActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     private DatabaseReference mDatabaseRef;
     private GoogleSignInAccount account;
-
+    private View view;
     private Intent intentOverview;
+
+    private int viewWidth;
+    private int viewHeight;
+
 
 
 
@@ -60,9 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
     }
 
