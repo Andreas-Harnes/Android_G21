@@ -37,9 +37,9 @@ public class day_tab extends Fragment {
 
     private static final String TAG = "Tab1frag";
 
-    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
 
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private ArrayList<Expenses> dayCategoryList = new ArrayList<>();
 
     private GoogleSignInAccount account;

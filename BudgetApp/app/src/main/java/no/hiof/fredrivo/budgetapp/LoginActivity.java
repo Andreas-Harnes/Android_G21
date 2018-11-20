@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.plattysoft.leonids.ParticleSystem;
 
 public class LoginActivity extends AppCompatActivity {
 

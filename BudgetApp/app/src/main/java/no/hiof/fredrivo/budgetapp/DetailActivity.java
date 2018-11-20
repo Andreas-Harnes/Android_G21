@@ -22,27 +22,35 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
 import no.hiof.fredrivo.budgetapp.Adapter.DetailActivityAdapter;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private static List<Expenses> expensesArrayList = new ArrayList<>();
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
 
     private DatabaseReference mDatabaseRef;
     private GoogleSignInAccount account;
     private DrawerLayout draw;
+    private DetailActivityAdapter detailActivityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         account = GoogleSignIn.getLastSignedInAccount(this);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+        expensesArrayList.clear();
+
         setContentView(R.layout.activity_detail);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,38 +77,107 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         Toast.makeText(this, account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-//        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                showData(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        detailActivityAdapter = new DetailActivityAdapter(this, expensesArrayList);
+
+        detailRecyclerView.setAdapter(detailActivityAdapter);
 
 
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        detailRecyclerView.setAdapter(new DetailActivityAdapter(this, Expenses.TestData()));
+                showData(dataSnapshot);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
+    private void showData(DataSnapshot dataSnapshot) {
+        expensesArrayList.clear();
+        for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
-//        private void showData(DataSnapshot dataSnapshot) {
-//        for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
-//            Expenses userExpense = new Expenses();
-//            userExpense.setSum(ds.getValue(Expenses.class).getSum());
-//            userExpense.setDate(ds.getValue(Expenses.class).getDate());
-//            userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
-//            userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
-//            userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
+            Expenses userExpense = new Expenses();
+            userExpense.setSum(ds.getValue(Expenses.class).getSum());
+            userExpense.setDate(ds.getValue(Expenses.class).getDate());
+            userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
+            userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
+            userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
+
+            expensesArrayList.add(userExpense);
+
+
+        }
+//        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
+//
+//        dayCategoryList.addAll(tempList);
+
+//        changeTotalSpent(dayCategoryList, txtDaySum);
+
+        // Det er denne som oppdaterer viewet
+        detailActivityAdapter.notifyDataSetChanged();
+    }
+
+//    private boolean validData(Expenses data){
+//
+//        String regex;
+//
+//        int fBoolean = 0;
+//
+//        //gets todays date from calendar object
+//        Calendar calendar = Calendar.getInstance();
+//        int intYear = calendar.get(Calendar.YEAR);
+//        int intMonth = calendar.get(Calendar.MONTH) + 1;
+//        int intDay = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        String day = "";
+//        String month = "";
+//        String year = "";
 //
 //
-//            expensesArrayList.add(userExpense);
+//        // Setter day variabelen
+//        if(intDay < 10){
+//            day = "0" + String.valueOf(intDay);
+//        } else {
+//            day = String.valueOf(intDay);
 //        }
+//
+//
+//        // Setter month variabelen
+//        if(intMonth < 10){
+//            month = "0" + String.valueOf(intMonth);
+//        } else {
+//            month = String.valueOf(intMonth);
+//        }
+//
+//        year = String.valueOf(intYear);
+//
+//        regex = "((" + day.substring(0,1) + ")(" + day.substring(1) + "))(/)(("
+//                + month.substring(0,1) + ")(" + month.substring(1) +
+//                "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
+//                year.substring(2,3) + ")(" + year.substring(3) + "))";
+//
+//
+//        if(data.getDate().matches(regex)){
+//            fBoolean = 1;
+//        }
+//
+//        if(fBoolean == 1){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//
+//
 //    }
+
+
 
 
     @Override

@@ -37,12 +37,12 @@ public class month_tab extends Fragment {
     private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
 
-    private ArrayList<Expenses> dayCategoryList = new ArrayList<>();
+    private ArrayList<Expenses> monthCategoryList = new ArrayList<>();
 
     private GoogleSignInAccount account;
     private TextView txtDaySum;
 
-    private DayTabAdapter dayTabAdapter;
+    private MonthTabAdapter monthTabAdapter;
 
 
 
@@ -60,7 +60,7 @@ public class month_tab extends Fragment {
 
         Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
-        //dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        //monthCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
 
@@ -76,9 +76,9 @@ public class month_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
-        //ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayTabAdapter = new DayTabAdapter(dayCategoryList);
-        dayTabRecyclerView.setAdapter(dayTabAdapter);
+        //ArrayList<Expenses> monthCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        monthTabAdapter = new MonthTabAdapter(monthCategoryList);
+        dayTabRecyclerView.setAdapter(monthTabAdapter);
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
 
@@ -162,7 +162,7 @@ public class month_tab extends Fragment {
 
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
-        dayCategoryList.clear();
+        monthCategoryList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses x = ds.getValue(Expenses.class);
@@ -182,11 +182,11 @@ public class month_tab extends Fragment {
 
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayCategoryList.addAll(tempList);
-        changeTotalSpent(dayCategoryList, txtDaySum);
+        monthCategoryList.addAll(tempList);
+        changeTotalSpent(monthCategoryList, txtDaySum);
 
         // Det er denne som oppdaterer viewet
-        dayTabAdapter.notifyDataSetChanged();
+        monthTabAdapter.notifyDataSetChanged();
     }
 
 

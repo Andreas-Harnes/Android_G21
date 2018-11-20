@@ -33,16 +33,12 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class week_tab extends Fragment {
 
     private static final String TAG = "Tab3frag";
-
-    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
+    private ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
-
-    private ArrayList<Expenses> dayCategoryList = new ArrayList<>();
-
+    private ArrayList<Expenses> weekCategoryList = new ArrayList<>();
     private GoogleSignInAccount account;
     private TextView txtDaySum;
-
-    private DayTabAdapter dayTabAdapter;
+    private WeekTabAdapter weekTabAdapter;
 
 
 
@@ -51,16 +47,13 @@ public class week_tab extends Fragment {
         super.onCreate(savedInstanceState);
 
         expensesArrayList.clear();
-
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
         account = GoogleSignIn.getLastSignedInAccount(getContext());
 
-//        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
         Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
-        //dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        //weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
 
@@ -76,9 +69,9 @@ public class week_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
-        //ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayTabAdapter = new DayTabAdapter(dayCategoryList);
-        dayTabRecyclerView.setAdapter(dayTabAdapter);
+        //ArrayList<Expenses> weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        weekTabAdapter = new WeekTabAdapter(weekCategoryList);
+        dayTabRecyclerView.setAdapter(weekTabAdapter);
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
 
@@ -162,7 +155,7 @@ public class week_tab extends Fragment {
 
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
-        dayCategoryList.clear();
+        weekCategoryList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses x = ds.getValue(Expenses.class);
@@ -182,11 +175,11 @@ public class week_tab extends Fragment {
 
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayCategoryList.addAll(tempList);
-        changeTotalSpent(dayCategoryList, txtDaySum);
+        weekCategoryList.addAll(tempList);
+        changeTotalSpent(weekCategoryList, txtDaySum);
 
         // Det er denne som oppdaterer viewet
-        dayTabAdapter.notifyDataSetChanged();
+        weekTabAdapter.notifyDataSetChanged();
     }
 
 
