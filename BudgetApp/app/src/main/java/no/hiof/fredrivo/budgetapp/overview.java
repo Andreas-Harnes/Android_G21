@@ -181,7 +181,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
             }
             else {
-                Intent intent = new Intent(this,ChartActivity.class);
+                Intent intent = new Intent(this, ChartActivity.class);
                 startActivity(intent);
 
             }

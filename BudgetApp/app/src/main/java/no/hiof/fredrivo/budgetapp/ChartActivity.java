@@ -59,15 +59,16 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         List<PieEntry> pieChartList = new ArrayList<>();
 
+        /*Liste med alle expenses som sorteres på kategori
+        List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
+        int moneyLeft = ProfilActivity.getIncome();*/
+
         //TestData
-        //TODO: Endre til fullstendig expenses list.
-        List<Expenses> TestData = Expenses.TestData();
-
-        //TODO: Endres til passende verdi fra inntekter/hvor mye penger man har å bruke. ProfilActivity.getIncome()
-        int moneyLeft = ProfilActivity.getIncome();
-
+        List<Expenses> expensesList = Expenses.TestData();
+        int moneyLeft = 1000;
+        
         //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
-        for (Expenses values : TestData) {
+        for (Expenses values : expensesList) {
             pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
             moneyLeft = moneyLeft - values.getSum();
 

@@ -42,6 +42,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout draw;
     private DetailActivityAdapter detailActivityAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,5 +208,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         draw.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public static List<Expenses> getExpensesList() {
+        return expensesArrayList;
     }
 }
