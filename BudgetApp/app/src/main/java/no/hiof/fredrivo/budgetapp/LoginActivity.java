@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewTreeObserver;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,14 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     private DatabaseReference mDatabaseRef;
     private GoogleSignInAccount account;
-    private View view;
     private Intent intentOverview;
-
-    private int viewWidth;
-    private int viewHeight;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Sjekker om brukeren er pålogget når appen starter
-        //if(account != null){
-        //    startActivity(intentOverview);
-      //      finish();
-       // }
+        if(account != null){
+            startActivity(intentOverview);
+            finish();
+        }
     }
 
 

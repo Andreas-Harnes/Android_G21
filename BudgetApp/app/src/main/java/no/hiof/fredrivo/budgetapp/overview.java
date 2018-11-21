@@ -1,10 +1,5 @@
 package no.hiof.fredrivo.budgetapp;
 
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -19,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,9 +24,6 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
-
-import java.io.InputStream;
-
 
 public class overview extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -184,8 +175,16 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            Intent intent = new Intent(this,ChartActivity.class);
-            startActivity(intent);
+            if (ProfilActivity.getIncome() == 0){
+                Toast.makeText(this, "Pleas fill out profile settings", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ProfilActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(this,ChartActivity.class);
+                startActivity(intent);
+
+            }
 
         }
 
