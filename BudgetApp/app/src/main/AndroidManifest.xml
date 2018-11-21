@@ -3,6 +3,7 @@
     package="no.hiof.fredrivo.budgetapp">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
         <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="com.android.permission.SET_ALARM"></uses-permission>
 
 
     <application
@@ -30,6 +31,13 @@
         </activity>
         <activity android:name=".NewCategoryActivity" />
         <activity android:name=".ProfilActivity" />
+
+        <receiver android:name=".classes.N_receiver">
+        <intent-filter>
+            <action android:name="android.media.action.DISPLAY_NOTIFICATION"/>
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

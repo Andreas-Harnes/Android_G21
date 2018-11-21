@@ -1,5 +1,10 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -34,6 +39,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private NotificationCompat.Builder notification;
     private GoogleSignInAccount account;
 
+    N_receiver receiver;
     //Ha med på flere activities
     private DrawerLayout draw;
   //  private ActionBarDrawerToggle drawerToggle;
@@ -45,6 +51,20 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        NotificationManager manager =  (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // notification start
+        Calendar calender = Calendar.getInstance(); // https://developer.android.com/reference/android/app/AlarmManager
+        calender.set(Calendar.HOUR_OF_DAY,10);
+        calender.set(Calendar.MINUTE,15);
+        calender.set(Calendar.SECOND,0);
+        // calender.add(Calendar.SECOND,5);
+        AlarmManager alarmM = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent NotifyIntent = new Intent(this,N_receiver.class); // intent til broadcast/notification receiver
+        PendingIntent broadcastIntent = PendingIntent.getBroadcast(this,123,NotifyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        // lager en alarm som skal gi en trigger til notification vår
+        alarmM.setRepeating(AlarmManager.RTC_WAKEUP,calender.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcastIntent); // det ønskes at den skal være daglig
+        //END
         // Google login
         account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -123,6 +143,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 //        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 //         tablayout end
+
 
 
 
