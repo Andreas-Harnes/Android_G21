@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/imageV"
-        android:layout_width="217dp"
-        android:layout_height="206dp"
-        android:layout_marginBottom="140dp"
+        android:layout_width="304dp"
+        android:layout_height="385dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
