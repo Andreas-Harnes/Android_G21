@@ -1,5 +1,6 @@
 package no.hiof.fredrivo.budgetapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -48,6 +50,7 @@ public class day_tab extends Fragment {
     private DayTabAdapter dayTabAdapter;
 
     private int totalSpent;
+    private Intent dayDetailIntent;
 
 
 
@@ -82,8 +85,21 @@ public class day_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
+        dayDetailIntent = new Intent(getContext(), CategoryDetailActivity.class);
+
         //ArrayList<Expenses> dayCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
-        dayTabAdapter = new DayTabAdapter(dayCategoryList);
+        dayTabAdapter = new DayTabAdapter(dayCategoryList, new DayTabAdapter.DayViewClickListener() {
+            @Override
+            public void onClick(int position) {
+                String category = dayCategoryList.get(position).getCategory();
+                ArrayList<Expenses> detailDayList = DetailDayList(expensesArrayList, category);
+                Bundle b = new Bundle();
+                b.putSerializable("list", detailDayList);
+                dayDetailIntent.putExtra("bundle", b);
+
+                startActivity(dayDetailIntent);
+            }
+        });
         dayTabRecyclerView.setAdapter(dayTabAdapter);
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
@@ -108,6 +124,7 @@ public class day_tab extends Fragment {
         return root;
     }
 
+    //legger sammen alle dagens utgifter til en sum nederst
     private int daySum(ArrayList<Expenses> expenses) {
         int total = 0;
 
@@ -136,8 +153,6 @@ public class day_tab extends Fragment {
 
                 expensesArrayList.add(userExpense);
 
-
-
             }
 
 
@@ -150,6 +165,18 @@ public class day_tab extends Fragment {
 
         // Det er denne som oppdaterer viewet
         dayTabAdapter.notifyDataSetChanged();
+    }
+
+    public ArrayList<Expenses> DetailDayList(ArrayList<Expenses> dayList, String category) {
+        ArrayList<Expenses> temp = new ArrayList<>();
+
+        for (Expenses e : dayList) {
+            if (e.getCategory().equals(category)) {
+                temp.add(e);
+            }
+        }
+
+        return temp;
     }
 
     // Sjekker om datoen på expens objektet er fra dags dato

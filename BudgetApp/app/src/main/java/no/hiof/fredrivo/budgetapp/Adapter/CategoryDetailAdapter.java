@@ -14,12 +14,12 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 //brukte Lars Emil sitt RecyclerViewExercise eksempel med Animal som utgangspunkt
 
-public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAdapter.ExpenseViewHolder> {
+public class CategoryDetailAdapter extends RecyclerView.Adapter<CategoryDetailAdapter.ExpenseViewHolder> {
 
     private List<Expenses> expenseList;
     private LayoutInflater layoutInflater;
 
-    public DetailActivityAdapter(Context context, List<Expenses> expenseList) {
+    public CategoryDetailAdapter(Context context, List<Expenses> expenseList) {
         layoutInflater = LayoutInflater.from(context);
         this.expenseList = expenseList;
     }
@@ -28,7 +28,7 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
     @NonNull
     @Override
     public ExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = layoutInflater.inflate(R.layout.detail_list_item, viewGroup, false);
+        View v = layoutInflater.inflate(R.layout.category_detail_list_item, viewGroup, false);
 
         return new ExpenseViewHolder(v);
     }
@@ -46,26 +46,26 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
     }
 
     class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtDetailSum;
-        private TextView txtDetailDate;
-        private TextView txtDetailLocation;
-        private TextView txtDetailCategory;
+        private TextView txtCatDetailSum;
+        private TextView txtCatDetailDate;
+        private TextView txtCatDetailLocation;
+        private TextView txtCatDetailCategory;
 
         public ExpenseViewHolder(View v) {
             super(v);
-            txtDetailSum = v.findViewById(R.id.txtCatDetailSum);
-            txtDetailDate = v.findViewById(R.id.txtCatDetailDate);
-            txtDetailLocation = v.findViewById(R.id.txtCatDetailLocation);
-            txtDetailCategory = v.findViewById(R.id.txtCatDetailCategory);
+            txtCatDetailSum = v.findViewById(R.id.txtCatDetailSum);
+            txtCatDetailDate = v.findViewById(R.id.txtCatDetailDate);
+            txtCatDetailLocation = v.findViewById(R.id.txtCatDetailLocation);
+            txtCatDetailCategory = v.findViewById(R.id.txtCatDetailCategory);
         }
 
         public void setExpenses (Expenses ex) {
-            txtDetailSum.setText(ex.getSum()+"");
-            txtDetailDate.setText(ex.getDate());
-            txtDetailLocation.setText(ex.getLocation());
-            txtDetailCategory.setText(ex.getCategory());
+            txtCatDetailSum.setText(ex.getSum()+"");
+            txtCatDetailDate.setText(ex.getDate());
+            txtCatDetailLocation.setText(ex.getLocation());
+            txtCatDetailCategory.setText(ex.getCategory());
         }
     }
 
-
 }
+

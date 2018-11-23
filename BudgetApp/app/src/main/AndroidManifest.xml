@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="no.hiof.fredrivo.budgetapp">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-        <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-permission android:name="com.android.permission.SET_ALARM"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InputActivity"/>
+        <activity android:name=".InputActivity" />
         <activity android:name=".ChartActivity" />
         <activity android:name=".ProfilSettingsActivity" />
         <activity android:name=".DetailActivity" />
@@ -36,11 +36,13 @@
         <activity android:name=".ProfilActivity" />
 
         <receiver android:name=".classes.N_receiver">
-        <intent-filter>
-            <action android:name="android.media.action.DISPLAY_NOTIFICATION"/>
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </receiver>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="no.hiof.fredrivo.budgetapp.fileprovider"
@@ -50,8 +52,10 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths"
-                tools:replace="android:resource"/>
+                tools:replace="android:resource" />
         </provider>
+
+        <activity android:name=".CategoryDetailActivity" />
     </application>
 
 </manifest>
