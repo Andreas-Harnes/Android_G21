@@ -186,12 +186,12 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
@@ -199,7 +199,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         } else if (id == R.id.chart) {
             Intent intent = new Intent(this,ChartActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         }

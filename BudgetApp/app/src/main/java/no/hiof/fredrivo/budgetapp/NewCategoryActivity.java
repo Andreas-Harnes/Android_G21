@@ -57,13 +57,12 @@ public class NewCategoryActivity extends AppCompatActivity {
 
                 //hvis kategorilisten allerede har denne kategorien, si ifra med toast
                 else if (Categories.getUserCategories().contains(newCategory)) {
-                    Toast.makeText(NewCategoryActivity.this, "Category already exists. Please add a new category    .", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewCategoryActivity.this, "Category already exists. Please add a new category.", Toast.LENGTH_SHORT).show();
                 }
 
                 //legg til kategorien i lista og start intent for å åpne InputActivity
                 else{
                     new Categories(newCategory);
-                    intentAddCategory.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intentAddCategory);
 
                     finish();

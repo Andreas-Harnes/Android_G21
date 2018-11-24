@@ -65,7 +65,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         //TestData
         List<Expenses> expensesList = Expenses.TestData();
-        int moneyLeft = 1000;
+        int moneyLeft = 10000;
         
         //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
         for (Expenses values : expensesList) {
@@ -76,6 +76,8 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         }
 
         //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
+        //Hvis income er mindre en 0 blir den satt til 0 fordi det er ikke hennsiktsmessig
+        // å vise negaative penger igjen.
         if (moneyLeft < 0){
             moneyLeft = 0;
             PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
@@ -113,17 +115,17 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         if (id == R.id.overview) {
             Intent intent = new Intent(this, overview.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.chart) {
