@@ -34,6 +34,10 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class ChartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout draw;
+    private PieChart pieChart;
+    private List<PieEntry> pieChartList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +59,13 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        PieChart pieChart = findViewById(R.id.pieChartLayout);
+        pieChart = findViewById(R.id.pieChartLayout);
 
-        List<PieEntry> pieChartList = new ArrayList<>();
+        pieChartList = new ArrayList<>();
+        
+    }
 
+    public void makeChart(){
         /*Liste med alle expenses som sorteres på kategori
         List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
         int moneyLeft = ProfilActivity.getIncome();*/
@@ -66,7 +73,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         //TestData
         List<Expenses> expensesList = Expenses.TestData();
         int moneyLeft = 10000;
-        
+
         //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
         for (Expenses values : expensesList) {
             pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
@@ -104,9 +111,6 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(false);
         pieChart.invalidate();
-
-
-
     }
 
     @Override
