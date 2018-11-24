@@ -2,9 +2,10 @@ package no.hiof.fredrivo.budgetapp.classes;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Expenses {
+public class Expenses implements Serializable {
 
 //    private String id;
     private int sum;

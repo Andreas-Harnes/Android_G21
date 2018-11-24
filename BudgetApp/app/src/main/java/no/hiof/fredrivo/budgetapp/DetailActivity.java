@@ -40,6 +40,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     private GoogleSignInAccount account;
     private DrawerLayout draw;
     private DetailActivityAdapter detailActivityAdapter;
+    private ArrayList<Expenses> list = new ArrayList<>();
 
 
 
@@ -78,7 +79,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
 
         detailActivityAdapter = new DetailActivityAdapter(this, expensesArrayList);
-
         detailRecyclerView.setAdapter(detailActivityAdapter);
 
 
