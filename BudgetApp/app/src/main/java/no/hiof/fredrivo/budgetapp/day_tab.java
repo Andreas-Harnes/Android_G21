@@ -63,7 +63,7 @@ public class day_tab extends Fragment {
 
 //        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
 
 

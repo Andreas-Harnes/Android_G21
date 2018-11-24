@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             account = completedTask.getResult(ApiException.class);
-//            Toast.makeText(this, account.getGivenName(), SHORT).show();
             startActivity(intentOverview);
             finish();
 

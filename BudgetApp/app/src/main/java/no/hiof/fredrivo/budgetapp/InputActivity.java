@@ -203,7 +203,7 @@ public class InputActivity extends AppCompatActivity {
                     userExpense.setLocation(location);
                     userExpense.setSum(price);
 
-                    Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
 
 //                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
                     myRef.child("Expenses").child(id).setValue(userExpense);

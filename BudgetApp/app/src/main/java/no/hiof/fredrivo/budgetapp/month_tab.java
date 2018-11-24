@@ -56,9 +56,7 @@ public class month_tab extends Fragment {
 
         account = GoogleSignIn.getLastSignedInAccount(getContext());
 
-//        Toast.makeText(getContext(), account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
         //monthCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }

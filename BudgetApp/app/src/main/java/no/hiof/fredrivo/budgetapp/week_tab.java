@@ -57,7 +57,7 @@ public class week_tab extends Fragment {
         c = new WeekDates();
 
 
-        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
         //weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }

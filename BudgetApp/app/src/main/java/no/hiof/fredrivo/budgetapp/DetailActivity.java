@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -77,7 +76,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         RecyclerView detailRecyclerView = findViewById(R.id.detailRecyclerView);
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Toast.makeText(this, account.getDisplayName(), Toast.LENGTH_SHORT).show();
 
         detailActivityAdapter = new DetailActivityAdapter(this, expensesArrayList);
 
