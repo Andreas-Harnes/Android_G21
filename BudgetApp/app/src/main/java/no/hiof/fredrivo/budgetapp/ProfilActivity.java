@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import no.hiof.fredrivo.budgetapp.classes.Profile;
@@ -30,6 +32,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     private TextView txtProfilCategories;
     private DrawerLayout draw;
     private GoogleSignInAccount account;
+    private DatabaseReference mDatabaseRef;
 
     private static int income;
 
@@ -40,6 +43,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_profil);
 
         // Google login
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         account = GoogleSignIn.getLastSignedInAccount(this);
 
         txtProfilIncome = findViewById(R.id.txtProfilIncome);
@@ -82,6 +86,14 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_profile_settings, menu);
         return true;
@@ -100,34 +112,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                Intent i = data;
-
-                income = i.getIntExtra("income", -1);
-                int save = i.getIntExtra("save", -1);
-                int monthly = i.getIntExtra("monthly", -1);
-                String category = i.getStringExtra("category");
-                Profile newInfo = new Profile(income, save, monthly, category);
-
-                txtProfilIncome.setText(String.valueOf(newInfo.getIncomePerMonth() + ",-"));
-                txtProfilSave.setText(String.valueOf(newInfo.getSavePerMonth() + ",-"));
-                txtProfilMonthlyEx.setText(String.valueOf(newInfo.getExpensesPerMonth() + ",-"));
-                txtProfilCategories.setText(newInfo.getCategoryToSave());
-            }
-
-            if (resultCode == Activity.RESULT_CANCELED){
-
-                txtProfilIncome.setText("Set income");
-                txtProfilSave.setText("Set saving");
-                txtProfilMonthlyEx.setText("Set expenses");
-                txtProfilCategories.setText("Set categories");
-            }
-        }
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

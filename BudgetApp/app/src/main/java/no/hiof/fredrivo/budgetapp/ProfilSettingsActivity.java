@@ -18,9 +18,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import no.hiof.fredrivo.budgetapp.classes.Categories;
+import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
@@ -35,10 +41,24 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private TextView txtCategoriesForSaving;
     private ArrayList<String> saveCategoriesList = new ArrayList<>();
 
+    private DatabaseReference mDatabaseRef;
+    private GoogleSignInAccount account;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_settings);
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
+        // TODO: Legg til feil håndtering
+        try {
+            // Google login
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //finner views fra xml
         drpSettingsCat = findViewById(R.id.drpSettingsCat);
@@ -134,7 +154,10 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 //henter ut tekst fra views
+                String id = mDatabaseRef.push().getKey();
                 int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
                 int income = Integer.parseInt(txtIncome.getText().toString());
                 int save = Integer.parseInt(txtSavePrMonth.getText().toString());
@@ -151,6 +174,9 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
                 //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);
+
+                Profile userProfile = new Profile(id, income, save, monthly, category);
+                mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
 
                 //starter intent med result ok
                 setResult(Activity.RESULT_OK, intentSaveChanges);
