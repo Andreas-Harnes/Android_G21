@@ -18,10 +18,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
+import no.hiof.fredrivo.budgetapp.classes.Expenses;
 import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 public class ProfilActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -42,14 +48,17 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-        // Google login
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        account = GoogleSignIn.getLastSignedInAccount(this);
-
+        // Get GUI elementer
         txtProfilIncome = findViewById(R.id.txtProfilIncome);
         txtProfilSave = findViewById(R.id.txtProfilSave);
         txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtProfilCategories = findViewById(R.id.txtProfilCategories);
+
+        // Google login
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+
 
 
 
@@ -83,15 +92,40 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         // slutt for navi drawer
+
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+//                showData(dataSnapshot);
+
+                if(dataSnapshot.child(account.getId()).hasChild("Profile")){
+                    showData(dataSnapshot);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
 
+    private void showData(DataSnapshot dataSnapshot) {
+
+        txtProfilIncome.setText(dataSnapshot.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString());
+        txtProfilSave.setText(dataSnapshot.child(account.getId()).child("Profile").child("savePerMonth").getValue().toString());
+        txtProfilMonthlyEx.setText(dataSnapshot.child(account.getId()).child("Profile").child("expensesPerMonth").getValue().toString());
+        txtProfilCategories.setText(dataSnapshot.child(account.getId()).child("Profile").child("categoryToSave").getValue().toString());
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

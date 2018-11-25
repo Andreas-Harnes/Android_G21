@@ -56,9 +56,6 @@ public class month_tab extends Fragment {
 
         account = GoogleSignIn.getLastSignedInAccount(getContext());
 
-
-
-        //monthCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
 
@@ -135,7 +132,6 @@ public class month_tab extends Fragment {
 
         year = String.valueOf(intYear);
 
-        // TODO: Ma fikses slik at den viser til denne måneden
 
         regex = "((.)(.))(/)(("
                 + month.substring(0,1) + ")(" + month.substring(1) +

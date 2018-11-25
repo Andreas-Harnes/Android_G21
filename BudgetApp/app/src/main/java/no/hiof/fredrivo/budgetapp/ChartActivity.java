@@ -23,9 +23,17 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -34,10 +42,23 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class ChartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout draw;
+
+    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
+    private DatabaseReference mDatabaseRef;
+    private GoogleSignInAccount account;
+
+    private List<Expenses> chartDataList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+
+        expensesArrayList.clear();
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -58,6 +79,21 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         PieChart pieChart = findViewById(R.id.pieChartLayout);
 
         List<PieEntry> pieChartList = new ArrayList<>();
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                showData(dataSnapshot);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         /*Liste med alle expenses som sorteres på kategori
         List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
@@ -104,6 +140,87 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         pieChart.invalidate();
 
 
+
+    }
+
+    private void showData(DataSnapshot dataSnapshot) {
+        expensesArrayList.clear();
+        for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
+
+            //Expenses x = ds.getValue(Expenses.class);
+
+            if(validData(ds.getValue(Expenses.class))){
+                Expenses userExpense = new Expenses();
+                userExpense.setSum(ds.getValue(Expenses.class).getSum());
+                userExpense.setDate(ds.getValue(Expenses.class).getDate());
+                userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
+                userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
+                userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
+
+                expensesArrayList.add(userExpense);
+
+            }
+
+
+        }
+
+        //chartDataList = Expenses.expensesSortedCategory(expensesArrayList);
+
+    }
+
+    private boolean validData(Expenses data){
+
+        String regex;
+
+        int fBoolean = 0;
+
+        //gets todays date from calendar object
+        Calendar calendar = Calendar.getInstance();
+        int intYear = calendar.get(Calendar.YEAR);
+        int intMonth = calendar.get(Calendar.MONTH) + 1;
+        int intDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String day = "";
+        String month = "";
+        String year = "";
+
+
+        // Setter day variabelen
+        if(intDay < 10){
+            day = "0" + String.valueOf(intDay);
+        } else {
+            day = String.valueOf(intDay);
+        }
+
+
+        // Setter month variabelen
+        if(intMonth < 10){
+            month = "0" + String.valueOf(intMonth);
+        } else {
+            month = String.valueOf(intMonth);
+        }
+
+        year = String.valueOf(intYear);
+
+
+        regex = "((.)(.))(/)(("
+                + month.substring(0,1) + ")(" + month.substring(1) +
+                "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
+                year.substring(2,3) + ")(" + year.substring(3) + "))";
+
+//        Toast.makeText(getContext(), data.getDate(), Toast.LENGTH_SHORT).show();
+
+        if(data.getDate().matches(regex)){
+            fBoolean = 1;
+        }
+
+        if(fBoolean == 1){
+            return true;
+        } else {
+            return false;
+        }
+
+        //Toast.makeText(getContext(), data, Toast.LENGTH_LONG).show();
 
     }
 
