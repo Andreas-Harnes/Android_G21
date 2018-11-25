@@ -34,7 +34,7 @@ public class week_tab extends Fragment {
     private DatabaseReference mDatabaseRef;
     private ArrayList<Expenses> weekCategoryList = new ArrayList<>();
     private GoogleSignInAccount account;
-    private TextView txtDaySum;
+    private TextView txtWeekSum;
     private WeekTabAdapter weekTabAdapter;
     private WeekDates c;
 
@@ -62,20 +62,20 @@ public class week_tab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
+        View root = inflater.inflate(R.layout.fragment_week_tab, container, false);
 
         //setter opp RecyclerView, LayoutManager og adapter
-        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
+        RecyclerView weekTabRecyclerView = root.findViewById(R.id.weekTabRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dayTabRecyclerView.setLayoutManager(layoutManager);
+        weekTabRecyclerView.setLayoutManager(layoutManager);
 
 //        ArrayList<Expenses> weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
         weekTabAdapter = new WeekTabAdapter(weekCategoryList);
-        dayTabRecyclerView.setAdapter(weekTabAdapter);
+        weekTabRecyclerView.setAdapter(weekTabAdapter);
 
-        txtDaySum = root.findViewById(R.id.txtDaySum);
+        txtWeekSum = root.findViewById(R.id.txtWeekSum);
 
         // Legger til en lytter for å hente data og lytte etter endringer i databasen
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -108,7 +108,7 @@ public class week_tab extends Fragment {
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
         weekCategoryList.addAll(tempList);
-        changeTotalSpent(weekCategoryList, txtDaySum);
+        changeTotalSpent(weekCategoryList, txtWeekSum);
 
         // Det er denne som oppdaterer viewet
         weekTabAdapter.notifyDataSetChanged();

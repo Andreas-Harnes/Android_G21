@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,7 +36,6 @@ import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
-    // TODO: Legge til funksjonalitet for profil settings
 
     private Intent intentSaveChanges;
     private Spinner drpSettingsCat;
@@ -60,6 +60,12 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private TextView txtProfilSettingsSave;
     private TextView txtProfilSettingsMonthlyEx;
     private TextView txtSpendingLimitText;
+    private TextView getTxtCategoriesForSaving;
+    private String id;
+    private int monthly;
+    private int income;
+    private int save;
+    private String category;
 
 
     @Override
@@ -71,10 +77,11 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         txtProfilSettingsIncome = findViewById(R.id.txtProfilSettingsIncome);
         txtProfilSettingsSave = findViewById(R.id.txtProfilSettingsSave);
         txtProfilSettingsMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
+        txtCategoriesForSaving = findViewById(R.id.txtProfilSettingsCategories);
+        drpSettingsCat = findViewById(R.id.drpSettingsCat);
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         try {
             account = GoogleSignIn.getLastSignedInAccount(this);
         } catch (Exception e) {
@@ -84,11 +91,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         }
 
         //finner views fra xml
-        drpSettingsCat = findViewById(R.id.drpSettingsCat);
-        txtMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
-        txtIncome = findViewById(R.id.txtProfilSettingsIncome);
-        txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
-        txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
         txtCat1 = findViewById(R.id.txtCat1);
         txtCat2 = findViewById(R.id.txtCat2);
         txtCat3 = findViewById(R.id.txtCat3);
@@ -139,6 +141,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                     saveCategoriesList.add(fillCategories);
                 }
 
+
                 //lager stringbuilder for å holde på valgte kategorier og legge på nye
                 StringBuilder builder = new StringBuilder();
 
@@ -149,6 +152,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 for (String s : saveCategoriesList) {
 
                     //sjekker om dette er det første elementet, legger til kategori uten komma
+                    //setter tekstbokser for spending limit som synlig og setter navn på kategori som tittel
                     if (i == 0) {
                         builder.append(s);
                         txtCat1.setVisibility(View.VISIBLE);
@@ -157,6 +161,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         txtCat1.setText(s);
                     }
 
+                    //setter tekstbokser for spending limit som synlig og setter navn på kategori som tittel
                     else if (i == 1) {
                         String s2 = ", " + s;
                         builder.append(s2);
@@ -166,6 +171,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         txtCat2.setText(s);
                     }
 
+                    //setter tekstbokser for spending limit som synlig og setter navn på kategori som tittel
                     else if (i == 2) {
                         String s2 = ", " + s;
                         builder.append(s2);
@@ -175,6 +181,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         txtCat3.setText(s);
                     }
 
+                    //setter tekstbokser for spending limit som synlig og setter navn på kategori som tittel
                     else if (i == 3) {
                         String s2 = ", " + s;
                         builder.append(s2);
@@ -187,12 +194,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                     //sjekker om der er mer enn 4 elementer i lista, sier ifra med toast
                     else if (i == 4) {
                         Toast.makeText(getApplicationContext(), "Maximum 4 categories", Toast.LENGTH_SHORT).show();
-                    }
-
-                    //legger til kategori med komma
-                    else {
-                        String s2 = ", " + s;
-                        builder.append(s2);
                     }
 
                     i++;
@@ -217,16 +218,35 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //henter ut tekst fra views
-                String id = mDatabaseRef.push().getKey();
-                int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
-                int income = Integer.parseInt(txtIncome.getText().toString());
-                int save = Integer.parseInt(txtSavePrMonth.getText().toString());
-                String category = txtCategoriesForSaving.getText().toString();
+                //sjekker om alle felt er fylt ut, henter ut tekst fra views
+                if (TextUtils.isEmpty(txtProfilSettingsMonthlyEx.getText().toString())) {
+                    Toast.makeText(ProfilSettingsActivity.this, "Please add monthly expenses", Toast.LENGTH_SHORT).show();
+                }
+
+                if (TextUtils.isEmpty(txtProfilSettingsIncome.getText().toString())) {
+                    Toast.makeText(ProfilSettingsActivity.this, "Please add income", Toast.LENGTH_SHORT).show();
+                }
+
+                if (TextUtils.isEmpty(txtProfilSettingsSave.getText().toString())) {
+                    Toast.makeText(ProfilSettingsActivity.this, "Please add how much to save", Toast.LENGTH_SHORT).show();
+                }
+
+                if (TextUtils.isEmpty(txtCategoriesForSaving.getText().toString())) {
+                    Toast.makeText(ProfilSettingsActivity.this, "Please add categories for saving", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    id = mDatabaseRef.push().getKey();
+                    monthly = Integer.parseInt(txtProfilSettingsMonthlyEx.getText().toString());
+                    income = Integer.parseInt(txtProfilSettingsIncome.getText().toString());
+                    save = Integer.parseInt(txtProfilSettingsSave.getText().toString());
+                    category = txtCategoriesForSaving.getText().toString();
+                }
 
                 //lager bundle for å overføre info til ProfilActivity
                 Bundle bundle = new Bundle();
 
+                //henter tekst fra spending limit views
                 String limit1 = txtLimit1.getText().toString();
                 String limit2 = txtLimit2.getText().toString();
                 String limit3 = txtLimit3.getText().toString();
@@ -237,6 +257,8 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 String cat4 = txtCat4.getText().toString();
 
 
+                //if-tester som sjekker om kategorier er valgt, sender spending limit sum med
+                //i bundle hvis tekstfeltet er satt
                 if (!cat1.equals("TextView")) {
                     bundle.putString("limit1", limit1);
                     bundle.putString("cat1", cat1);
@@ -256,12 +278,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                     bundle.putString("limit4", limit4);
                     bundle.putString("cat4", cat4);
                 }
-
-                //putter info inn i bundle
-                bundle.putInt("income", income);
-                bundle.putInt("save", save);
-                bundle.putInt("monthly", monthly);
-                bundle.putString("category", category);
 
                 //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);

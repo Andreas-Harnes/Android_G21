@@ -67,6 +67,7 @@ public class day_tab extends Fragment {
 
         dayDetailIntent = new Intent(getContext(), CategoryDetailActivity.class);
 
+        //sender info til adapter med onclicklistener på cardview
         dayTabAdapter = new DayTabAdapter(dayCategoryList, new DayTabAdapter.DayViewClickListener() {
             @Override
             public void onClick(int position) {
@@ -79,6 +80,7 @@ public class day_tab extends Fragment {
                 startActivity(dayDetailIntent);
             }
         });
+
         dayTabRecyclerView.setAdapter(dayTabAdapter);
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
