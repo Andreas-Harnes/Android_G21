@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -28,8 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
@@ -73,8 +80,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         draw.addDrawerListener(toggle);
         toggle.syncState();
 
-
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         
@@ -82,7 +87,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        detailActivityAdapter = new DetailActivityAdapter(this, expensesArrayList);
+
+        detailActivityAdapter = new DetailActivityAdapter(this, list);
         detailRecyclerView.setAdapter(detailActivityAdapter);
 
 
@@ -92,14 +98,10 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
                 ds = dataSnapshot;
                 showData(dataSnapshot);
-
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
@@ -108,7 +110,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
         Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
     }
-
 
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
@@ -122,15 +123,59 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             userExpense.setCategory(DS.getValue(Expenses.class).getCategory());
 
             expensesArrayList.add(userExpense);
-
-
         }
 
+        ArrayList<Expenses> t = expensesArrayList;
+
+        list = sortByDate(t);
 
         // Det er denne som oppdaterer viewet
         detailActivityAdapter.notifyDataSetChanged();
+
     }
 
+
+    public ArrayList<Expenses> sortByDate (ArrayList<Expenses> list) {
+        //utgangspunkt: https://www.mkyong.com/java/how-to-convert-string-to-date-java/
+        ArrayList<Expenses> temp = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (Expenses ex : list) {
+            String dateInString = ex.getDate();
+
+            try {
+                Date date = formatter.parse(dateInString);
+
+                Expenses newEx = new Expenses();
+
+                newEx.setCategory(ex.getCategory());
+                newEx.setSum(ex.getSum());
+                newEx.setLocation(ex.getLocation());
+                newEx.setDescription(ex.getDescription());
+                newEx.setDateTime(date);
+
+                temp.add(newEx);
+
+            }
+
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //kilde: https://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date
+        Collections.sort(temp, new Comparator<Expenses>() {
+            @Override
+            public int compare(Expenses o1, Expenses o2) {
+                if (o1.getDateTime() == null || o2.getDateTime() == null)
+                    return 0;
+
+                return o1.getDateTime().compareTo(o2.getDateTime());
+            }
+        });
+
+        return temp;
+    }
 
 
     @Override

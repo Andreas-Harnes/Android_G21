@@ -154,9 +154,8 @@ public class day_tab extends Fragment {
                 expensesArrayList.add(userExpense);
 
             }
-
-
         }
+
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
 
         dayCategoryList.addAll(tempList);

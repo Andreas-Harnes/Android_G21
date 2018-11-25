@@ -87,7 +87,6 @@ public class week_tab extends Fragment {
 
                 showData(dataSnapshot);
 
-
             }
 
             @Override
@@ -139,7 +138,7 @@ public class week_tab extends Fragment {
     }
 
 
-    private int daySum(ArrayList<Expenses> expenses) {
+    private int weekSum(ArrayList<Expenses> expenses) {
         int total = 0;
 
         for (Expenses i : expenses) {
@@ -151,7 +150,7 @@ public class week_tab extends Fragment {
 
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
 
-        int sum = daySum(arrayList);
+        int sum = weekSum(arrayList);
         String s = "Weekly total: " + Integer.toString(sum) + ",-";
         textField.setText(s);
 

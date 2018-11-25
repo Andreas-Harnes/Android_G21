@@ -44,6 +44,14 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private EditText txtIncome;
     private EditText txtSavePrMonth;
     private TextView txtCategoriesForSaving;
+    private TextView txtCat1;
+    private TextView txtCat2;
+    private TextView txtCat3;
+    private TextView txtCat4;
+    private EditText txtLimit1;
+    private EditText txtLimit2;
+    private EditText txtLimit3;
+    private EditText txtLimit4;
     private ArrayList<String> saveCategoriesList = new ArrayList<>();
 
     private DatabaseReference mDatabaseRef;
@@ -79,6 +87,14 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         txtIncome = findViewById(R.id.txtProfilSettingsIncome);
         txtSavePrMonth = findViewById(R.id.txtProfilSettingsSave);
         txtCategoriesForSaving = findViewById(R.id.txtProfilCategories);
+        txtCat1 = findViewById(R.id.txtCat1);
+        txtCat2 = findViewById(R.id.txtCat2);
+        txtCat3 = findViewById(R.id.txtCat3);
+        txtCat4 = findViewById(R.id.txtCat4);
+        txtLimit1 = findViewById(R.id.txtLimit1);
+        txtLimit2 = findViewById(R.id.txtLimit2);
+        txtLimit3 = findViewById(R.id.txtLimit3);
+        txtLimit4 = findViewById(R.id.txtLimit4);
 
         //adapter for å putte kategorier fra arraylist inni dropdownmeny
         ArrayAdapter<String> adapterSettingsCat = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
@@ -129,14 +145,41 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 //for each for å legge til elementer fra arraylist til textview
                 for (String s : saveCategoriesList) {
 
-                    //sjekker om der er mer enn 4 elementer i lista, sier ifra med toast
-                    if (i == 4) {
-                        Toast.makeText(getApplicationContext(), "Maximum 4 categories", Toast.LENGTH_SHORT).show();
+                    //sjekker om dette er det første elementet, legger til kategori uten komma
+                    if (i == 0) {
+                        builder.append(s);
+                        txtCat1.setVisibility(View.VISIBLE);
+                        txtLimit1.setVisibility(View.VISIBLE);
+                        txtCat1.setText(s);
                     }
 
-                    //sjekker om dette er det første elementet, legger til kategori uten komma
-                    else if (i == 0) {
-                        builder.append(s);
+                    else if (i == 1) {
+                        String s2 = ", " + s;
+                        builder.append(s2);
+                        txtCat2.setVisibility(View.VISIBLE);
+                        txtLimit2.setVisibility(View.VISIBLE);
+                        txtCat2.setText(s);
+                    }
+
+                    else if (i == 2) {
+                        String s2 = ", " + s;
+                        builder.append(s2);
+                        txtCat3.setVisibility(View.VISIBLE);
+                        txtLimit3.setVisibility(View.VISIBLE);
+                        txtCat3.setText(s);
+                    }
+
+                    else if (i == 3) {
+                        String s2 = ", " + s;
+                        builder.append(s2);
+                        txtCat4.setVisibility(View.VISIBLE);
+                        txtLimit4.setVisibility(View.VISIBLE);
+                        txtCat4.setText(s);
+                    }
+
+                    //sjekker om der er mer enn 4 elementer i lista, sier ifra med toast
+                    else if (i == 4) {
+                        Toast.makeText(getApplicationContext(), "Maximum 4 categories", Toast.LENGTH_SHORT).show();
                     }
 
                     //legger til kategori med komma
@@ -167,8 +210,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
                 //henter ut tekst fra views
                 String id = mDatabaseRef.push().getKey();
                 int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
@@ -178,6 +219,36 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
                 //lager bundle for å overføre info til ProfilActivity
                 Bundle bundle = new Bundle();
+
+                String limit1 = txtLimit1.getText().toString();
+                String limit2 = txtLimit2.getText().toString();
+                String limit3 = txtLimit3.getText().toString();
+                String limit4 = txtLimit4.getText().toString();
+                String cat1 = txtCat1.getText().toString();
+                String cat2 = txtCat2.getText().toString();
+                String cat3 = txtCat3.getText().toString();
+                String cat4 = txtCat4.getText().toString();
+
+
+                if (txtLimit1.getText() != null) {
+                    bundle.putString("limit1", limit1);
+                    bundle.putString("cat1", cat1);
+                }
+
+                if (txtLimit2.getText() != null) {
+                    bundle.putString("limit2", limit2);
+                    bundle.putString("cat2", cat2);
+                }
+
+                if (txtLimit3.getText() != null) {
+                    bundle.putString("limit3", limit3);
+                    bundle.putString("cat3", cat3);
+                }
+
+                if (txtLimit4.getText() != null) {
+                    bundle.putString("limit4", limit4);
+                    bundle.putString("cat4", cat4);
+                }
 
                 //putter info inn i bundle
                 bundle.putInt("income", income);
@@ -240,16 +311,16 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
     }
 
-    public ArrayList<String> getSaveCategoriesList() { return saveCategoriesList; }
+   public ArrayList<String> getSaveCategoriesList() { return saveCategoriesList; }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_overview, menu);
         return true;
-    }
+   }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.overview) {
@@ -264,5 +335,5 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+   }
 }

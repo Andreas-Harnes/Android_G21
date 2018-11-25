@@ -43,7 +43,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp">
             <EditText
                 android:id="@+id/txtProfilSettingsIncome"
                 android:layout_width="220dp"
@@ -55,7 +56,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp">
             <EditText
                 android:id="@+id/txtProfilSettingsSave"
                 android:layout_width="220dp"
@@ -67,7 +69,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="30dp">
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp">
             <EditText
                 android:id="@+id/txtProfilSettingsMonthlyEx"
                 android:layout_width="220dp"
@@ -79,7 +82,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp">
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
@@ -91,13 +95,15 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
             <Spinner
                 android:id="@+id/drpSettingsCat"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:layout_span="1"
-                />
+                android:layout_span="1" />
 
             <Button
                 android:id="@+id/btnAddCatSettings"
@@ -109,7 +115,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp">
             <TextView
                 android:id="@+id/txtProfilCategories"
                 android:layout_width="354dp"
@@ -124,7 +131,8 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp">
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -133,6 +141,106 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_span="2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/txtCat1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/txtLimit1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Total"
+                android:inputType="number"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/txtCat2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/txtLimit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Total"
+                android:inputType="number"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/txtCat3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/txtLimit3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Total"
+                android:inputType="number"
+                android:visibility="gone"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/txtCat4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/txtLimit4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Total"
+                android:inputType="number"
+                android:visibility="gone"/>
         </TableRow>
 
         <TableRow

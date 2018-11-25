@@ -2,6 +2,7 @@ package no.hiof.fredrivo.budgetapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,9 +38,25 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     private TextView txtProfilSave;
     private TextView txtProfilMonthlyEx;
     private TextView txtProfilCategories;
+    private TextView txtSL1;
+    private TextView txtSL2;
+    private TextView txtSL3;
+    private TextView txtSL4;
+    private TextView txtC1;
+    private TextView txtC2;
+    private TextView txtC3;
+    private TextView txtC4;
     private DrawerLayout draw;
     private GoogleSignInAccount account;
     private DatabaseReference mDatabaseRef;
+    private String limit1;
+    private String limit2;
+    private String limit3;
+    private String limit4;
+    private String cat1;
+    private String cat2;
+    private String cat3;
+    private String cat4;
 
     private static int income;
     private DataSnapshot ds;
@@ -56,13 +74,19 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         txtProfilSave = findViewById(R.id.txtProfilSave);
         txtProfilMonthlyEx = findViewById(R.id.txtProfilMonthlyEx);
         txtProfilCategories = findViewById(R.id.txtProfilCategories);
+        txtSL1 = findViewById(R.id.txtSL1);
+        txtSL2 = findViewById(R.id.txtSL2);
+        txtSL3 = findViewById(R.id.txtSL3);
+        txtSL4 = findViewById(R.id.txtSL4);
+        txtC1 = findViewById(R.id.txtC1);
+        txtC2 = findViewById(R.id.txtC2);
+        txtC3 = findViewById(R.id.txtC3);
+        txtC4 = findViewById(R.id.txtC4);
+
 
         // Google login
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         account = GoogleSignIn.getLastSignedInAccount(this);
-
-
-
 
 
         // Sette profilbildet
@@ -72,8 +96,6 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         // Setter navnet til navnet på profilen
         TextView txtProfileName = findViewById(R.id.txtProfileName);
         txtProfileName.setText(account.getDisplayName());
-
-
 
 
         //Toolbar og navigationDrawer start:
@@ -155,6 +177,75 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(resultCode, requestCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                Intent i = data;
+                Bundle extras = i.getExtras();
+
+                if (extras.containsKey("limit1")) {
+                    limit1 = i.getStringExtra("limit1");
+                    cat1 = i.getStringExtra("cat1");
+
+                    txtC1.setVisibility(View.VISIBLE);
+                    txtSL1.setVisibility(View.VISIBLE);
+
+                    String s = cat1 + " spending limit";
+
+                    txtC1.setText(s);
+                    txtSL1.setText(limit1);
+                }
+
+                if (extras.containsKey("limit2")) {
+                    limit2 = i.getStringExtra("limit2");
+                    cat2 = i.getStringExtra("cat2");
+
+                    txtC2.setVisibility(View.VISIBLE);
+                    txtSL2.setVisibility(View.VISIBLE);
+
+                    String s = cat2 + " spending limit";
+
+                    txtC2.setText(s);
+                    txtSL2.setText(limit2);
+                }
+
+                if (extras.containsKey("limit3")) {
+                    limit3 = i.getStringExtra("limit3");
+                    cat3 = i.getStringExtra("cat3");
+
+                    txtC3.setVisibility(View.VISIBLE);
+                    txtSL3.setVisibility(View.VISIBLE);
+
+                    String s = cat3 + " spending limit";
+
+                    txtC3.setText(s);
+                    txtSL3.setText(limit3);
+                }
+
+                if (extras.containsKey("limit4")) {
+                    limit4 = i.getStringExtra("limit4");
+                    cat4 = i.getStringExtra("cat4");
+
+                    txtC4.setVisibility(View.VISIBLE);
+                    txtSL4.setVisibility(View.VISIBLE);
+
+                    String s = cat4 + " spending limit";
+
+                    txtC4.setText(s);
+                    txtSL4.setText(limit4);
+                }
+
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Result Cancelled", Toast.LENGTH_SHORT);
+            }
+        }
     }
 
 
