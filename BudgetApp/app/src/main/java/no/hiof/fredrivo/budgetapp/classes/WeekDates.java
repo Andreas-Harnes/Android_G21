@@ -63,6 +63,7 @@ public class WeekDates {
             case Calendar.SATURDAY:
                 c.add(Calendar.DATE,2);
                 break;
+
         }
 
         //Add the Monday to the output

@@ -235,10 +235,10 @@ public class day_tab extends Fragment {
 
 
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
-
         int sum = daySum(arrayList);
-        String s = "Today's total: " + Integer.toString(sum) + ",-";
-        textField.setText(s);
-
+        if(sum != 0){
+            String s = "Today's total: " + Integer.toString(sum) + ",-";
+            textField.setText(s);
+        }
     }
 }

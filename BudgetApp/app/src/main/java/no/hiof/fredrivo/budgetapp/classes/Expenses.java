@@ -50,16 +50,6 @@ public class Expenses implements Serializable {
 
 
 
-    public static void PrintExpense(Expenses x) {
-        Log.d("Expenses output: ", String.valueOf(x.sum));
-        Log.d("Expenses output: ", x.date);
-        Log.d("Expenses output: ", x.location);
-        Log.d("Expenses output: ", x.description);
-        Log.d("Expenses output: ", x.category);
-
-
-    }
-
 
     public static ArrayList<Expenses> TestData(){
 
@@ -118,9 +108,11 @@ public class Expenses implements Serializable {
                     totalSum += j.getSum();
                 }
             }
+            if(totalSum != 0){
+                categoryEx = new Expenses(totalSum, i);
+                sortedByCategory.add(categoryEx);
+            }
 
-            categoryEx = new Expenses(totalSum, i);
-            sortedByCategory.add(categoryEx);
         }
 
         return sortedByCategory;
