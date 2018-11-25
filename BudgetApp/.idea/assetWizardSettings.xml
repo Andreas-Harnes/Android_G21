@@ -36,6 +36,7 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ff9800" />
                                       <entry key="foregroundImage" value="$USER_HOME$/Downloads/appIcon.png" />
+                                      <entry key="legacyIconShape" value="CIRCLE" />
                                     </map>
                                   </option>
                                 </PersistentState>
