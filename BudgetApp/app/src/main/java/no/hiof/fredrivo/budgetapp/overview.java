@@ -227,8 +227,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
-                    ds.child(account.getId()).hasChild("Profile")){
+            if (ds.child(account.getId()).hasChild("Profile")){
 
                 Intent intent = new Intent(this, ChartActivity.class);
                 startActivity(intent);
