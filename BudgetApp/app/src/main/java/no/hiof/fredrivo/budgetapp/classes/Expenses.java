@@ -55,7 +55,7 @@ public class Expenses implements Serializable, Comparable<Expenses> {
 
 
 
-
+    // Generer test data brukt for debugging
     public static ArrayList<Expenses> TestData(){
 
        ArrayList<Expenses> expenseList = new ArrayList<>();
@@ -99,6 +99,7 @@ public class Expenses implements Serializable, Comparable<Expenses> {
         return expenseList;
     }
 
+    // Sorterer en liste med expenses basert på katergoriene
     public static ArrayList<Expenses> expensesSortedCategory(ArrayList<Expenses> expenseList){
         ArrayList<Expenses> sortedByCategory = new ArrayList<>();
         ArrayList<String> categoryList = Categories.getUserCategories();
@@ -117,9 +118,7 @@ public class Expenses implements Serializable, Comparable<Expenses> {
                 categoryEx = new Expenses(totalSum, i);
                 sortedByCategory.add(categoryEx);
             }
-
         }
-
         return sortedByCategory;
     }
 

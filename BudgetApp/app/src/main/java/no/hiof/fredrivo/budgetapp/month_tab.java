@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,15 +34,11 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class month_tab extends Fragment {
     private static final String TAG = "Tab3frag";
-
     private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     private DatabaseReference mDatabaseRef;
-
     private ArrayList<Expenses> monthCategoryList = new ArrayList<>();
-
     private GoogleSignInAccount account;
     private TextView txtDaySum;
-
     private MonthTabAdapter monthTabAdapter;
 
 
@@ -49,15 +46,16 @@ public class month_tab extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         expensesArrayList.clear();
-
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
-        account = GoogleSignIn.getLastSignedInAccount(getContext());
-
+        try {
+            account = GoogleSignIn.getLastSignedInAccount(getContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,23 +75,14 @@ public class month_tab extends Fragment {
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
 
+        // Legger til en lytter for å hente data og lytte etter endringer i databasen
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                showData(dataSnapshot);
-
-
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { showData(dataSnapshot); }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-
-
-
         return root;
     }
 
@@ -114,16 +103,12 @@ public class month_tab extends Fragment {
         String month = "";
         String year = "";
 
-
-        // Setter day variabelen
         if(intDay < 10){
             day = "0" + String.valueOf(intDay);
         } else {
             day = String.valueOf(intDay);
         }
 
-
-        // Setter month variabelen
         if(intMonth < 10){
             month = "0" + String.valueOf(intMonth);
         } else {
@@ -132,35 +117,20 @@ public class month_tab extends Fragment {
 
         year = String.valueOf(intYear);
 
-
         regex = "((.)(.))(/)(("
                 + month.substring(0,1) + ")(" + month.substring(1) +
                 "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
                 year.substring(2,3) + ")(" + year.substring(3) + "))";
-
-//        Toast.makeText(getContext(), data.getDate(), Toast.LENGTH_SHORT).show();
-
         if(data.getDate().matches(regex)){
-            fBoolean = 1;
-        }
-
-        if(fBoolean == 1){
             return true;
-        } else {
-            return false;
         }
-
-        //Toast.makeText(getContext(), data, Toast.LENGTH_LONG).show();
-
+        return false;
     }
-
+    // Legger data fra Firebase inn i en liste
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
         monthCategoryList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
-
-            Expenses x = ds.getValue(Expenses.class);
-
             if(validData(ds.getValue(Expenses.class))){
                 Expenses userExpense = new Expenses();
                 userExpense.setSum(ds.getValue(Expenses.class).getSum());
@@ -170,10 +140,7 @@ public class month_tab extends Fragment {
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
                 expensesArrayList.add(userExpense);
-
             }
-
-
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
         monthCategoryList.addAll(tempList);
@@ -186,11 +153,9 @@ public class month_tab extends Fragment {
 
     private int daySum(ArrayList<Expenses> expenses) {
         int total = 0;
-
         for (Expenses i : expenses) {
             total += i.getSum();
         }
-
         return total;
     }
 
@@ -201,6 +166,4 @@ public class month_tab extends Fragment {
             textField.setText(s);
         }
     }
-
-
 }

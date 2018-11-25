@@ -73,12 +73,13 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-        // TODO: Legg til feil håndtering
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         try {
-            // Google login
             account = GoogleSignIn.getLastSignedInAccount(this);
         } catch (Exception e) {
             e.printStackTrace();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         //finner views fra xml

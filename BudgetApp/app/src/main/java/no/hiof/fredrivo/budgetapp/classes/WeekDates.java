@@ -16,16 +16,13 @@ import java.util.*;
  *
  */
 
-
 public class WeekDates {
     private static Calendar c;
     private static List<String> output;
 
-
     public WeekDates()
     {
         c = Calendar.getInstance();
-
         output =  new ArrayList<>();
     }
 
@@ -121,6 +118,7 @@ public class WeekDates {
            weekList.add(day + "/" + month + "/" + year);
         }
 
+        // Returnerer en liste med datoer i formatet dd/mm/yyyy
         return weekList;
     }
 }

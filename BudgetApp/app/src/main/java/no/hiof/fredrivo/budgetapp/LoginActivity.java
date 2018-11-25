@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,16 +26,19 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInAccount account;
     private Intent intentOverview;
 
+
+    /*
+        Kode for å implementere Google login i appen er hentet fra Android developer sin dokumentasjon
+
+        https://developers.google.com/identity/sign-in/android/start-integrating
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
         intentOverview = new Intent(this, overview.class);
-
         setContentView(R.layout.activity_login);
-
         SignInButton signInButton = findViewById(R.id.sign_in_button);
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -53,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                     case R.id.sign_in_button:
                         signIn();
                         break;
-                    // ...
                 }
             }
         });
@@ -71,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         account = GoogleSignIn.getLastSignedInAccount(this);
@@ -90,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
@@ -100,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
+    // Hvis brukeren greide å logge inn blir man sendt videre til overview klassen
+    // Hvis ikke får brukeren beskjed at han ikke ble logget inn
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             account = completedTask.getResult(ApiException.class);
@@ -111,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            Toast.makeText(this, "Could not log you in at this time, Try again later", Toast.LENGTH_SHORT).show();
 
         }
     }

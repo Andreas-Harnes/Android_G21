@@ -41,7 +41,6 @@ public class CategoryDetailActivity extends AppCompatActivity implements Navigat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         account = GoogleSignIn.getLastSignedInAccount(this);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -78,41 +77,10 @@ public class CategoryDetailActivity extends AppCompatActivity implements Navigat
 
         categoryDetailRecyclerView.setAdapter(categoryDetailAdapter);
 
-       /* mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                showData(dataSnapshot);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
 
     }
 
-   /* private void showData(DataSnapshot dataSnapshot) {
-        list.clear();
-        for (DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
-            Expenses userExpense = new Expenses();
-            userExpense.setSum(ds.getValue(Expenses.class).getSum());
-            userExpense.setDate(ds.getValue(Expenses.class).getDate());
-            userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
-            userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
-            userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
-
-            list.add(userExpense);
-
-
-        }
-
-        // Det er denne som oppdaterer viewet
-        categoryDetailAdapter.notifyDataSetChanged();
-    }*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

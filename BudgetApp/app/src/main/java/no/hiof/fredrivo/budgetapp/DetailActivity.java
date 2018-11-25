@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,12 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,24 +26,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
 import no.hiof.fredrivo.budgetapp.Adapter.DetailActivityAdapter;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
     private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
-
     private DatabaseReference mDatabaseRef;
     private GoogleSignInAccount account;
     private DrawerLayout draw;
@@ -58,9 +50,15 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        try {
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
 
         expensesArrayList.clear();
 
@@ -68,7 +66,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -86,16 +83,13 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         RecyclerView detailRecyclerView = findViewById(R.id.detailRecyclerView);
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         detailActivityAdapter = new DetailActivityAdapter(this, list);
         detailRecyclerView.setAdapter(detailActivityAdapter);
 
-
+        // Legger til en lytter for å hente data og lytte etter endringer i databasen
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 ds = dataSnapshot;
                 showData(dataSnapshot);
             }
@@ -104,17 +98,24 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
+        /*
+            Setter profilbildet og navn i drawer menyen
+
+            Piccaso API ble funnet på denne url'en
+            http://square.github.io/picasso/
+
+            koden brukt finnes under Introduction delen på siden
+        */
         TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
         txtDrawerProfileName.setText(account.getDisplayName());
-
         ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
         Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
     }
 
+    // Legger data fra Firebase inn i en liste
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
         for(DataSnapshot DS : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
-
             Expenses userExpense = new Expenses();
             userExpense.setSum(DS.getValue(Expenses.class).getSum());
             userExpense.setDate(DS.getValue(Expenses.class).getDate());
@@ -126,17 +127,14 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         }
 
         ArrayList<Expenses> t = expensesArrayList;
-
         list = sortByDate(t);
-
         // Det er denne som oppdaterer viewet
         detailActivityAdapter.notifyDataSetChanged();
-
     }
 
 
     public ArrayList<Expenses> sortByDate (ArrayList<Expenses> list) {
-        //utgangspunkt: https://www.mkyong.com/java/how-to-convert-string-to-date-java/
+        // utgangspunkt: https://www.mkyong.com/java/how-to-convert-string-to-date-java/
         ArrayList<Expenses> temp = new ArrayList<>();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -155,7 +153,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 newEx.setDateTime(date);
 
                 temp.add(newEx);
-
             }
 
             catch (ParseException e) {
@@ -177,11 +174,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         return temp;
     }
 
-
+    // Legger til funksjonalitet til kanppene i drawer menyen
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
@@ -206,16 +201,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
-
             }
-
         }
-
         draw.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public static List<Expenses> getExpensesList() {
-        return expensesArrayList;
     }
 }
