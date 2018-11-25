@@ -204,7 +204,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             }
         });
 
-        Context context = this.getApplicationContext();
+        final Context context = this.getApplicationContext();
 
         //finner knapp for å lagre endringer
         Button saveBtn = findViewById(R.id.saveBtn);
@@ -236,11 +236,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 }
 
                 else {
-                    id = mDatabaseRef.push().getKey();
-                    monthly = Integer.parseInt(txtProfilSettingsMonthlyEx.getText().toString());
-                    income = Integer.parseInt(txtProfilSettingsIncome.getText().toString());
-                    save = Integer.parseInt(txtProfilSettingsSave.getText().toString());
-                    category = txtCategoriesForSaving.getText().toString();
+
                 }
 
                 //lager bundle for å overføre info til ProfilActivity
@@ -282,13 +278,36 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);
 
-                //lager Profil-objekt og sender til databasen
-                Profile userProfile = new Profile(id, income, save, monthly, category);
-                mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
+                if(TextUtils.isEmpty(txtProfilSettingsMonthlyEx.getText().toString()) ||
+                        TextUtils.isEmpty(txtProfilSettingsIncome.getText().toString()) ||
+                        TextUtils.isEmpty(txtProfilSettingsSave.getText().toString()) ||
+                        TextUtils.isEmpty(txtCategoriesForSaving.getText().toString())){
+                    Toast.makeText(context, "You need to fill in everything to continue", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                //starter intent med result ok
-                setResult(Activity.RESULT_OK, intentSaveChanges);
-                finish();
+
+                    id = mDatabaseRef.push().getKey();
+                    monthly = Integer.parseInt(txtProfilSettingsMonthlyEx.getText().toString());
+                    income = Integer.parseInt(txtProfilSettingsIncome.getText().toString());
+                    save = Integer.parseInt(txtProfilSettingsSave.getText().toString());
+                    category = txtCategoriesForSaving.getText().toString();
+
+                    if(income == 0) {
+                        Toast.makeText(context, "Income per month needs to be higher then 0", Toast.LENGTH_SHORT).show();
+                    } else if(income != 0 && income > 0){
+                        Profile userProfile = new Profile(id, income, save, monthly, category);
+                        mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
+                        //starter intent med result ok
+                        setResult(Activity.RESULT_OK, intentSaveChanges);
+                        finish();
+                    }
+
+
+
+                }
+
+
 
             }
         });
@@ -297,8 +316,6 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-//                showData(dataSnapshot);
 
                 if(dataSnapshot.child(account.getId()).hasChild("Profile")){
                     showData(dataSnapshot);
