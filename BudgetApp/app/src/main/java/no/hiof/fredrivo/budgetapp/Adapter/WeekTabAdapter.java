@@ -18,6 +18,7 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class WeekTabAdapter extends RecyclerView.Adapter<WeekTabAdapter.WeekExpenseViewHolder> {
 
     private List<Expenses> expenseList;
+    private WeekViewClickListener weekViewClickListener;
 
     //konstruktør
     public WeekTabAdapter(List<Expenses> expenseList) { this.expenseList = expenseList; }
@@ -58,5 +59,9 @@ public class WeekTabAdapter extends RecyclerView.Adapter<WeekTabAdapter.WeekExpe
             txtWeekSum.setText(ex.getSum()+ ",-");
             txtWeekCategory.setText(ex.getCategory());
         }
+    }
+
+    public interface WeekViewClickListener {
+        void onClick(int position);
     }
 }
