@@ -166,7 +166,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
     public void makeChart(ArrayList<Expenses> arrayListExpenses){
         //TestData
         List<Expenses> expensesList = Expenses.expensesSortedCategory(arrayListExpenses);
-        int moneyLeft = 10000;
+        int moneyLeft = Integer.parseInt(dsForDrawer.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString());
 
         //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
         for (Expenses values : expensesList) {

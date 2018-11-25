@@ -7,14 +7,11 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
 
 import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.overview;
-
-import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 
 /**
  * Broadcast receiver!
