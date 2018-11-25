@@ -9,8 +9,7 @@
         android:id="@+id/profilSettingsBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ProfilActivity"
-        android:stretchColumns="1">
+        tools:context=".ProfilActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/profiltoolbar"
@@ -95,19 +94,21 @@
         </TableRow>
 
         <TableRow
-            android:paddingBottom="15dp"
+            android:layout_width="match_parent"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:paddingBottom="15dp">
 
             <Spinner
                 android:id="@+id/drpSettingsCat"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginEnd="20dp"
                 android:layout_span="1" />
 
             <Button
                 android:id="@+id/btnAddCatSettings"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:layout_span="1"
                 android:text="Choose" />
@@ -134,12 +135,13 @@
             android:paddingBottom="20dp"
             android:paddingLeft="10dp">
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txtSpendingLimitText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Spending limit on these categories:"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:layout_span="2" />
         </TableRow>
 

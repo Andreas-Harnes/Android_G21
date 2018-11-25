@@ -59,6 +59,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private TextView txtProfilSettingsIncome;
     private TextView txtProfilSettingsSave;
     private TextView txtProfilSettingsMonthlyEx;
+    private TextView txtSpendingLimitText;
 
 
     @Override
@@ -96,6 +97,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
         txtLimit2 = findViewById(R.id.txtLimit2);
         txtLimit3 = findViewById(R.id.txtLimit3);
         txtLimit4 = findViewById(R.id.txtLimit4);
+        txtSpendingLimitText = findViewById(R.id.txtSpendingLimitText);
 
         //adapter for å putte kategorier fra arraylist inni dropdownmeny
         ArrayAdapter<String> adapterSettingsCat = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
@@ -151,6 +153,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         builder.append(s);
                         txtCat1.setVisibility(View.VISIBLE);
                         txtLimit1.setVisibility(View.VISIBLE);
+                        txtSpendingLimitText.setVisibility(View.VISIBLE);
                         txtCat1.setText(s);
                     }
 
@@ -159,6 +162,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         builder.append(s2);
                         txtCat2.setVisibility(View.VISIBLE);
                         txtLimit2.setVisibility(View.VISIBLE);
+                        txtSpendingLimitText.setVisibility(View.VISIBLE);
                         txtCat2.setText(s);
                     }
 
@@ -167,6 +171,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         builder.append(s2);
                         txtCat3.setVisibility(View.VISIBLE);
                         txtLimit3.setVisibility(View.VISIBLE);
+                        txtSpendingLimitText.setVisibility(View.VISIBLE);
                         txtCat3.setText(s);
                     }
 
@@ -175,6 +180,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                         builder.append(s2);
                         txtCat4.setVisibility(View.VISIBLE);
                         txtLimit4.setVisibility(View.VISIBLE);
+                        txtSpendingLimitText.setVisibility(View.VISIBLE);
                         txtCat4.setText(s);
                     }
 
@@ -231,22 +237,22 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 String cat4 = txtCat4.getText().toString();
 
 
-                if (txtLimit1.getText() != null) {
+                if (!cat1.equals("TextView")) {
                     bundle.putString("limit1", limit1);
                     bundle.putString("cat1", cat1);
                 }
 
-                if (txtLimit2.getText() != null) {
+                if (!cat2.equals("TextView")) {
                     bundle.putString("limit2", limit2);
                     bundle.putString("cat2", cat2);
                 }
 
-                if (txtLimit3.getText() != null) {
+                if (!cat3.equals("TextView")) {
                     bundle.putString("limit3", limit3);
                     bundle.putString("cat3", cat3);
                 }
 
-                if (txtLimit4.getText() != null) {
+                if (!cat4.equals("TextView")) {
                     bundle.putString("limit4", limit4);
                     bundle.putString("cat4", cat4);
                 }

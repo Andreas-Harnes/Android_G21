@@ -180,7 +180,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
                 Intent i = data;
                 Bundle extras = i.getExtras();
 
-                if (extras.containsKey("limit1")) {
+                if (i.hasExtra("limit1")) {
                     limit1 = i.getStringExtra("limit1");
                     cat1 = i.getStringExtra("cat1");
 
@@ -193,7 +193,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
                     txtSL1.setText(limit1);
                 }
 
-                if (extras.containsKey("limit2")) {
+                if (i.hasExtra("limit2")) {
                     limit2 = i.getStringExtra("limit2");
                     cat2 = i.getStringExtra("cat2");
 
@@ -206,7 +206,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
                     txtSL2.setText(limit2);
                 }
 
-                if (extras.containsKey("limit3")) {
+                if (i.hasExtra("limit3")) {
                     limit3 = i.getStringExtra("limit3");
                     cat3 = i.getStringExtra("cat3");
 
@@ -219,7 +219,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
                     txtSL3.setText(limit3);
                 }
 
-                if (extras.containsKey("limit4")) {
+                if (i.hasExtra("limit4")) {
                     limit4 = i.getStringExtra("limit4");
                     cat4 = i.getStringExtra("cat4");
 
