@@ -4,14 +4,16 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Expenses implements Serializable {
+public class Expenses implements Serializable, Comparable<Expenses> {
 
 
 
     private String id;
     private int sum;
     private String date;
+    private Date dateTime;
     private String location;
     private String description;
     private String category;
@@ -38,6 +40,9 @@ public class Expenses implements Serializable {
 
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
+
+    public Date getDateTime() { return dateTime; }
+    public void setDateTime(Date dateTime) { this.dateTime = dateTime; }
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
@@ -118,6 +123,13 @@ public class Expenses implements Serializable {
         return sortedByCategory;
     }
 
+    @Override
+    public int compareTo(Expenses o) {
+        if (getDateTime() == null || o.getDateTime() == null)
+            return 0;
+
+        return getDateTime().compareTo(o.getDateTime());
+    }
 }
 
 

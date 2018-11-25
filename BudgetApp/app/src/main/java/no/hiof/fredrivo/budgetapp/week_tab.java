@@ -84,7 +84,6 @@ public class week_tab extends Fragment {
 
                 showData(dataSnapshot);
 
-
             }
 
             @Override
@@ -136,7 +135,7 @@ public class week_tab extends Fragment {
     }
 
 
-    private int daySum(ArrayList<Expenses> expenses) {
+    private int weekSum(ArrayList<Expenses> expenses) {
         int total = 0;
 
         for (Expenses i : expenses) {
