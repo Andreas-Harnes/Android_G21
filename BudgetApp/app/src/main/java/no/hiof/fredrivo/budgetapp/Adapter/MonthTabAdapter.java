@@ -50,7 +50,7 @@ public class MonthTabAdapter extends RecyclerView.Adapter<MonthTabAdapter.MonthE
         public MonthExpenseViewHolder(View v) {
             super(v);
             txtDaySum = v.findViewById(R.id.txtDaySum);
-            txtDayCategory = v.findViewById(R.id.txtWeekCategory);
+            txtDayCategory = v.findViewById(R.id.txtDayCategory);
         }
 
         //setter innhold i view til å være info fra expenselist

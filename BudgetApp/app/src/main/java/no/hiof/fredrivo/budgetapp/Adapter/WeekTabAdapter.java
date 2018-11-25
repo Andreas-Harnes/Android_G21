@@ -51,7 +51,7 @@ public class WeekTabAdapter extends RecyclerView.Adapter<WeekTabAdapter.WeekExpe
         public WeekExpenseViewHolder(View v) {
             super(v);
             txtWeekSum = v.findViewById(R.id.txtWeekSum);
-            txtWeekCategory = v.findViewById(R.id.txtWeekCategory);
+            txtWeekCategory = v.findViewById(R.id.txtDayCategory);
         }
 
         //setter innhold i view til å være info fra expenselist

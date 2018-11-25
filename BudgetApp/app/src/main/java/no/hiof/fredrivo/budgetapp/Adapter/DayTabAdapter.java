@@ -64,7 +64,7 @@ public class DayTabAdapter extends RecyclerView.Adapter<DayTabAdapter.DayExpense
         public DayExpenseViewHolder(View v, DayViewClickListener onExpenseClickListener) {
             super(v);
             txtDaySum = v.findViewById(R.id.txtDaySum);
-            txtDayCategory = v.findViewById(R.id.txtWeekCategory);
+            txtDayCategory = v.findViewById(R.id.txtDayCategory);
             this.onExpenseClickListener = onExpenseClickListener;
             v.setOnClickListener(this);
         }

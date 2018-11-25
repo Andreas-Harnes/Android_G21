@@ -42,16 +42,42 @@
         </TableRow>
 
         <TableRow
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:id="@+id/txtV1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Income per month"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_span="1" />
+        </TableRow>
+
+        <TableRow
             android:paddingBottom="20dp"
             android:paddingLeft="10dp">
             <EditText
                 android:id="@+id/txtProfilSettingsIncome"
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:hint="Income per month"
+                android:hint="Income"
                 android:inputType="number"
                 android:textSize="18sp"
                 android:layout_span="1"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:id="@+id/txtV2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Savings per month"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_span="1" />
         </TableRow>
 
         <TableRow
@@ -61,10 +87,23 @@
                 android:id="@+id/txtProfilSettingsSave"
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:hint="Savings per month"
+                android:hint="Savings"
                 android:inputType="number"
                 android:textSize="18sp"
                 android:layout_span="1"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:id="@+id/txtV3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fixed expenses per month"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_span="1" />
         </TableRow>
 
         <TableRow
@@ -74,7 +113,7 @@
                 android:id="@+id/txtProfilSettingsMonthlyEx"
                 android:layout_width="220dp"
                 android:layout_height="40dp"
-                android:hint="Fixed expenses per month"
+                android:hint="Monthly expenses"
                 android:inputType="number"
                 android:textSize="18sp"
                 android:layout_span="1"/>
