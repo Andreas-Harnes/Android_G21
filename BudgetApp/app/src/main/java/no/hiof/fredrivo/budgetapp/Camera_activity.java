@@ -17,13 +17,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -122,35 +118,7 @@ public class Camera_activity extends AppCompatActivity {
             imageView.setImageBitmap(imageBitmap);
 // =======
 
-         /**
-            protected void onActivityResult(int requestCode,int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
-            progress.setMessage("Uploading receipt...");
-            progress.show();
-           Uri uri = data.getData();
 
-           StorageReference filepath = ref.child("receipts").child(uri.getLastPathSegment());
-           filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
-                    progress.dismiss();
-                    // Uri download = taskSnapshot.getStorage();
-                    Toast.makeText(Camera_activity.this,"Receipt has been uploaded",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            ).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                   progress.setMessage(e.getMessage());
-                   Toast.makeText(Camera_activity.this,"Receipt upload failed ",Toast.LENGTH_SHORT).show();
-               }
-           });
-
-// >>>>>>> Stashed changes
-        }
-          **/
     }
 
 }}

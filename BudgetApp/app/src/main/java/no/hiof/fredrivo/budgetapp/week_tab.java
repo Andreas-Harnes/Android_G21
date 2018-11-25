@@ -56,9 +56,6 @@ public class week_tab extends Fragment {
         account = GoogleSignIn.getLastSignedInAccount(getContext());
         c = new WeekDates();
 
-
-//        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
-
         weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
@@ -149,11 +146,11 @@ public class week_tab extends Fragment {
     }
 
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
-
-        int sum = weekSum(arrayList);
-        String s = "Weekly total: " + Integer.toString(sum) + ",-";
-        textField.setText(s);
-
+        int sum = daySum(arrayList);
+        if(sum != 0){
+            String s = "Weekly total: " + Integer.toString(sum) + ",-";
+            textField.setText(s);
+        }
     }
 
 
