@@ -6,11 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".day_tab">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:text="What you have spent on each category today. Click on a card for detailed expenses for this category."
+        app:layout_constraintBottom_toTopOf="@+id/dayTabRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dayTabRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="165dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
