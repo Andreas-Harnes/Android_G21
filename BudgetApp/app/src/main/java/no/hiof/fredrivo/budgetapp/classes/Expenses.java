@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 public class Expenses implements Serializable {
 
-//    private String id;
+
+
+    private String id;
     private int sum;
     private String date;
     private String location;
@@ -23,6 +25,13 @@ public class Expenses implements Serializable {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getSum() { return sum; }
     public void setSum(int sum) { this.sum = sum; }

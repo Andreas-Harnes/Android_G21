@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,9 +19,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.BreakIterator;
 import java.util.ArrayList;
 
 import no.hiof.fredrivo.budgetapp.classes.Categories;
+import no.hiof.fredrivo.budgetapp.classes.Profile;
 
 
 public class ProfilSettingsActivity extends AppCompatActivity {
@@ -35,10 +46,32 @@ public class ProfilSettingsActivity extends AppCompatActivity {
     private TextView txtCategoriesForSaving;
     private ArrayList<String> saveCategoriesList = new ArrayList<>();
 
+    private DatabaseReference mDatabaseRef;
+    private GoogleSignInAccount account;
+    private TextView txtProfilSettingsIncome;
+    private TextView txtProfilSettingsSave;
+    private TextView txtProfilSettingsMonthlyEx;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_settings);
+
+        // Får tak i GUI elementer
+        txtProfilSettingsIncome = findViewById(R.id.txtProfilSettingsIncome);
+        txtProfilSettingsSave = findViewById(R.id.txtProfilSettingsSave);
+        txtProfilSettingsMonthlyEx = findViewById(R.id.txtProfilSettingsMonthlyEx);
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
+        // TODO: Legg til feil håndtering
+        try {
+            // Google login
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //finner views fra xml
         drpSettingsCat = findViewById(R.id.drpSettingsCat);
@@ -134,7 +167,10 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 //henter ut tekst fra views
+                String id = mDatabaseRef.push().getKey();
                 int monthly = Integer.parseInt(txtMonthlyEx.getText().toString());
                 int income = Integer.parseInt(txtIncome.getText().toString());
                 int save = Integer.parseInt(txtSavePrMonth.getText().toString());
@@ -152,13 +188,45 @@ public class ProfilSettingsActivity extends AppCompatActivity {
                 //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);
 
+                Profile userProfile = new Profile(id, income, save, monthly, category);
+                mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
+
                 //starter intent med result ok
                 setResult(Activity.RESULT_OK, intentSaveChanges);
                 finish();
 
             }
         });
+
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+//                showData(dataSnapshot);
+
+                if(dataSnapshot.child(account.getId()).hasChild("Profile")){
+                    showData(dataSnapshot);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
+
+    private void showData(DataSnapshot dataSnapshot) {
+
+        txtProfilSettingsIncome.setText(dataSnapshot.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString());
+        txtProfilSettingsSave.setText(dataSnapshot.child(account.getId()).child("Profile").child("savePerMonth").getValue().toString());
+        txtProfilSettingsMonthlyEx.setText(dataSnapshot.child(account.getId()).child("Profile").child("expensesPerMonth").getValue().toString());
+
+    }
+
 
     //metode for å gjemme tastatur
    public void hideSoftKeyboard() {

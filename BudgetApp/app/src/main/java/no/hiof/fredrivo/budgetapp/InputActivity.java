@@ -196,7 +196,7 @@ public class InputActivity extends AppCompatActivity {
                     category = drpCategory.getSelectedItem().toString();
 
 
-
+                    userExpense.setId(id);
                     userExpense.setCategory(category);
                     userExpense.setDate(date);
                     userExpense.setDescription(description);

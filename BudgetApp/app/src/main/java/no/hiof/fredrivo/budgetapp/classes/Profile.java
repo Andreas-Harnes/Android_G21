@@ -5,25 +5,15 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile {
-    private CircleImageView profilePic;
-    private String profileFirstName;
-    private String profileLastName;
+    private String uID;
     private int incomePerMonth;
     private int savePerMonth;
     private int expensesPerMonth;
     private String categoryToSave;
 
-    public Profile(CircleImageView profilePic, String profileFirstName, String profileLastName, int incomePerMonth, int savePerMonth, int expensesPerMonth, String category) {
-        this.profilePic = profilePic;
-        this.profileFirstName = profileFirstName;
-        this.profileLastName = profileLastName;
-        this.incomePerMonth = incomePerMonth;
-        this.savePerMonth = savePerMonth;
-        this.expensesPerMonth = expensesPerMonth;
-        this.categoryToSave = category;
-    }
 
-    public Profile(int incomePerMonth, int savePerMonth, int expensesPerMonth, String category){
+    public Profile(String uID, int incomePerMonth, int savePerMonth, int expensesPerMonth, String category){
+        this.uID = uID;
         this.incomePerMonth = incomePerMonth;
         this.savePerMonth = savePerMonth;
         this.expensesPerMonth = expensesPerMonth;
@@ -32,28 +22,12 @@ public class Profile {
 
     // Funksjoner for profile objekter
 
-    public CircleImageView getProfilePic() {
-        return profilePic;
+    public String getuID() {
+        return uID;
     }
 
-    public void setProfilePic(CircleImageView profilePic) {
-        this.profilePic = profilePic;
-    }
-
-    public String getProfileFirstName() {
-        return profileFirstName;
-    }
-
-    public void setProfileFirstName(String profileFirstName) {
-        this.profileFirstName = profileFirstName;
-    }
-
-    public String getProfileLastName() {
-        return profileLastName;
-    }
-
-    public void setProfileLastName(String profileLastName) {
-        this.profileLastName = profileLastName;
+    public void setuID(String uID) {
+        this.uID = uID;
     }
 
     public int getIncomePerMonth() {

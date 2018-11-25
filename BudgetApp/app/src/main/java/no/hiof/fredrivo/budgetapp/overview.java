@@ -44,7 +44,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private NotificationCompat.Builder notification;
     private GoogleSignInAccount account;
 
-
     //Ha med på flere activities
     private DrawerLayout draw;
   //  private ActionBarDrawerToggle drawerToggle;

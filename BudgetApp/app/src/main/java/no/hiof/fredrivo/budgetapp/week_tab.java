@@ -59,7 +59,7 @@ public class week_tab extends Fragment {
 
 //        Toast.makeText(getContext(), account.getEmail(), Toast.LENGTH_SHORT).show();
 
-        //weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+        weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
 
@@ -75,7 +75,7 @@ public class week_tab extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dayTabRecyclerView.setLayoutManager(layoutManager);
 
-        //ArrayList<Expenses> weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
+//        ArrayList<Expenses> weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
         weekTabAdapter = new WeekTabAdapter(weekCategoryList);
         dayTabRecyclerView.setAdapter(weekTabAdapter);
 

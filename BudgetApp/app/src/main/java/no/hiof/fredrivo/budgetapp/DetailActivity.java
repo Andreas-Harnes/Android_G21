@@ -114,69 +114,11 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
 
         }
-//        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
-//
-//        dayCategoryList.addAll(tempList);
 
-//        changeTotalSpent(dayCategoryList, txtDaySum);
 
         // Det er denne som oppdaterer viewet
         detailActivityAdapter.notifyDataSetChanged();
     }
-
-//    private boolean validData(Expenses data){
-//
-//        String regex;
-//
-//        int fBoolean = 0;
-//
-//        //gets todays date from calendar object
-//        Calendar calendar = Calendar.getInstance();
-//        int intYear = calendar.get(Calendar.YEAR);
-//        int intMonth = calendar.get(Calendar.MONTH) + 1;
-//        int intDay = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//        String day = "";
-//        String month = "";
-//        String year = "";
-//
-//
-//        // Setter day variabelen
-//        if(intDay < 10){
-//            day = "0" + String.valueOf(intDay);
-//        } else {
-//            day = String.valueOf(intDay);
-//        }
-//
-//
-//        // Setter month variabelen
-//        if(intMonth < 10){
-//            month = "0" + String.valueOf(intMonth);
-//        } else {
-//            month = String.valueOf(intMonth);
-//        }
-//
-//        year = String.valueOf(intYear);
-//
-//        regex = "((" + day.substring(0,1) + ")(" + day.substring(1) + "))(/)(("
-//                + month.substring(0,1) + ")(" + month.substring(1) +
-//                "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
-//                year.substring(2,3) + ")(" + year.substring(3) + "))";
-//
-//
-//        if(data.getDate().matches(regex)){
-//            fBoolean = 1;
-//        }
-//
-//        if(fBoolean == 1){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//
-//
-//    }
-
 
 
 
