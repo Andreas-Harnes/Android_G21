@@ -146,7 +146,7 @@ public class week_tab extends Fragment {
     }
 
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
-        int sum = daySum(arrayList);
+        int sum = weekSum(arrayList);
         if(sum != 0){
             String s = "Weekly total: " + Integer.toString(sum) + ",-";
             textField.setText(s);

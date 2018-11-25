@@ -3,6 +3,7 @@ package no.hiof.fredrivo.budgetapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -274,7 +275,14 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
 
             }
-
+            
+        }
+        else if(id == R.id.info){
+            Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));
+            startActivity(tips_tricks);
+        }
+        else if(id == R.id.logOut){
+            // kode for å logge ut
         }
 
         draw.closeDrawer(GravityCompat.START);

@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -281,6 +282,14 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
 
             }
 
+        }
+        else if(id == R.id.info){
+            Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));
+            startActivity(tips_tricks);
+        }
+
+        else if(id == R.id.logOut){
+            // kode for å logge ut
         }
 
         draw.closeDrawer(GravityCompat.START);

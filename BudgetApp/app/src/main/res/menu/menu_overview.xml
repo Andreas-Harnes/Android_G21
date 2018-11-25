@@ -21,5 +21,16 @@
             android:icon="@drawable/ic_pie_chart"
             android:id="@+id/chart"
             android:title="@string/Chart" />
+        <item
+            android:icon="@drawable/ic_info_icon"
+            android:id="@+id/info"
+            android:title="Tips and Tricks" />
+
     </group>
+
+        <item
+            android:icon="@drawable/ic_exit_to_app"
+            android:title="Log out"
+            android:id="@+id/logOut" />
+
 </menu>
