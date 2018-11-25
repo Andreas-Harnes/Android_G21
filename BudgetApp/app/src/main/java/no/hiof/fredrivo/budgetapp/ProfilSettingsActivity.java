@@ -203,7 +203,7 @@ public class ProfilSettingsActivity extends AppCompatActivity {
             }
         });
 
-        Context context = this.getApplicationContext();
+        final Context context = this.getApplicationContext();
 
         //finner knapp for å lagre endringer
         Button saveBtn = findViewById(R.id.saveBtn);
@@ -265,9 +265,13 @@ public class ProfilSettingsActivity extends AppCompatActivity {
 
                 //putter bundle inn i extra
                 intentSaveChanges.putExtras(bundle);
+                if(income == 0){
+                    Toast.makeText(context, "Income per month needs to be higher then 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    Profile userProfile = new Profile(id, income, save, monthly, category);
+                    mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
+                }
 
-                Profile userProfile = new Profile(id, income, save, monthly, category);
-                mDatabaseRef.child(account.getId()).child("Profile") .setValue(userProfile);
 
                 //starter intent med result ok
                 setResult(Activity.RESULT_OK, intentSaveChanges);

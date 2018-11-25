@@ -262,8 +262,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
-                    ds.child(account.getId()).hasChild("Profile")){
+            if (ds.child(account.getId()).hasChild("Profile")){
 
                 Intent intent = new Intent(this, ChartActivity.class);
                 startActivity(intent);
