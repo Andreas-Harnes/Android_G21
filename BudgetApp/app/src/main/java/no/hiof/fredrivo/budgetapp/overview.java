@@ -60,14 +60,15 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         // notification start
         Calendar calender = Calendar.getInstance(); // https://developer.android.com/reference/android/app/AlarmManager
-        calender.set(Calendar.HOUR_OF_DAY,10);
-        calender.set(Calendar.MINUTE,15);
+        calender.set(Calendar.HOUR_OF_DAY,15);
+        calender.set(Calendar.MINUTE,30);
         calender.set(Calendar.SECOND,0);
         // calender.add(Calendar.SECOND,5);
         AlarmManager alarmM = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent NotifyIntent = new Intent(this,N_receiver.class); // intent til broadcast/notification receiver
         PendingIntent broadcastIntent = PendingIntent.getBroadcast(this,123,NotifyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         // lager en alarm som skal gi en trigger til notification vår
+        alarmM.cancel(broadcastIntent);
         alarmM.setRepeating(AlarmManager.RTC_WAKEUP,calender.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcastIntent); // det ønskes at den skal være daglig
         //END
         // Google login
