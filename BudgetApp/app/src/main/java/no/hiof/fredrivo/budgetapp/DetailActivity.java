@@ -14,6 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +45,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout draw;
     private DetailActivityAdapter detailActivityAdapter;
     private ArrayList<Expenses> list = new ArrayList<>();
-
+    private DataSnapshot ds;
 
 
     @Override
@@ -86,6 +90,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                ds = dataSnapshot;
                 showData(dataSnapshot);
 
 
@@ -96,19 +101,25 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
             }
         });
+
+        TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
+        txtDrawerProfileName.setText(account.getDisplayName());
+
+        ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
     }
 
 
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
-        for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
+        for(DataSnapshot DS : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             Expenses userExpense = new Expenses();
-            userExpense.setSum(ds.getValue(Expenses.class).getSum());
-            userExpense.setDate(ds.getValue(Expenses.class).getDate());
-            userExpense.setLocation(ds.getValue(Expenses.class).getLocation());
-            userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
-            userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
+            userExpense.setSum(DS.getValue(Expenses.class).getSum());
+            userExpense.setDate(DS.getValue(Expenses.class).getDate());
+            userExpense.setLocation(DS.getValue(Expenses.class).getLocation());
+            userExpense.setDescription(DS.getValue(Expenses.class).getDescription());
+            userExpense.setCategory(DS.getValue(Expenses.class).getCategory());
 
             expensesArrayList.add(userExpense);
 
@@ -124,25 +135,34 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
+            draw.closeDrawers();
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
-            draw.closeDrawers();
+            Intent intent = new Intent(this,DetailActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.chart) {
-            Intent intent = new Intent(this,ChartActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
+            if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
+                    ds.child(account.getId()).hasChild("Profile")){
+
+                Intent intent = new Intent(this, ChartActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, ProfilActivity.class);
+                startActivity(intent);
+
+            }
 
         }
 

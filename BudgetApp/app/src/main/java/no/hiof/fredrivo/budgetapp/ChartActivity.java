@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -30,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -42,12 +46,12 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 public class ChartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout draw;
-
-    private static ArrayList<Expenses> expensesArrayList = new ArrayList<>();
-    private DatabaseReference mDatabaseRef;
+    private PieChart pieChart;
+    private List<PieEntry> pieChartList;
     private GoogleSignInAccount account;
-
-    private List<Expenses> chartDataList;
+    private DataSnapshot dsForDrawer;
+    private DatabaseReference mDatabaseRef;
+    private ArrayList<Expenses> expensesArrayList = new ArrayList<>();
 
 
     @Override
@@ -55,10 +59,14 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        expensesArrayList.clear();
-
+        // TODO: Legg til feil håndtering
+        try {
+            // Google login
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        account = GoogleSignIn.getLastSignedInAccount(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -79,16 +87,18 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         pieChart = findViewById(R.id.pieChartLayout);
 
         pieChartList = new ArrayList<>();
-        
-    }
 
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
+        txtDrawerProfileName.setText(account.getDisplayName());
+
+        ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
+
+        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                showData(dataSnapshot);
-
-
+                dsForDrawer = dataSnapshot;
+                showData(dataSnapshot,expensesArrayList);
             }
 
             @Override
@@ -97,55 +107,12 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
             }
         });
 
-        /*Liste med alle expenses som sorteres på kategori
-        List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
-        int moneyLeft = ProfilActivity.getIncome();*/
-
-        //TestData
-        List<Expenses> expensesList = Expenses.TestData();
-        int moneyLeft = 10000;
-
-        //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
-        for (Expenses values : expensesList) {
-            pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
-            moneyLeft = moneyLeft - values.getSum();
 
 
-        }
-
-        //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
-        //Hvis income er mindre en 0 blir den satt til 0 fordi det er ikke hennsiktsmessig
-        // å vise negaative penger igjen.
-        if (moneyLeft < 0){
-            moneyLeft = 0;
-            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
-            pieChartList.add(moneyLeftEntry);
-        }
-        else {
-            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
-            pieChartList.add(moneyLeftEntry);
-        }
-
-        PieDataSet dataSet = new PieDataSet(pieChartList, "");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        dataSet.setValueTextSize(16f);
-
-        Legend legend = pieChart.getLegend();
-        legend.setTextSize(16f);
-        legend.setWordWrapEnabled(true);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-
-        PieData pieData = new PieData(dataSet);
-
-        pieChart.setData(pieData);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.invalidate();
     }
 
-    private void showData(DataSnapshot dataSnapshot) {
-        expensesArrayList.clear();
+    private void showData(DataSnapshot dataSnapshot, ArrayList<Expenses> eArrayList) {
+        eArrayList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
 
             //Expenses x = ds.getValue(Expenses.class);
@@ -158,17 +125,19 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
                 userExpense.setDescription(ds.getValue(Expenses.class).getDescription());
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
-                expensesArrayList.add(userExpense);
+                eArrayList.add(userExpense);
 
             }
 
 
         }
+//        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
 
-        //chartDataList = Expenses.expensesSortedCategory(expensesArrayList);
 
+        makeChart(eArrayList);
     }
 
+    // Sjekker om datoen på expens objektet er fra dags Måned
     private boolean validData(Expenses data){
 
         String regex;
@@ -225,27 +194,87 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
+    public void makeChart(ArrayList<Expenses> arrayListExpenses){
+        /*Liste med alle expenses som sorteres på kategori
+        List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
+        int moneyLeft = ProfilActivity.getIncome();*/
+
+        //TestData
+        List<Expenses> expensesList = Expenses.expensesSortedCategory(arrayListExpenses);
+        int moneyLeft = 10000;
+
+        //Legger til expense objekter som entries som pieChartData, Fra https://github.com/PhilJay/MPAndroidChart
+        for (Expenses values : expensesList) {
+            if(values.getSum() != 0){
+                pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
+                moneyLeft = moneyLeft - values.getSum();
+            }
+
+
+
+        }
+
+        //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
+        //Hvis income er mindre en 0 blir den satt til 0 fordi det er ikke hensiktsmessig å vise en negativ sum.
+        if (moneyLeft < 0){
+            moneyLeft = 0;
+            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
+            pieChartList.add(moneyLeftEntry);
+        }
+        else {
+            PieEntry moneyLeftEntry = new PieEntry(moneyLeft, "Income left");
+            pieChartList.add(moneyLeftEntry);
+        }
+
+        PieDataSet dataSet = new PieDataSet(pieChartList, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setValueTextSize(16f);
+
+        Legend legend = pieChart.getLegend();
+        legend.setTextSize(16f);
+        legend.setWordWrapEnabled(true);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+
+        PieData pieData = new PieData(dataSet);
+
+        pieChart.setData(pieData);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.invalidate();
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
+            draw.closeDrawers();
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
-            Intent intent = new Intent(this, DetailActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            Intent intent = new Intent(this,DetailActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            draw.closeDrawers();
+            if (Integer.parseInt(dsForDrawer.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
+                    dsForDrawer.child(account.getId()).hasChild("Profile")){
+
+                Intent intent = new Intent(this, ChartActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, ProfilActivity.class);
+                startActivity(intent);
+
+            }
+
         }
 
         draw.closeDrawer(GravityCompat.START);

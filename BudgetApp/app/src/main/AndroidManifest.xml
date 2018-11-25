@@ -10,12 +10,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+
         android:allowBackup="true"
-        android:icon="@mipmap/ic_dollar_foreground"
+        android:icon="@mipmap/ic_wondersave_round"
         android:label="@string/wonder_save"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".InputActivity" />
         <activity android:name=".ChartActivity" />
         <activity android:name=".ProfilSettingsActivity" />

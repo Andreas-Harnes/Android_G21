@@ -41,12 +41,15 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     private DatabaseReference mDatabaseRef;
 
     private static int income;
+    private DataSnapshot ds;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+
+
 
         // Get GUI elementer
         txtProfilIncome = findViewById(R.id.txtProfilIncome);
@@ -99,6 +102,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 //                showData(dataSnapshot);
+                ds = dataSnapshot;
 
                 if(dataSnapshot.child(account.getId()).hasChild("Profile")){
                     showData(dataSnapshot);
@@ -112,6 +116,13 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
 
             }
         });
+
+        TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
+        txtDrawerProfileName.setText(account.getDisplayName());
+
+        ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
+
     }
 
 
@@ -150,28 +161,31 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            Intent intent = new Intent(this, overview.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
+            draw.closeDrawers();
 
         } else if (id == R.id.profile) {
-            draw.closeDrawers();
+            Intent intent = new Intent(this, ProfilActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            if (ProfilActivity.getIncome() == 0){
-                draw.closeDrawers();
-                Toast.makeText(this, "Pleas fill out profile settings", Toast.LENGTH_SHORT).show();
+            if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
+                    ds.child(account.getId()).hasChild("Profile")){
+
+                Intent intent = new Intent(this, ChartActivity.class);
+                startActivity(intent);
             }
             else {
-                Intent intent = new Intent(this,ChartActivity.class);
+                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
 
             }

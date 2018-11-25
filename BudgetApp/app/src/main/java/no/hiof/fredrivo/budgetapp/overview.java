@@ -29,6 +29,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -46,7 +52,12 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
     //Ha med på flere activities
     private DrawerLayout draw;
-  //  private ActionBarDrawerToggle drawerToggle;
+
+
+    private DatabaseReference mDatabaseRef;
+
+    private DataSnapshot ds;
+    //  private ActionBarDrawerToggle drawerToggle;
 
 
 
@@ -56,6 +67,8 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
 
         NotificationManager manager =  (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         // notification start
         Calendar calender = Calendar.getInstance(); // https://developer.android.com/reference/android/app/AlarmManager
@@ -70,7 +83,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         alarmM.setRepeating(AlarmManager.RTC_WAKEUP,calender.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcastIntent); // det ønskes at den skal være daglig
         //END
         // Google login
-        account = GoogleSignIn.getLastSignedInAccount(this);
+
 
 
 //        if(account != null) {
@@ -149,6 +162,34 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 //         tablayout end
 
 
+//        mDatabaseRef.addListenerForSingleValueEvent();(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                ds = dataSnapshot;
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ds = dataSnapshot;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
     }
@@ -200,13 +241,15 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            if (ProfilActivity.getIncome() == 0){
-                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, ProfilActivity.class);
+            if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
+                    ds.child(account.getId()).hasChild("Profile")){
+
+                Intent intent = new Intent(this, ChartActivity.class);
                 startActivity(intent);
             }
             else {
-                Intent intent = new Intent(this, ChartActivity.class);
+                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
 
             }
