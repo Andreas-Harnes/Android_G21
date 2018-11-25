@@ -1,9 +1,5 @@
 package no.hiof.fredrivo.budgetapp.classes;
 
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class Profile {
     private String uID;
     private int incomePerMonth;

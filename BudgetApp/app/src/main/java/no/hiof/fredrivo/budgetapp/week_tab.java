@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,12 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
-import no.hiof.fredrivo.budgetapp.Adapter.DayTabAdapter;
 import no.hiof.fredrivo.budgetapp.Adapter.WeekTabAdapter;
-import no.hiof.fredrivo.budgetapp.R;
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 import no.hiof.fredrivo.budgetapp.classes.WeekDates;
 
