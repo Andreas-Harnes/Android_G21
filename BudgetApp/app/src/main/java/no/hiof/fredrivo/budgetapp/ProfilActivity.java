@@ -68,8 +68,6 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-
-
         // Get GUI elementer
         txtProfilIncome = findViewById(R.id.txtProfilIncome);
         txtProfilSave = findViewById(R.id.txtProfilSave);
@@ -84,11 +82,9 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         txtC3 = findViewById(R.id.txtC3);
         txtC4 = findViewById(R.id.txtC4);
 
-
         // Google login
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         account = GoogleSignIn.getLastSignedInAccount(this);
-
 
         // Sette profilbildet
         ImageView imgProfilePicture = findViewById(R.id.imageView);
@@ -98,16 +94,12 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         TextView txtProfileName = findViewById(R.id.txtProfileName);
         txtProfileName.setText(account.getDisplayName());
 
-
         //Toolbar og navigationDrawer start:
         Toolbar toolbar = findViewById(R.id.profiltoolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
-
 
         // implementering av navigation drawer!
         draw = findViewById(R.id.drawer_layout);
@@ -123,33 +115,33 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-//                showData(dataSnapshot);
                 ds = dataSnapshot;
-
                 if(dataSnapshot.child(account.getId()).hasChild("Profile")){
                     showData(dataSnapshot);
                 }
-
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
+        /*
+            Setter profilbildet og navn i drawer menyen
+
+            Piccaso API ble funnet på denne url'en
+            http://square.github.io/picasso/
+
+            koden brukt finnes under Introduction delen på siden
+        */
         TextView txtDrawerProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
         txtDrawerProfileName.setText(account.getDisplayName());
-
         ImageView imgDrawerPicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
         Picasso.get().load(account.getPhotoUrl()).into(imgDrawerPicture);
 
     }
 
 
-
+    // Legger dataen fra Firebase inn i tekst feltene
     private void showData(DataSnapshot dataSnapshot) {
 
         txtProfilIncome.setText(dataSnapshot.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString());
@@ -279,9 +271,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
                 Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
-
             }
-
         }
         else if(id == R.id.info){
             Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));

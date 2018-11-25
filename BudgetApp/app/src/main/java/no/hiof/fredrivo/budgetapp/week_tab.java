@@ -1,6 +1,7 @@
 package no.hiof.fredrivo.budgetapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -48,14 +49,17 @@ public class week_tab extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         expensesArrayList.clear();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        account = GoogleSignIn.getLastSignedInAccount(getContext());
-        c = new WeekDates();
+        try {
+            account = GoogleSignIn.getLastSignedInAccount(getContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
 
+        c = new WeekDates();
         weekCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
     }
 
@@ -78,35 +82,19 @@ public class week_tab extends Fragment {
 
         txtDaySum = root.findViewById(R.id.txtDaySum);
 
+        // Legger til en lytter for å hente data og lytte etter endringer i databasen
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                showData(dataSnapshot);
-
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { showData(dataSnapshot); }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-
-
 
         return root;
     }
 
-    // Sjekker om datoen på expens objektet er fra denne uken
-    private boolean validData(Expenses data, WeekDates weekList){
-        for (String x : weekList.getDates()) {
-            if(data.getDate().equals(x)){
-                return  true;
-            }
-        }
-        return false;
-    }
-
+    // Legger data fra Firebase inn i en liste
     private void showData(DataSnapshot dataSnapshot) {
         expensesArrayList.clear();
         weekCategoryList.clear();
@@ -121,10 +109,7 @@ public class week_tab extends Fragment {
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
                 expensesArrayList.add(userExpense);
-
             }
-
-
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
         weekCategoryList.addAll(tempList);
@@ -132,6 +117,16 @@ public class week_tab extends Fragment {
 
         // Det er denne som oppdaterer viewet
         weekTabAdapter.notifyDataSetChanged();
+    }
+
+    // Sjekker om datoen på expens objektet er fra denne uken
+    private boolean validData(Expenses data, WeekDates weekList){
+        for (String x : weekList.getDates()) {
+            if(data.getDate().equals(x)){
+                return  true;
+            }
+        }
+        return false;
     }
 
 

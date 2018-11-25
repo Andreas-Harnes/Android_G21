@@ -26,7 +26,6 @@ import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
 public class InputActivity extends AppCompatActivity {
 
-    //variabler for views
     private Intent intentOverview;
     private Intent intentNewCategory;
     private EditText numPrice;
@@ -35,21 +34,14 @@ public class InputActivity extends AppCompatActivity {
     private TextView txtDatePicker;
     private Button btnChangeDate;
     private Spinner drpCategory;
-
-    //variabel for datepickerdialog
     private DatePickerDialog.OnDateSetListener dateDialog;
-
     private int price;
     private String date;
     private String location;
     private String description;
     private String category;
-    private String today;
-
-    private  GoogleSignInAccount account;
-
-    //firebase reference
-    private DatabaseReference myRef;
+    private GoogleSignInAccount account;
+    private DatabaseReference mDatabaseRef;
 
 
     @Override
@@ -58,10 +50,11 @@ public class InputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
 
         try {
-            // Google login
             account = GoogleSignIn.getLastSignedInAccount(this);
         } catch (Exception e) {
             e.printStackTrace();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         //Gjør det mulig å hide keyboardet når man trykker på skjermen
@@ -81,7 +74,7 @@ public class InputActivity extends AppCompatActivity {
         txtDatePicker = findViewById(R.id.txtDatePicker);
         btnChangeDate = findViewById(R.id.btnChangeDate);
 
-        myRef = FirebaseDatabase.getInstance().getReference(account.getId());
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(account.getId());
 
         ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories.getUserCategories());
 
@@ -100,15 +93,12 @@ public class InputActivity extends AppCompatActivity {
         intMonth++;
 
 
-//         Setter day variabelen
         if(intDay < 10){
             day = "0" + String.valueOf(intDay);
         } else {
             day = String.valueOf(intDay);
         }
 
-
-        // Setter month variabelen
         if(intMonth < 10){
             month = "0" + String.valueOf(intMonth);
         } else {
@@ -130,7 +120,6 @@ public class InputActivity extends AppCompatActivity {
                 int intMonth = calendar.get(Calendar.MONTH);
                 int intDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-
                 //creates datepickerdialog
                 DatePickerDialog dialog = new DatePickerDialog(InputActivity.this, R.style.datepicker, dateDialog, year, intMonth, intDay);
                 dialog.show();
@@ -146,21 +135,17 @@ public class InputActivity extends AppCompatActivity {
 
                 month++;
 
-                // Setter day variabelen
                 if(dayOfMonth < 10){
                     sDay = "0" + String.valueOf(dayOfMonth);
                 } else {
                     sDay = String.valueOf(dayOfMonth);
                 }
 
-
-                // Setter month variabelen
                 if(month < 10){
                     sMonth = "0" + String.valueOf(month);
                 } else {
                     sMonth = String.valueOf(month);
                 }
-
 
                 date = sDay + "/" + sMonth + "/" + year;
                 txtDatePicker.setText(date);
@@ -189,7 +174,7 @@ public class InputActivity extends AppCompatActivity {
                 }
                 else {
 
-                    String id = myRef.push().getKey();
+                    String id = mDatabaseRef.push().getKey();
                     price = Integer.parseInt(numPrice.getText().toString());
                     location = txtLocation.getText().toString();
                     description = txtDescription.getText().toString();
@@ -203,11 +188,8 @@ public class InputActivity extends AppCompatActivity {
                     userExpense.setLocation(location);
                     userExpense.setSum(price);
 
-//                    Toast.makeText(InputActivity.this, date, Toast.LENGTH_SHORT).show();
-
-//                myRef.child("Expenses").child(id).setValue(new Expenses(price, date, location, description, category));
-                    myRef.child("Expenses").child(id).setValue(userExpense);
-
+                    // Sender data til Firebase
+                    mDatabaseRef.child("Expenses").child(id).setValue(userExpense);
 
                     startActivity(intentOverview);
                     finish();

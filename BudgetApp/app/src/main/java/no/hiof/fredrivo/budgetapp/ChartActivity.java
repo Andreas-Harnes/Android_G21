@@ -6,14 +6,11 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -36,11 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 
 import no.hiof.fredrivo.budgetapp.classes.Expenses;
 
@@ -55,24 +49,24 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
     private ArrayList<Expenses> expensesArrayList = new ArrayList<>();
 
 
+    // Henter nødvendig informasjon fra firebase og google
+    // Og setter opp deler av GUI'et
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        // TODO: Legg til feil håndtering
         try {
-            // Google login
             account = GoogleSignIn.getLastSignedInAccount(this);
         } catch (Exception e) {
             e.printStackTrace();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -112,12 +106,10 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
+    // Legger data fra Firebase inn i en liste
     private void showData(DataSnapshot dataSnapshot, ArrayList<Expenses> eArrayList) {
         eArrayList.clear();
         for(DataSnapshot ds : dataSnapshot.child(account.getId()).child("Expenses").getChildren()) {
-
-            //Expenses x = ds.getValue(Expenses.class);
-
             if(validData(ds.getValue(Expenses.class))){
                 Expenses userExpense = new Expenses();
                 userExpense.setSum(ds.getValue(Expenses.class).getSum());
@@ -127,22 +119,14 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
                 userExpense.setCategory(ds.getValue(Expenses.class).getCategory());
 
                 eArrayList.add(userExpense);
-
             }
-
-
         }
-//        ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
-
-
         makeChart(eArrayList);
     }
 
-    // Sjekker om datoen på expens objektet er fra dags Måned
+    // Sjekker om datoen på expens objektet er fra denne måneden
     private boolean validData(Expenses data){
-
         String regex;
-
         int fBoolean = 0;
 
         //gets todays date from calendar object
@@ -155,16 +139,12 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         String month = "";
         String year = "";
 
-
-        // Setter day variabelen
         if(intDay < 10){
             day = "0" + String.valueOf(intDay);
         } else {
             day = String.valueOf(intDay);
         }
 
-
-        // Setter month variabelen
         if(intMonth < 10){
             month = "0" + String.valueOf(intMonth);
         } else {
@@ -173,33 +153,19 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
 
         year = String.valueOf(intYear);
 
-
+        // Regex som kun matcher denne måneden
         regex = "((.)(.))(/)(("
                 + month.substring(0,1) + ")(" + month.substring(1) +
                 "))(/)((" + year.substring(0,1) + ")(" + year.substring(1,2) + ")(" +
                 year.substring(2,3) + ")(" + year.substring(3) + "))";
 
-//        Toast.makeText(getContext(), data.getDate(), Toast.LENGTH_SHORT).show();
-
         if(data.getDate().matches(regex)){
-            fBoolean = 1;
-        }
-
-        if(fBoolean == 1){
             return true;
-        } else {
-            return false;
         }
-
-        //Toast.makeText(getContext(), data, Toast.LENGTH_LONG).show();
-
+        return false;
     }
 
     public void makeChart(ArrayList<Expenses> arrayListExpenses){
-        /*Liste med alle expenses som sorteres på kategori
-        List<Expenses> expensesList = Expenses.expensesSortedCategory((ArrayList<Expenses>) DetailActivity.getExpensesList());
-        int moneyLeft = ProfilActivity.getIncome();*/
-
         //TestData
         List<Expenses> expensesList = Expenses.expensesSortedCategory(arrayListExpenses);
         int moneyLeft = 10000;
@@ -210,9 +176,6 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
                 pieChartList.add(new PieEntry(values.getSum(), values.getCategory()));
                 moneyLeft = moneyLeft - values.getSum();
             }
-
-
-
         }
 
         //Bruker samme kode/litt inspirert fra https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
@@ -245,6 +208,7 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         pieChart.invalidate();
     }
 
+    // Legger til funksjonalitet til kanppene i drawer menyen
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -273,7 +237,6 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
-
             }
             
         }

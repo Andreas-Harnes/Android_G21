@@ -1,25 +1,21 @@
 package no.hiof.fredrivo.budgetapp;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +30,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +42,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private Intent intentInputActivity;
-
     private NotificationCompat.Builder notification;
     private GoogleSignInAccount account;
 
@@ -58,17 +52,19 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private DatabaseReference mDatabaseRef;
 
     private DataSnapshot ds;
-    //  private ActionBarDrawerToggle drawerToggle;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NotificationManager manager =  (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        account = GoogleSignIn.getLastSignedInAccount(this);
+        try {
+            // Google login
+            account = GoogleSignIn.getLastSignedInAccount(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         // notification start
@@ -83,28 +79,17 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         // lager en alarm som skal gi en trigger til notification vår
         alarmM.cancel(broadcastIntent);
         alarmM.setRepeating(AlarmManager.RTC_WAKEUP,calender.getTimeInMillis(),AlarmManager.INTERVAL_DAY,broadcastIntent); // det ønskes at den skal være daglig
-        //END
-        // Google login
-
-
-
-//        if(account != null) {
-//            Toast.makeText(this, account.getGivenName(), Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Ingen konto", Toast.LENGTH_SHORT).show();
-//        }
+        // notification end
 
         setContentView(R.layout.activity_overview);
 
-        //Toolbar og navigationDrawer start:
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        // implementering av navigation drawer!
+        // implementering av navigation drawer
         draw = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,draw,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         draw.addDrawerListener(toggle);
@@ -113,14 +98,23 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+
+        /*
+            Setter profilbildet og navn i drawer menyen
+
+            Piccaso API ble funnet på denne url'en
+            http://square.github.io/picasso/
+
+            koden brukt finnes under Introduction delen på siden
+        */
         TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
         txtProfileName.setText(account.getDisplayName());
-
         ImageView imgProfilePicture = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
-
         Picasso.get().load(account.getPhotoUrl()).into(imgProfilePicture);
 
-        // slutt for navi drawer
+
 
         notification = new NotificationCompat.Builder(this);
 
@@ -137,17 +131,15 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
-
-
+        // Lager en intent for FAB'en
        intentInputActivity = new Intent(getApplicationContext(), InputActivity.class);
-        // FAB button
+
+        // FAB
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                day_tab.clearExpensesList();
                 startActivity(intentInputActivity);
             }
         });
@@ -159,26 +151,9 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-//         tablayout end
 
-
-//        mDatabaseRef.addListenerForSingleValueEvent();(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                ds = dataSnapshot;
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
+        // Legger til en lytter på database referansen som henter data når appen starter
         mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -190,9 +165,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
             }
         });
-
-
-
 
     }
 
@@ -225,6 +197,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         return super.onOptionsItemSelected(item);
     }
 
+    // Legger til funksjonalitet til kanppene i drawer menyen
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -253,9 +226,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
                 Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
-
             }
-
         }
         else if(id == R.id.info){
             Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));
@@ -269,10 +240,6 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
         draw.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
 }
 
 
