@@ -25,6 +25,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
@@ -199,7 +201,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         } else if (id == R.id.chart) {
             if (ProfilActivity.getIncome() == 0){
-//                Toast.makeText(this, "Pleas fill out profile settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
             }
