@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -216,8 +217,8 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            draw.closeDrawers();
-
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
@@ -227,25 +228,14 @@ public class ChartActivity extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
 
         } else if (id == R.id.chart) {
-            if (Integer.parseInt(dsForDrawer.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||
-                    dsForDrawer.child(account.getId()).hasChild("Profile")){
-
-                Intent intent = new Intent(this, ChartActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(this, "Please fill out profile settings", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, ProfilActivity.class);
-                startActivity(intent);
-            }
-            
+            draw.closeDrawers();
         }
         else if(id == R.id.info){
             Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));
             startActivity(tips_tricks);
         }
         else if(id == R.id.logOut){
-            // kode for å logge ut
+
         }
 
         draw.closeDrawer(GravityCompat.START);

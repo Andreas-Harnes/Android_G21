@@ -3,7 +3,9 @@ package no.hiof.fredrivo.budgetapp;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -26,6 +28,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +50,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private NotificationCompat.Builder notification;
     private GoogleSignInAccount account;
 
+
     //Ha med på flere activities
     private DrawerLayout draw;
 
@@ -52,6 +58,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
     private DatabaseReference mDatabaseRef;
 
     private DataSnapshot ds;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,7 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(intent);
         }
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
 
         // notification start
         Calendar calender = Calendar.getInstance(); // https://developer.android.com/reference/android/app/AlarmManager
@@ -235,11 +243,14 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         else if(id == R.id.logOut){
             // kode for å logge ut
+
         }
 
         draw.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
 
 

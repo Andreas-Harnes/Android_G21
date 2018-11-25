@@ -2,6 +2,7 @@ package no.hiof.fredrivo.budgetapp;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -180,15 +181,15 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            draw.closeDrawers();
+            Intent intent = new Intent(this,overview.class);
+            startActivity(intent);
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.detail) {
-            Intent intent = new Intent(this,DetailActivity.class);
-            startActivity(intent);
+            draw.closeDrawers();
 
         } else if (id == R.id.chart) {
             if (Integer.parseInt(ds.child(account.getId()).child("Profile").child("incomePerMonth").getValue().toString()) != 0 ||

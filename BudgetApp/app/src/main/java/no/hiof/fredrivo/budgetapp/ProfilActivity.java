@@ -250,11 +250,12 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         int id = menuItem.getItemId();
 
         if (id == R.id.overview) {
-            draw.closeDrawers();
+            Intent intent = new Intent(this, overview.class);
+            startActivity(intent);
 
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfilActivity.class);
-            startActivity(intent);
+
+            draw.closeDrawers();
 
         } else if (id == R.id.detail) {
             Intent intent = new Intent(this,DetailActivity.class);
