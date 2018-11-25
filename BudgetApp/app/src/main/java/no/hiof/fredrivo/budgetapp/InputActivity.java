@@ -180,7 +180,6 @@ public class InputActivity extends AppCompatActivity {
                     description = txtDescription.getText().toString();
                     category = drpCategory.getSelectedItem().toString();
 
-
                     userExpense.setId(id);
                     userExpense.setCategory(category);
                     userExpense.setDate(date);

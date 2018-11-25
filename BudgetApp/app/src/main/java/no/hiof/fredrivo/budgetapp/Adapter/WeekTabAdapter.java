@@ -43,20 +43,20 @@ public class WeekTabAdapter extends RecyclerView.Adapter<WeekTabAdapter.WeekExpe
 
     //indre klasse for fylling av CardView/ViewHolder
     class WeekExpenseViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtDaySum;
-        private TextView txtDayCategory;
+        private TextView txtWeekSum;
+        private TextView txtWeekCategory;
 
         //konstruktør som tar imot ViewHolder og henter info fra den
         public WeekExpenseViewHolder(View v) {
             super(v);
-            txtDaySum = v.findViewById(R.id.txtDaySum);
-            txtDayCategory = v.findViewById(R.id.txtDayCategory);
+            txtWeekSum = v.findViewById(R.id.txtWeekSum);
+            txtWeekCategory = v.findViewById(R.id.txtWeekCategory);
         }
 
         //setter innhold i view til å være info fra expenselist
         public void setExpenses (Expenses ex) {
-            txtDaySum.setText(ex.getSum()+ ",-");
-            txtDayCategory.setText(ex.getCategory());
+            txtWeekSum.setText(ex.getSum()+ ",-");
+            txtWeekCategory.setText(ex.getCategory());
         }
     }
 }

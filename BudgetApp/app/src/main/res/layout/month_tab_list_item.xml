@@ -37,7 +37,7 @@
 
 
         <TextView
-            android:id="@+id/txtDayCategory"
+            android:id="@+id/txtWeekCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/txtDayCategory"
+            app:layout_constraintTop_toBottomOf="@+id/txtWeekCategory"
             app:layout_constraintVertical_bias="0.538" />
 
 

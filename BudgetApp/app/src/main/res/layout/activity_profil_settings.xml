@@ -118,17 +118,18 @@
         <TableRow
             android:paddingBottom="20dp"
             android:paddingLeft="10dp">
+
             <TextView
-                android:id="@+id/txtProfilCategories"
+                android:id="@+id/txtProfilSettingsCategories"
                 android:layout_width="354dp"
                 android:layout_height="62dp"
+                android:layout_span="2"
                 android:ellipsize="none"
                 android:inputType="textMultiLine"
                 android:maxLines="2"
                 android:scrollHorizontally="false"
                 android:text="No categories chosen"
-                android:textSize="18sp"
-                android:layout_span="2" />
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow

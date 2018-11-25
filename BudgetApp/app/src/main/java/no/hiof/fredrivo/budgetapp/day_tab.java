@@ -79,6 +79,7 @@ public class day_tab extends Fragment {
                 startActivity(dayDetailIntent);
             }
         });
+
         dayTabRecyclerView.setAdapter(dayTabAdapter);
 
         txtDaySum = root.findViewById(R.id.txtDaySum);

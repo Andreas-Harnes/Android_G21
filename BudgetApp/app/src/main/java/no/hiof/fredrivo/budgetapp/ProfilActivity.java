@@ -179,8 +179,8 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 Intent i = data;
-                Bundle extras = i.getExtras();
 
+                //sjekker om extras er sendt med intenten, setter innhold i tekstbokser lik info som er sendt
                 if (i.hasExtra("limit1")) {
                     limit1 = i.getStringExtra("limit1");
                     cat1 = i.getStringExtra("cat1");
@@ -254,6 +254,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         } else if (id == R.id.profile) {
+            draw.closeDrawers();
 
             draw.closeDrawers();
 

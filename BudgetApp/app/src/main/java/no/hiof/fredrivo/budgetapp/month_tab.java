@@ -38,8 +38,10 @@ public class month_tab extends Fragment {
     private DatabaseReference mDatabaseRef;
     private ArrayList<Expenses> monthCategoryList = new ArrayList<>();
     private GoogleSignInAccount account;
-    private TextView txtDaySum;
+    private TextView txtMonthSum;
+
     private MonthTabAdapter monthTabAdapter;
+    private int sum;
 
 
 
@@ -60,20 +62,20 @@ public class month_tab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_day_tab, container, false);
+        View root = inflater.inflate(R.layout.fragment_month_tab, container, false);
 
         //setter opp RecyclerView, LayoutManager og adapter
-        RecyclerView dayTabRecyclerView = root.findViewById(R.id.dayTabRecyclerView);
+        RecyclerView monthTabRecyclerView = root.findViewById(R.id.monthTabRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dayTabRecyclerView.setLayoutManager(layoutManager);
+        monthTabRecyclerView.setLayoutManager(layoutManager);
 
         //ArrayList<Expenses> monthCategoryList = Expenses.expensesSortedCategory(expensesArrayList);
         monthTabAdapter = new MonthTabAdapter(monthCategoryList);
-        dayTabRecyclerView.setAdapter(monthTabAdapter);
+        monthTabRecyclerView.setAdapter(monthTabAdapter);
 
-        txtDaySum = root.findViewById(R.id.txtDaySum);
+        txtMonthSum = root.findViewById(R.id.txtMonthSum);
 
         // Legger til en lytter for å hente data og lytte etter endringer i databasen
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -144,14 +146,14 @@ public class month_tab extends Fragment {
         }
         ArrayList<Expenses> tempList = Expenses.expensesSortedCategory(expensesArrayList);
         monthCategoryList.addAll(tempList);
-        changeTotalSpent(monthCategoryList, txtDaySum);
+        changeTotalSpent(monthCategoryList, txtMonthSum);
 
         // Det er denne som oppdaterer viewet
         monthTabAdapter.notifyDataSetChanged();
     }
 
 
-    private int daySum(ArrayList<Expenses> expenses) {
+    public int monthSum(ArrayList<Expenses> expenses) {
         int total = 0;
         for (Expenses i : expenses) {
             total += i.getSum();
@@ -160,7 +162,7 @@ public class month_tab extends Fragment {
     }
 
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
-        int sum = daySum(arrayList);
+        sum = monthSum(arrayList);
         if(sum != 0){
             String s = "Monthly total: " + Integer.toString(sum) + ",-";
             textField.setText(s);
