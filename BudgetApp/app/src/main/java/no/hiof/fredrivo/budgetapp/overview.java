@@ -2,8 +2,8 @@ package no.hiof.fredrivo.budgetapp;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -69,9 +69,10 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
 
         // notification start
         Calendar calender = Calendar.getInstance(); // https://developer.android.com/reference/android/app/AlarmManager
-        calender.set(Calendar.HOUR_OF_DAY,15);
+        calender.set(Calendar.HOUR_OF_DAY,20);
         calender.set(Calendar.MINUTE,30);
-        calender.set(Calendar.SECOND,0);
+        calender.set(Calendar.SECOND,00);
+        // calender.add(Calendar.SECOND,5);
         AlarmManager alarmM = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent NotifyIntent = new Intent(this,N_receiver.class); // intent til broadcast/notification receiver
         PendingIntent broadcastIntent = PendingIntent.getBroadcast(this,123,NotifyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -226,6 +227,14 @@ public class overview extends AppCompatActivity implements NavigationView.OnNavi
                 Intent intent = new Intent(this, ProfilActivity.class);
                 startActivity(intent);
             }
+        }
+        else if(id == R.id.info){
+            Intent tips_tricks = new Intent( Intent.ACTION_VIEW, Uri.parse("https://www.lifeinnorway.net/10-ways-to-save-money-on-groceries-in-norway/"));
+            startActivity(tips_tricks);
+        }
+
+        else if(id == R.id.logOut){
+            // kode for å logge ut
         }
 
         draw.closeDrawer(GravityCompat.START);

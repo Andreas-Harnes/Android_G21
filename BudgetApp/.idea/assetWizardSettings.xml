@@ -3,45 +3,20 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
-        <entry key="imageWizard">
+        <entry key="vectorWizard">
           <value>
             <PersistentState>
               <option name="children">
                 <map>
-                  <entry key="imageAssetPanel">
+                  <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
+                        <option name="values">
                           <map>
-                            <entry key="launcher">
-                              <value>
-                                <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="foregroundImage">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="scalingPercent" value="68" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ff9800" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/appIcon.png" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="opacityPercent" value="82" />
+                            <entry key="outputName" value="ic_exit_to_app" />
+                            <entry key="sourceFile" value="C:\Users\Fahad\Documents\baseline-exit_to_app-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>
