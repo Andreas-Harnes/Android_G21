@@ -84,7 +84,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         RecyclerView detailRecyclerView = findViewById(R.id.detailRecyclerView);
         detailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        detailActivityAdapter = new DetailActivityAdapter(this, expensesArrayList);
+        detailActivityAdapter = new DetailActivityAdapter(this, list);
         detailRecyclerView.setAdapter(detailActivityAdapter);
 
         // Legger til en lytter for å hente data og lytte etter endringer i databasen
@@ -128,6 +128,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         }
 
         ArrayList<Expenses> t = expensesArrayList;
+        list.clear();
+        list.addAll(sortByDate(t));
         //list = sortByDate(t);
         // Det er denne som oppdaterer viewet
         detailActivityAdapter.notifyDataSetChanged();
@@ -168,7 +170,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 if (o1.getDateTime() == null || o2.getDateTime() == null)
                     return 0;
 
-                return o1.getDateTime().compareTo(o2.getDateTime());
+                return o2.getDateTime().compareTo(o1.getDateTime());
             }
         });
 

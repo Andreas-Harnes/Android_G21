@@ -62,11 +62,11 @@ public class DetailActivityAdapter extends RecyclerView.Adapter<DetailActivityAd
         }
 
         public void setExpenses (Expenses ex) {
-            //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyy");
-            //String date = formatter.format(ex.getDateTime());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyy");
+            String date = formatter.format(ex.getDateTime());
 
             txtDetailSum.setText(ex.getSum()+"");
-            txtDetailDate.setText(ex.getDate());
+            txtDetailDate.setText(date);
             txtDetailLocation.setText(ex.getLocation());
             txtDetailCategory.setText(ex.getCategory());
         }
