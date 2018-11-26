@@ -95,7 +95,7 @@ public class month_tab extends Fragment {
 
         int fBoolean = 0;
 
-        //gets todays date from calendar object
+        //få dagens dato fra kalenderobjektet
         Calendar calendar = Calendar.getInstance();
         int intYear = calendar.get(Calendar.YEAR);
         int intMonth = calendar.get(Calendar.MONTH) + 1;
@@ -152,7 +152,7 @@ public class month_tab extends Fragment {
         monthTabAdapter.notifyDataSetChanged();
     }
 
-
+    //legger sammen summene for hele måneden
     public int monthSum(ArrayList<Expenses> expenses) {
         int total = 0;
         for (Expenses i : expenses) {
@@ -161,6 +161,7 @@ public class month_tab extends Fragment {
         return total;
     }
 
+    //endrer teksten nederst på siden som sier hvor mye man har brukt denne måneden
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
         sum = monthSum(arrayList);
         if(sum != 0){

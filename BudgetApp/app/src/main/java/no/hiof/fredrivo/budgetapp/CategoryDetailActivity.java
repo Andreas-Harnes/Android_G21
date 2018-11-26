@@ -65,11 +65,12 @@ public class CategoryDetailActivity extends AppCompatActivity implements Navigat
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //setter opp recyclerview
         RecyclerView categoryDetailRecyclerView = findViewById(R.id.categoryDetailRecyclerView);
         categoryDetailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Toast.makeText(this, account.getDisplayName(), Toast.LENGTH_SHORT).show();
-
+        //henter intent, henter ut liste fra intent og sender med denne til adapter
+        //utgangspunkt: https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an/13616719
         Intent dayDetailIntent = getIntent();
         Bundle b = dayDetailIntent.getBundleExtra("bundle");
         list = (ArrayList<Expenses>) b.getSerializable("list");

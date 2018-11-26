@@ -176,6 +176,7 @@ public class ProfilActivity extends AppCompatActivity implements NavigationView.
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(resultCode, requestCode, data);
 
+        //utgangspunkt: https://developer.android.com/training/basics/intents/result
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 Intent i = data;

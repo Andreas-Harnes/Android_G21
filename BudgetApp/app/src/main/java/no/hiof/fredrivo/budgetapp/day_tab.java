@@ -185,6 +185,7 @@ public class day_tab extends Fragment {
         return false;
     }
 
+    //legger til totalsum nederst på siden
     private void changeTotalSpent(ArrayList<Expenses> arrayList, TextView textField){
         int sum = daySum(arrayList);
         if(sum != 0){
