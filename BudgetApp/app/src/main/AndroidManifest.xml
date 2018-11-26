@@ -16,18 +16,25 @@
         android:label="@string/wonder_save"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".InputActivity" />
-        <activity android:name=".ChartActivity" />
-        <activity android:name=".ProfilSettingsActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".Camera_activity" />
+        <activity android:name=".InputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfilSettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Camera_activity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".overview"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/wonder_save"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewCategoryActivity" />
-        <activity android:name=".ProfilActivity" />
+        <activity android:name=".NewCategoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfilActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".classes.N_receiver">
             <intent-filter>
